@@ -1,0 +1,34 @@
+package candy.clean;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+/**
+ * Class that reads lines introduced in the console.
+ *
+ * @author Samuel Castrillo Domínguez
+ * @version 1.1.0
+ */
+
+public final class Keyboard {
+
+	/**
+	 * Read a line from console.
+	 *
+	 * @return String written in the command.
+	 * @throws CandyCleanException A CandyCleanException will be thrown if there
+	 *                             would be any issue with the I/O system.
+	 */
+	public static String readLine() throws CandyCleanException {
+		String line;
+		try {
+			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+			line = br.readLine();
+		} catch (Exception e) {
+			throw new CandyCleanException("Error: Something went wrong with IO. Please, reenter the input");
+		}
+
+		return line;
+	}
+
+}

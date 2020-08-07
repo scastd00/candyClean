@@ -1,0 +1,19 @@
+//Importar las clases de log4j
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
+//Definir una variable que haga referencia a la instancia de //logger "CandyClean"
+
+private static final Logger logger = LogManager.getLogger(CandyClean.class); 
+
+//Usaremos 
+logger.trace() 
+//para mostrar contenido unicamente en consola
+logger.debug() 
+//para mostrar contenido unicamente en archivos logs
+logger.info() 
+//para mostrar contenido en consola y archivos logs
+logger.warn() 
+//para mostrar contenido en ambos sitios para excepciones en runtime
+logger.fatal() 
+//para mostrar contenido en ambos sitios sobre errores que hacen que no arranque el juego
