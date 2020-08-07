@@ -88,7 +88,7 @@
 			<src path="${tests.dir}"/>
 			<classpath>
 				<file name="${junit.jar}"/>
-				<fileset dir="${classes.dir}" />
+				<fileset dir="${classes.dir}"/>
 			</classpath>
 		</javac>
 
@@ -130,14 +130,14 @@
 			<structure name="Coverage with Jacoco">
 				<classfiles>
 					<fileset dir="${classes.dir}">
+						<include name="candy/**/*.class"/>
+
 						<exclude name="**/*$*.class"/>
 						<exclude name="candy/**/*Test*.class"/>
 						<exclude name="candy/**/Main*.class"/>
 						<exclude name="candy/**/*Exception.class"/>
 						<exclude name="candy/**/Keyboard.class"/>
 						<exclude name="candy/**/TextUI.class"/>
-
-						<include name="candy/**/*.class"/>
 					</fileset>
 				</classfiles>
 
