@@ -187,7 +187,7 @@
 		</exec>
 	</target>
 
-	<target name="todo" depends="compile, document, jar, coverage, execute"/>
+	<target name="todo" depends="compile, document, jar, coverage"/>
 
 	<!-- Executes the coverage report file in Windows (Google Chrome) -->
 	<target name="coverageWindows" depends="report">
@@ -196,6 +196,6 @@
 		</exec>
 	</target>
 
-	<target name="todoWindows" depends="compile, document, jar, coverageWindows, execute"/>
+	<target name="todoWindows" depends="compile, document, jar, coverageWindows"/>
 
 </project>
