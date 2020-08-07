@@ -188,7 +188,7 @@
 	<target name="sonarqube" depends="report">
 		<mkdir dir="${sonar.srcClass}"/>
 		<mkdir dir="${sonar.testClass}"/>
-		<mkdir dir="${sonar.jacocoReport"/>
+		<mkdir dir="${sonar.jacocoReport}"/>
 
 		<copy todir="${sonar.srcClass}">
 			<fileset dir="${classes.dir}">
