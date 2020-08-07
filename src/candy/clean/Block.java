@@ -44,31 +44,13 @@ public class Block {
 		} else {
 			this.color = new Color(randomNum);
 		}
-		switch (randomNum) {
-			case 1:
-				this.letter = 'R';
-				break;
-			case 2:
-				this.letter = 'G';
-				break;
-			case 3:
-				this.letter = 'Y';
-				break;
-			case 4:
-				this.letter = 'B';
-				break;
-			case 5:
-				this.letter = 'P';
-				break;
-			case 6:
-				this.letter = 'C';
-				break;
-			case 7:
-				this.letter = 'W';
-				break;
-			default:
-				this.letter = 'E';
-				break;
+
+		char[] chars = new char[]{'E', 'R', 'G', 'Y', 'B', 'P', 'C', 'W', 'E'};
+
+		if (randomNum > Board.MAX_COLORS) {
+			this.letter = chars[0];
+		} else {
+			this.letter = chars[randomNum];
 		}
 	}
 

@@ -16,7 +16,10 @@ public class MainCandyClean {
 	public static void main(String[] args) {
 		do {
 			try {
-				int option, score = 0, dimensions = 0, numColors = 0;
+				int option;
+				int score = 0;
+				int dimensions = 0;
+				int numColors = 0;
 				do {
 					option = TextUI.selectGameMode();
 				} while (option < 0 || option > 6);
@@ -24,6 +27,7 @@ public class MainCandyClean {
 				switch (option) {
 					case 0:
 						System.exit(0);
+						break;
 					case 1:
 						dimensions = 7;
 						numColors = 3;
@@ -54,17 +58,20 @@ public class MainCandyClean {
 						numColors = 7;
 						score = 1900;
 						break;
+					default:
+						System.exit(1);
+						break;
 				}
 
 				/*
 				 * To play the board defined in the practice script, remove both attributes from
 				 * the constructor (dimensions and numColors). When using an empty constructor,
 				 * it will create the predefined board.
-				 * CandyClean game = new CandyClean();
+				 * CandyClean game = new CandyClean()
 				 */
 				CandyClean game = new CandyClean(dimensions, numColors, score);
-				TextUI UI = new TextUI(game);
-				UI.init();
+				TextUI ui = new TextUI(game);
+				ui.init();
 			} catch (CandyCleanException e) {
 				logger.fatal(e.getMessage());
 			}
