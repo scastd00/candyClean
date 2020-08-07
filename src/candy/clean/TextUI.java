@@ -98,7 +98,7 @@ public class TextUI {
 	private int inputColumn() throws CandyCleanException {
 		logger.trace("Introduce a column to shoot: ");
 		String input = Keyboard.readLine().trim();
-		logger.debug("Column: " + input);
+		logger.debug("Column: " +  input);
 		try {
 			return Integer.parseInt(input);
 		} catch (NumberFormatException e) {
