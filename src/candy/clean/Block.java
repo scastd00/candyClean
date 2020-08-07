@@ -157,6 +157,11 @@ public class Block {
 		}
 	}
 
+	@Override
+	public int hashCode() {
+		return this.letter + this.color.hashCode();
+	}
+
 	/**
 	 * Returns the block colored that represents the color.
 	 *

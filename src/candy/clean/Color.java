@@ -105,6 +105,11 @@ public class Color {
 		}
 	}
 
+	@Override
+	public int hashCode() {
+		return this.color.hashCode();
+	}
+
 	/**
 	 * Converts the value of the object to a String variable.
 	 *
