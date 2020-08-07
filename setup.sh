@@ -1,26 +1,5 @@
 #!/bin/bash
 
-echo "Initializing script"
-printf "Select an option:\n0 - Initialize SonarQube and Jenkins\n1 - Initialize SonarQube\n2 - Initialize Jenkins\n3 - Reset SonarQube\n4 - Reset Jenkins\n5 - Reset All\n"
-read -r option
-
-if [ "$option" -eq "0" ]; then
-	initSonar
-	initJenkins
-elif [ "$option" -eq "1" ]; then
-	initSonar
-elif [ "$option" -eq "2" ]; then
-	initJenkins
-elif [ "$option" -eq "3" ]; then
-	resetSonar
-elif [ "$option" -eq "4" ]; then
-	resetJenkins
-elif [ "$option" -eq "5" ]; then
-	resetAll
-else
-	echo "Incorrect parameter" && exit 0
-fi
-
 # Executes SonarQube container at port 9000.
 function initSonar() {
 	sudo docker run -d -p 9000:9000 --name sonarqube -v sonarqube_conf:/opt/sonarqube/conf -v sonarqube_extensions:/opt/sonarqube/extensions -v sonarqube_logs:/opt/sonarqube/logs -v sonarqube_data:/opt/sonarqube/data sonarqube
@@ -53,3 +32,24 @@ function resetAll() {
 	resetSonar
 	resetJenkins
 }
+
+echo "Initializing script"
+printf "Select an option:\n0 - Initialize SonarQube and Jenkins\n1 - Initialize SonarQube\n2 - Initialize Jenkins\n3 - Reset SonarQube\n4 - Reset Jenkins\n5 - Reset All\n"
+read -r option
+
+if [ "$option" -eq "0" ]; then
+	initSonar
+	initJenkins
+elif [ "$option" -eq "1" ]; then
+	initSonar
+elif [ "$option" -eq "2" ]; then
+	initJenkins
+elif [ "$option" -eq "3" ]; then
+	resetSonar
+elif [ "$option" -eq "4" ]; then
+	resetJenkins
+elif [ "$option" -eq "5" ]; then
+	resetAll
+else
+	echo "Incorrect parameter" && exit 0
+fi
