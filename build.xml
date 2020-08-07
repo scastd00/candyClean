@@ -2,7 +2,12 @@
 
 <project xmlns:jacoco="antlib:org.jacoco.ant" name="CandyClean" basedir="." default="todo">
 	<property name="projectName" value="CandyClean"/>
+	<property name="sonar.files" value="sonar"/>
+	<property name="sonar.srcClass" value="${sonar.files}/src"/>
+	<property name="sonar.testClass" value="${sonar.files}/test"/>
+	<property name="sonar.jacocoReport" value="${sonar.files}/jacoco"/>
 	<property name="src.dir" value="src"/>
+	<property name="tests.dir" value="test"/>
 	<property name="classes.dir" value="classes"/>
 	<property name="jar.dir" value="build"/>
 	<property name="doc.dir" value="doc"/>
@@ -10,7 +15,6 @@
 	<property name="package" value="candy.clean"/>
 	<property name="title" value="Candy Clean"/>
 	<property name="lib.dir" value="lib"/>
-	<property name="tests.dir" value="test"/>
 	<property name="logs.dir" value="logs"/>
 	<property name="junit.jar" value="${lib.dir}/junit-4.8.2.jar"/>
 	<property name="coverage.result.dir" location="./coverage_report"/>
@@ -23,7 +27,6 @@
 		<classpath path="${lib.dir}/jacocoant.jar"/>
 	</taskdef>
 
-
 	<!-- Cleaning project folders -->
 	<target name="clean">
 		<delete dir="${classes.dir}"/>
@@ -31,8 +34,8 @@
 		<delete dir="${jar.dir}"/>
 		<delete file="${logs.dir}/result.xml"/>
 		<delete dir="${coverage.result.dir}"/>
+		<delete dir="${sonar.files}"/>
 	</target>
-
 
 	<!-- Compile after cleaning -->
 	<target name="compile" depends="clean">
@@ -63,7 +66,6 @@
 		<echo message="Compilation completed"/>
 	</target>
 
-
 	<!-- Documentation target -->
 	<target name="document">
 		<mkdir dir="${doc.dir}"/>
@@ -79,7 +81,6 @@
 		<echo message="Documentation completed"/>
 	</target>
 
-
 	<!-- Tests compiler target -->
 	<target name="compileTests" depends="compile">
 		<javac includeantruntime="false" verbose="false" destdir="${classes.dir}">
@@ -87,13 +88,12 @@
 			<src path="${tests.dir}"/>
 			<classpath>
 				<file name="${junit.jar}"/>
-				<fileset dir="${classes.dir}"/>
+				<fileset dir="${classes.dir}" />
 			</classpath>
 		</javac>
 
 		<echo message="Tests compilation done"/>
 	</target>
-
 
 	<!-- Testing the .java files -->
 	<target name="test" depends="compileTests">
@@ -120,7 +120,6 @@
 			</junit>
 		</jacoco:coverage>
 	</target>
-
 
 	<!-- Reporter target | Shows the coverage percentage of the code -->
 	<target name="report" depends="test">
@@ -164,7 +163,6 @@
 		</jar>
 	</target>
 
-
 	<!-- Executes the code -->
 	<target name="execute" depends="compile">
 		<!-- Fork for executing the Swing Window -->
@@ -187,7 +185,26 @@
 		</exec>
 	</target>
 
-	<target name="todo" depends="compile, document, jar, coverage"/>
+	<target name="sonarqube" depends="report">
+		<mkdir dir="${sonar.srcClass}"/>
+		<mkdir dir="${sonar.testClass}"/>
+		<mkdir dir="${sonar.jacocoReport"/>
+
+		<copy todir="${sonar.srcClass}">
+			<fileset dir="${classes.dir}">
+				<include name="candy/**/*.class"/>
+				<exclude name="candy/**/*Test.class"/>
+			</fileset>
+		</copy>
+
+		<copy todir="${sonar.testClass}">
+			<fileset dir="${classes.dir}">
+				<include name="candy/**/*Test.class"/>
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="todo" depends="report, document, execute"/>
 
 	<!-- Executes the coverage report file in Windows (Google Chrome) -->
 	<target name="coverageWindows" depends="report">
@@ -196,6 +213,6 @@
 		</exec>
 	</target>
 
-	<target name="todoWindows" depends="compile, document, jar, coverageWindows"/>
+	<target name="todoWindows" depends="todo"/>
 
 </project>
