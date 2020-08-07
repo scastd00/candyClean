@@ -38,7 +38,7 @@ public class Block {
 	 */
 	public Block(int num) {
 		Random rand = new Random();
-		int randomNum= rand.nextInt(num + 1) + 1;
+		int randomNum= rand.nextInt(num) + 1;
 		if (randomNum > Board.MAX_COLORS) {
 			this.color = new Color(BackgroundColor.BLACK);
 		} else {
