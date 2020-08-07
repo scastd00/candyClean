@@ -9,7 +9,6 @@ public class BlockTest {
 
     private Block black;
     private Block otherColor;
-    private Block random;
 
     @Before
     public void setUp() {
@@ -19,9 +18,10 @@ public class BlockTest {
 
     @Test
     public void testRandomConstructor() {
+	    Block random;
         for (int i = 0; i < 20; i++) {
             random = new Block(7);
-            assertFalse(black.equals(random));
+	        assertNotSame(black, random);
         }
     }
 
@@ -32,7 +32,7 @@ public class BlockTest {
             blank = new Block(12);
         } while (!black.equals(blank));
 
-        assertTrue(black.equals(blank));
+	    assertEquals(black, blank);
     }
 
     @Test
@@ -109,6 +109,11 @@ public class BlockTest {
         Color color = new Color(1);
         assertFalse(black.equals(color));
         assertFalse(black.equals(null));
+    }
+
+    @Test
+    public void testHashCode() {
+        assertEquals(27697686, black.hashCode());
     }
 
     @Test

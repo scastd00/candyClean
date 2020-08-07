@@ -22,39 +22,39 @@ public class Color {
 	/**
 	 * String that represents the color.
 	 */
-	private final String color;
+	private final String background;
 
 	/**
 	 * Constructor that assigns a color based on a BackgroundColor.
 	 *
-	 * @param color the color is going to be assigned.
+	 * @param background the color is going to be assigned.
 	 */
-	public Color(BackgroundColor color) {
-		switch (color) {
+	public Color(BackgroundColor background) {
+		switch (background) {
 			case RED:
-				this.color = Color.RED;
+				this.background = Color.RED;
 				break;
 			case GREEN:
-				this.color = Color.GREEN;
+				this.background = Color.GREEN;
 				break;
 			case YELLOW:
-				this.color = Color.YELLOW;
+				this.background = Color.YELLOW;
 				break;
 			case BLUE:
-				this.color = Color.BLUE;
+				this.background = Color.BLUE;
 				break;
 			case PURPLE:
-				this.color = Color.PURPLE;
+				this.background = Color.PURPLE;
 				break;
 			case CYAN:
-				this.color = Color.CYAN;
+				this.background = Color.CYAN;
 				break;
 			case WHITE:
-				this.color = Color.WHITE;
+				this.background = Color.WHITE;
 				break;
 			case BLACK:
 			default:
-				this.color = Color.BLACK;
+				this.background = Color.BLACK;
 				break;
 		}
 
@@ -75,7 +75,7 @@ public class Color {
 	 * @param another color to copy.
 	 */
 	public Color(Color another) {
-		this.color = another.getColor();
+		this.background = another.getBackground();
 	}
 
 	/**
@@ -83,8 +83,8 @@ public class Color {
 	 *
 	 * @return the string value assigned to the object.
 	 */
-	public String getColor() {
-		return this.color;
+	public String getBackground() {
+		return this.background;
 	}
 
 	/**
@@ -101,13 +101,13 @@ public class Color {
 			return false;
 		} else {
 			Color other = (Color) o;
-			return this.color.equals(other.getColor());
+			return this.background.equals(other.getBackground());
 		}
 	}
 
 	@Override
 	public int hashCode() {
-		return this.color.hashCode();
+		return this.background.hashCode();
 	}
 
 	/**
@@ -117,7 +117,7 @@ public class Color {
 	 * @return the name of the variable and its value in String.
 	 */
 	public String toString(String content) {
-		return this.color + content + Color.RESET;
+		return this.background + content + Color.RESET;
 	}
 
 	/**

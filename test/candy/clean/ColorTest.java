@@ -33,12 +33,12 @@ public class ColorTest {
 	@Test
 	public void testColorConst() {
 		Color otherConstructor = new Color(0);
-		assertTrue(black.equals(otherConstructor));
+		assertEquals(black, otherConstructor);
 	}
 
 	@Test
 	public void testCloneConstructor() {
-		assertTrue(otherBlack.equals(black));
+		assertEquals(otherBlack, black);
 	}
 
 	@Test
@@ -57,26 +57,38 @@ public class ColorTest {
 	}
 
 	@Test
+	public void testHashCode() {
+		assertEquals(27697617, black.hashCode());
+		assertEquals(27697648, red.hashCode());
+		assertEquals(27697679, green.hashCode());
+		assertEquals(27697710, yellow.hashCode());
+		assertEquals(27697741, blue.hashCode());
+		assertEquals(27697772, purple.hashCode());
+		assertEquals(27697803, cyan.hashCode());
+		assertEquals(27697834, white.hashCode());
+	}
+
+	@Test
 	public void testGetColor() {
-		assertTrue(black.getColor().equals("\u001B[40m"));
-		assertTrue(red.getColor().equals("\u001B[41m"));
-		assertTrue(green.getColor().equals("\u001B[42m"));
-		assertTrue(yellow.getColor().equals("\u001B[43m"));
-		assertTrue(blue.getColor().equals("\u001B[44m"));
-		assertTrue(purple.getColor().equals("\u001B[45m"));
-		assertTrue(cyan.getColor().equals("\u001B[46m"));
-		assertTrue(white.getColor().equals("\u001B[47m"));
+		assertEquals("\u001B[40m", black.getBackground());
+		assertEquals("\u001B[41m", red.getBackground());
+		assertEquals("\u001B[42m", green.getBackground());
+		assertEquals("\u001B[43m", yellow.getBackground());
+		assertEquals("\u001B[44m", blue.getBackground());
+		assertEquals("\u001B[45m", purple.getBackground());
+		assertEquals("\u001B[46m", cyan.getBackground());
+		assertEquals("\u001B[47m", white.getBackground());
 	}
 
 	@Test
 	public void testToString() {
-		assertEquals(purple.toString(), "\u001B[45m  \u001B[0m");
-		assertEquals(black.toString(), "\u001B[40m  \u001B[0m");
+		assertEquals("\u001B[45m  \u001B[0m", purple.toString());
+		assertEquals("\u001B[40m  \u001B[0m", black.toString());
 	}
 
 	@Test
 	public void testToStringWithParams() {
-		assertEquals(purple.toString("PP"), "\u001B[45mPP\u001B[0m");
+		assertEquals("\u001B[45mPP\u001B[0m", purple.toString("PP"));
 	}
 
 }

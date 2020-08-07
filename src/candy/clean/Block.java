@@ -1,5 +1,7 @@
 package candy.clean;
 
+import java.util.Random;
+
 /**
  * Class that represents the game's individual block.
  *
@@ -35,7 +37,8 @@ public class Block {
 	 * @param num Number of colors that can be used in the game.
 	 */
 	public Block(int num) {
-		int randomNum = ((int) (Math.random() * num + 1));
+		Random rand = new Random();
+		int randomNum= rand.nextInt(num) + 1;
 		if (randomNum > Board.MAX_COLORS) {
 			this.color = new Color(BackgroundColor.BLACK);
 		} else {
