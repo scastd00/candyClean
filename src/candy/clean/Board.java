@@ -82,8 +82,10 @@ public class Board {
 	 * R - Red, Y - Yellow, E - Black, G - Green, B - Blue, P - Purple, C - Cyan, W - White.
 	 *
 	 * @param stringBoard Pre-designed board in a String array. Note: this board can be a rectangle instead of a square.
+	 * @param numColors Number of colors used in the pre-designed board.
 	 */
-	public Board(String [] stringBoard) {
+	public Board(String[] stringBoard, int numColors) {
+		this.numColors = numColors;
 		this.board = new Block[stringBoard.length][stringBoard[0].length()];
 		for (int i = 0; i < stringBoard.length; i++) {
 			for (int j = 0; j < stringBoard[i].length(); j++) {

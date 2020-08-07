@@ -13,9 +13,9 @@ public class BoardTest {
 	@Before
 	public void setUp() {
 		String[] boardString = {"RRRRR", "BBRRR", "BBBBB", "GGBBB", "BBGGG"};
-		predefinedBoard = new Board(boardString);
+		predefinedBoard = new Board(boardString, 4);
 		String[] smallStringBoard = {"RGB", "RBY"};
-		smallBoard = new Board(smallStringBoard);
+		smallBoard = new Board(smallStringBoard, 4);
 	}
 
 	@Test
@@ -32,7 +32,7 @@ public class BoardTest {
 	@Test
 	public void testIsNotPossibleToPlay() {
 		String[] notPossiblePlay = {"CGRB", "PBGY"};
-		Board isNotPossibleBoard = new Board(notPossiblePlay);
+		Board isNotPossibleBoard = new Board(notPossiblePlay, 4);
 		assertFalse(isNotPossibleBoard.toString(), isNotPossibleBoard.isPossibleToPlay());
 	}
 
@@ -89,7 +89,7 @@ public class BoardTest {
 		String[] board15S = {"RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR",
 			"RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR",
 			"RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR",};
-		Board board15 = new Board(board15S);
+		Board board15 = new Board(board15S, 4);
 		assertEquals(board15.toString().substring(0, 67),
 			"                      |1|1|1|1|1|\n  |0|1|2|3|4|5|6|7|8|9|0|1|2|3|4|");
 	}

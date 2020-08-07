@@ -44,7 +44,7 @@ public class CandyClean {
 	 */
 	public CandyClean() {
 		String[] predefinedBoard = {"RRRRR", "BBRRR", "BBBBB", "GGBBB", "BBGGG"};
-		this.board = new Board(predefinedBoard);
+		this.board = new Board(predefinedBoard, 4);
 		this.score = new Score(10);
 	}
 
