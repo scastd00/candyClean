@@ -1,8 +1,5 @@
 package candy.clean;
 
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
-
 /**
  * Class that have important information of the game.
  *
@@ -11,8 +8,6 @@ import org.apache.logging.log4j.LogManager;
  */
 
 public class CandyClean {
-
-	private static final Logger logger = LogManager.getLogger(CandyClean.class);
 
 	/**
 	 * Board of the game.
@@ -51,7 +46,7 @@ public class CandyClean {
 	/**
 	 * Checks if there are possibilities to shoot at a color.
 	 *
-	 * @return false if there are no more valid color combinations to shoot at. Returns true, otherwise.
+	 * @return <code>false</code> if there are no more valid color combinations to shoot at. Returns <code>true</code>, otherwise.
 	 */
 	public boolean isPossibleToPlay() {
 		return this.board.isPossibleToPlay();
@@ -60,7 +55,7 @@ public class CandyClean {
 	/**
 	 * Checks if the score is greater than the objective.
 	 *
-	 * @return true if the score is equals to or greater than the objective. Returns false otherwise.
+	 * @return <code>true</code> if the score is equals to or greater than the objective. Returns <code>false</code> otherwise.
 	 */
 	public boolean haveWon() {
 		return this.score.objectiveCompleted();

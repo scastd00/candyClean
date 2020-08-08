@@ -16,7 +16,7 @@ public class Score {
 	/**
 	 * Score of the game.
 	 */
-	private int score;
+	private int punctuation;
 	/**
 	 * Game objective.
 	 */
@@ -59,8 +59,8 @@ public class Score {
 	 *
 	 * @return the score of the game.
 	 */
-	public int getScore() {
-		return this.score;
+	public int getPunctuation() {
+		return this.punctuation;
 	}
 
 	/**
@@ -104,10 +104,10 @@ public class Score {
 	 * score, the score sets to 0 and never is negative.
 	 */
 	public void decreaseScore() {
-		if (this.score < this.additionScore) {
-			this.score = 0;
+		if (this.punctuation < this.additionScore) {
+			this.punctuation = 0;
 		} else {
-			this.score -= 10;
+			this.punctuation -= 10;
 		}
 	}
 
@@ -115,7 +115,7 @@ public class Score {
 	 * Update all the counters in the game: Score, Streak and Multiplier (+1/+3 when the player hits 5/15 candies in a row.
 	 */
 	public void increaseScoreAndStreakUpdateMultiplier() {
-		this.score += this.additionScore * this.multiplier;
+		this.punctuation += this.additionScore * this.multiplier;
 		this.streak++;
 		if (this.streak % 5 == 0)
 			this.multiplier += 1;
@@ -135,10 +135,10 @@ public class Score {
 	/**
 	 * Checks if the game has ended. (NOT WORKING)
 	 *
-	 * @return true if the score is equal to or greater than the game objective.
+	 * @return <code>true</code> if the score is equal to or greater than the game objective, <code>false</code> otherwise.
 	 */
 	public boolean objectiveCompleted() {
-		return this.score >= this.objective;
+		return this.punctuation >= this.objective;
 	}
 
 	/**
@@ -148,7 +148,7 @@ public class Score {
 	 */
 	@Override
 	public String toString() {
-		return "\nScore = " + this.score + "  Objective = " + this.objective + "  Multiplier = " + this.multiplier +
+		return "\nScore = " + this.punctuation + "  Objective = " + this.objective + "  Multiplier = " + this.multiplier +
 			"  Current streak" + " = " + this.streak + '\n';
 	}
 }

@@ -12,25 +12,6 @@ import org.apache.logging.log4j.LogManager;
 
 public class Board {
 
-	/**
-	 * Maximum number of colors allowed to play.
-	 */
-	public static final int MAX_COLORS = 7;
-
-	/**
-	 * Minimum number of colors allowed to play.
-	 */
-	public static final int MIN_COLORS = 2;
-
-	/**
-	 * Maximum dimensions of the board allowed to play.
-	 */
-	public static final int MAX_DIMENSIONS = 35;
-
-	/**
-	 * Minimum dimensions of the board allowed to play.
-	 */
-	public static final int MIN_DIMENSIONS = 3;
 
 	/**
 	 * Logger of the class.
@@ -55,14 +36,15 @@ public class Board {
 	 */
 	public Board(int size, int numColors) throws CandyCleanException {
 		StringBuilder error = new StringBuilder();
-		if (size < MIN_DIMENSIONS || size > MAX_DIMENSIONS) {
+		if (size < Constants.MIN_DIMENSIONS || size > Constants.MAX_DIMENSIONS) {
 			error.append(String.format(
 				"You are not able to play with this board size: %d." + " The size must be between %d and %d\n",
-				size, MIN_DIMENSIONS, MAX_DIMENSIONS));
+				size, Constants.MIN_DIMENSIONS, Constants.MAX_DIMENSIONS));
 		}
-		if (numColors < MIN_COLORS || numColors > MAX_COLORS) {
+		if (numColors < Constants.MIN_COLORS || numColors > Constants.MAX_COLORS) {
 			error.append(String.format("You are not able to play with this number of colors: %d."
-				+ " The number of colors must be between %d and %d\n", numColors, MIN_COLORS, MAX_COLORS));
+					+ " The number of colors must be between %d and %d\n", numColors, Constants.MIN_COLORS,
+				Constants.MAX_COLORS));
 		}
 		if (error.length() != 0) {
 			throw new CandyCleanException(error.toString());
@@ -82,7 +64,7 @@ public class Board {
 	 * R - Red, Y - Yellow, E - Black, G - Green, B - Blue, P - Purple, C - Cyan, W - White.
 	 *
 	 * @param stringBoard Pre-designed board in a String array. Note: this board can be a rectangle instead of a square.
-	 * @param numColors Number of colors used in the pre-designed board.
+	 * @param numColors   Number of colors used in the pre-designed board.
 	 */
 	public Board(String[] stringBoard, int numColors) {
 		this.numColors = numColors;
@@ -97,7 +79,7 @@ public class Board {
 	/**
 	 * Determines if there are possibilities to shoot at a color.
 	 *
-	 * @return false if there are no more valid color combinations to shoot at. Return true, otherwise.
+	 * @return <code>false</code> if there are no more valid color combinations to shoot at. Return <code>true</code>, otherwise.
 	 */
 	public boolean isPossibleToPlay() {
 		boolean isPossibleToPlay = false;
@@ -218,8 +200,8 @@ public class Board {
 	 *
 	 * @param row    Row of the selected spot.
 	 * @param column Column of the selected spot.
-	 * @return true if the selected Block has more Blocks with the same Color at its left, right, top and/or bottom, false
-	 * otherwise.
+	 * @return <code>true</code> if the selected Block has more Blocks with the same Color at its left, right, top and/or
+	 * bottom, <code>false</code> otherwise.
 	 */
 	public boolean hasSurroundingBlocks(int row, int column) {
 		return this.firstLeftCandyPos(row, column) != this.lastRightCandyPos(row, column) ||

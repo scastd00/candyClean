@@ -17,7 +17,7 @@ public class ScoreTest {
 
 	@Test
 	public void testGetSetScore() {
-	    assertEquals(0, score.getScore());
+	    assertEquals(0, score.getPunctuation());
 	    // Auto-setter in constructor method.
 	}
 
@@ -51,11 +51,11 @@ public class ScoreTest {
 			score.increaseScoreAndStreakUpdateMultiplier();
 		}
 
-		assertEquals(70, score.getScore());
+		assertEquals(70, score.getPunctuation());
 		assertEquals(2, score.getMultiplier());
 
 		score.resetMultiplierStreakDecreaseScore();
-		assertEquals(60, score.getScore());
+		assertEquals(60, score.getPunctuation());
 		assertEquals(1, score.getMultiplier());
 	}
 

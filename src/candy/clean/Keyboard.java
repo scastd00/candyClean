@@ -12,6 +12,10 @@ import java.io.InputStreamReader;
 
 public final class Keyboard {
 
+	private Keyboard() {
+		throw new IllegalStateException("Utility class");
+	}
+
 	/**
 	 * Read a line from console.
 	 *

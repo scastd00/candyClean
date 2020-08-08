@@ -22,12 +22,18 @@ public class Block {
 	private char letter;
 
 	/**
+	 * Type of the candy explosion. Notation: 0 - Normal, 1 - Row, 2 - Column, 3 - Row and Column, 4 - All the board.
+	 */
+	private int type;
+
+	/**
 	 * Class constructor that takes an specific color as a char. It uses the next codification:
 	 * R - Red, Y - Yellow, E - Black, G - Green, B - Blue, P - Purple, C - Cyan, W - White.
 	 *
 	 * @param letter Letter assigned to the block.
 	 */
 	public Block(char letter) {
+		this.type = 0;
 		this.setColor(letter);
 	}
 
@@ -37,21 +43,22 @@ public class Block {
 	 * @param num Number of colors that can be used in the game.
 	 */
 	public Block(int num) {
-		Random rand = new Random();
-		int randomNum= rand.nextInt(num) + 1;
-		if (randomNum > Board.MAX_COLORS) {
+		this.type = 0;
+		int randomNum = new Random().nextInt(num) + 1;
+
+		if (randomNum > Constants.MAX_COLORS)
 			this.color = new Color(BackgroundColor.BLACK);
-		} else {
+		else
 			this.color = new Color(randomNum);
-		}
 
-		char[] chars = new char[]{'E', 'R', 'G', 'Y', 'B', 'P', 'C', 'W', 'E'};
 
-		if (randomNum > Board.MAX_COLORS) {
+		char[] chars = new char[] {'E', 'R', 'G', 'Y', 'B', 'P', 'C', 'W', 'E'};
+
+		if (randomNum > Constants.MAX_COLORS)
 			this.letter = chars[0];
-		} else {
+		else
 			this.letter = chars[randomNum];
-		}
+
 	}
 
 	/**
@@ -108,9 +115,27 @@ public class Block {
 	}
 
 	/**
+	 * Returns the type of the candy.
+	 *
+	 * @return number depending on the type of the candy (Defined in Constants class).
+	 */
+	public int getType() {
+		return this.type;
+	}
+
+	/**
+	 * Sets the type for special explosions.
+	 *
+	 * @param type the type to set
+	 */
+	public void setType(int type) {
+		this.type = type;
+	}
+
+	/**
 	 * Checks if the block is empty.
 	 *
-	 * @return true if empty, false otherwise.
+	 * @return <code>true</code> if empty, <code>false</code> otherwise.
 	 */
 	public boolean isBlank() {
 		return (this.letter == 'E'); // Black color
@@ -127,7 +152,7 @@ public class Block {
 	 * Checks if the block has the same color as another one.
 	 *
 	 * @param o Object to be compared with.
-	 * @return true if it's a block with the same color or its the same block; false
+	 * @return <code>true</code> if it's a block with the same color or its the same block; <code>false</code>
 	 * otherwise.
 	 */
 	@Override
