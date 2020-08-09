@@ -1,7 +1,7 @@
 package candy.clean;
 
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Class that represents the board of the game.
@@ -57,6 +57,7 @@ public class Board {
 				}
 			}
 		}
+		this.board[0][0].setSpecialBlock(true);
 	}
 
 	/**
@@ -152,6 +153,8 @@ public class Board {
 			int rightPos = this.lastRightCandyPos(row, column);
 			int upperPos = this.firstUpperCandyPos(row, column);
 			int lowerPos = this.lastLowerCandyPos(row, column);
+
+
 			this.removeBlocks(row, column);
 			this.compactBoardWidth(row, leftPos, rightPos);
 			this.compactBoardHeight(column, upperPos, lowerPos);
@@ -274,8 +277,9 @@ public class Board {
 	private void fillEmptyWithNewBlocks() {
 		for (int i = 0; i < this.board.length; i++) {
 			for (int j = 0; j < this.board.length; j++) {
-				if (this.board[i][j].isBlank())
+				if (this.board[i][j].isBlank()) {
 					this.board[i][j] = new Block(this.numColors);
+				}
 			}
 		}
 	}
@@ -310,6 +314,7 @@ public class Board {
 			if (i == 10) {
 				outputBoard.append("|");
 			}
+
 			if (i >= 10) {
 				outputBoard.append(i / 10).append("|");
 			} else {

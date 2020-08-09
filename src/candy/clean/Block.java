@@ -26,15 +26,18 @@ public class Block {
 	 */
 	private int type;
 
+	private boolean isSpecialBlock;
+
 	/**
 	 * Class constructor that takes an specific color as a char. It uses the next codification:
 	 * R - Red, Y - Yellow, E - Black, G - Green, B - Blue, P - Purple, C - Cyan, W - White.
+	 *  @param letter Letter assigned to the block.
 	 *
-	 * @param letter Letter assigned to the block.
 	 */
 	public Block(char letter) {
-		this.type = 0;
 		this.setColor(letter);
+		this.type = 0;
+		this.isSpecialBlock = false;
 	}
 
 	/**
@@ -44,20 +47,23 @@ public class Block {
 	 */
 	public Block(int num) {
 		this.type = 0;
+		this.isSpecialBlock = false;
+
 		int randomNum = new Random().nextInt(num) + 1;
 
-		if (randomNum > Constants.MAX_COLORS)
+		if (randomNum > Constants.MAX_COLORS) {
 			this.color = new Color(BackgroundColor.BLACK);
-		else
+		} else {
 			this.color = new Color(randomNum);
-
+		}
 
 		char[] chars = new char[] {'E', 'R', 'G', 'Y', 'B', 'P', 'C', 'W', 'E'};
 
-		if (randomNum > Constants.MAX_COLORS)
+		if (randomNum > Constants.MAX_COLORS) {
 			this.letter = chars[0];
-		else
+		} else {
 			this.letter = chars[randomNum];
+		}
 
 	}
 
@@ -130,6 +136,23 @@ public class Block {
 	 */
 	public void setType(int type) {
 		this.type = type;
+		this.isSpecialBlock = true;
+	}
+
+	/**
+	 * Returns the state of the block.
+	 * @return <code>true</code> if the block has a special explosion, <code>false</code> if it is a normal block.
+	 */
+	public boolean isSpecialBlock() {
+		return this.isSpecialBlock;
+	}
+
+	/**
+	 * Set the state of the block.
+	 * @param specialBlock <code>true</code> if the block is going to be special or <code>false</code> if not.
+	 */
+	public void setSpecialBlock(boolean specialBlock) {
+		this.isSpecialBlock = specialBlock;
 	}
 
 	/**
@@ -163,7 +186,7 @@ public class Block {
 			return false;
 		} else {
 			Block other = (Block) o;
-			return this.color.equals(other.getColor());
+			return this.color.equals(other.getColor()) && this.isSpecialBlock == other.isSpecialBlock();
 		}
 	}
 
@@ -179,7 +202,7 @@ public class Block {
 	 */
 	public String toString() {
 		if (!this.isBlank()) {
-			return this.color.toString("  ");
+			return this.color.toString(Character.toString(this.letter) + Character.toString(this.letter));
 		} else {
 			return this.color.toString();
 		}
