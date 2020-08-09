@@ -50,4 +50,6 @@ public class Constants {
 	 * Explodes all the candies.
 	 */
 	public static final int ALL_BOARD_TYPE = 4;
+
+	public static final int MINIMUM_CANDIES_FOR_SPECIAL_CANDY = 4;
 }

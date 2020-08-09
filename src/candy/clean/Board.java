@@ -59,10 +59,10 @@ public class Board {
 		}
 
 		// Testing the special blocks
-		this.table[4][0].setSpecialBlock(true, 1);
-		this.table[1][1].setSpecialBlock(true, 2);
-		this.table[2][2].setSpecialBlock(true, 3);
-		this.table[3][3].setSpecialBlock(true, 4);
+//		this.table[4][0].setSpecialBlock(true, Constants.ROW_TYPE);
+//		this.table[1][1].setSpecialBlock(true, Constants.COLUMN_TYPE);
+//		this.table[2][2].setSpecialBlock(true, Constants.ROW_COLUMN_TYPE);
+//		this.table[3][3].setSpecialBlock(true, Constants.ALL_BOARD_TYPE);
 	}
 
 	/**
@@ -110,19 +110,19 @@ public class Board {
 	private void removeBlocks(int row, int column) {
 		if (this.table[row][column].isSpecialBlock()) {
 			switch (this.table[row][column].getType()) {
-				case 1:
+				case Constants.ROW_TYPE:
 					removeBlocksRow(row);
 					compactBoardWidth(row, 0, this.table.length - 1);
 					break;
-				case 2:
+				case Constants.COLUMN_TYPE:
 					removeBlocksColumn(column);
 					break;
-				case 3:
+				case Constants.ROW_COLUMN_TYPE:
 					removeBlocksRow(row);
 					removeBlocksColumn(column);
 					compactBoardWidth(row, 0, this.table.length - 1);
 					break;
-				case 4:
+				case Constants.ALL_BOARD_TYPE:
 					clearTable();
 					break;
 				default:
@@ -146,18 +146,31 @@ public class Board {
 		}
 	}
 
+	/**
+	 * Removes all the blocks in the selected row.
+	 *
+	 * @param row the selected row to remove the blocks.
+	 */
 	private void removeBlocksRow(int row) {
 		for (int i = 0; i < this.table.length; i++) {
 			this.table[row][i].setToBlank();
 		}
 	}
 
+	/**
+	 * Removes all the blocks in the selected column.
+	 *
+	 * @param column the selected column to remove the blocks.
+	 */
 	private void removeBlocksColumn(int column) {
-		for (int i = 0; i < this.table.length; i++) {
-			this.table[i][column].setToBlank();
+		for (Block[] blocks : this.table) {
+			blocks[column].setToBlank();
 		}
 	}
 
+	/**
+	 * Removes all the blocks in the table.
+	 */
 	private void clearTable() {
 		for (Block[] blocks : this.table) {
 			for (int j = 0; j < this.table.length; j++) {
@@ -204,8 +217,25 @@ public class Board {
 				int upperPos = this.firstUpperCandyPos(row, column);
 				int lowerPos = this.lastLowerCandyPos(row, column);
 
-
+				char blockLetter = this.table[row][column].getLetter();
 				this.removeBlocks(row, column);
+
+				int minimum = Constants.MINIMUM_CANDIES_FOR_SPECIAL_CANDY;
+
+				// Adding 1 because of the structure of Arrays. (e.g. Row: 0, Col: 4  ->  4 - 0 = 4 but you break 5 candies)
+				if (((rightPos - leftPos) + 1 >= minimum) && ((lowerPos - upperPos) + 1 < minimum)) {
+					this.table[row][column] = new Block(blockLetter);
+					this.table[row][column].setSpecialBlock(true, Constants.ROW_TYPE);
+
+				} else if (((lowerPos - upperPos) + 1 >= minimum) && ((rightPos - leftPos) + 1 < minimum)) {
+					this.table[row][column] = new Block(blockLetter);
+					this.table[row][column].setSpecialBlock(true, Constants.COLUMN_TYPE);
+
+				} else if (((rightPos - leftPos) + 1 >= minimum) && ((lowerPos - upperPos) + 1 >= minimum)) {
+					this.table[row][column] = new Block(blockLetter);
+					this.table[row][column].setSpecialBlock(true, Constants.ROW_COLUMN_TYPE);
+				}
+
 				this.compactBoardWidth(row, leftPos, rightPos);
 				this.compactBoardHeight(column, upperPos, lowerPos);
 			}
@@ -227,9 +257,11 @@ public class Board {
 	private void compactBoardWidth(int row, int leftPos, int rightPos) {
 		for (int i = row; i > 0; i--) {
 			for (int j = leftPos; j <= rightPos; j++) {
-				Block aux = this.table[i - 1][j];
-				this.table[i - 1][j] = this.table[i][j];
-				this.table[i][j] = aux;
+				if (this.table[i][j].isBlank()) {
+					Block aux = this.table[i - 1][j];
+					this.table[i - 1][j] = this.table[i][j];
+					this.table[i][j] = aux;
+				}
 			}
 		}
 	}
