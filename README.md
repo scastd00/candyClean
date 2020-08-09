@@ -15,7 +15,9 @@ score objective. Each difficulty has one different.
 
 ### Functionality
 
-	✔️ Removes candies horizontally and vertically.
-	✔️ Scoreboard in every shot
-	❌ Remove all candies with the same color with one shot.
-	❌ Make a Swing application for displaying the game.
+	-[Done] Removes candies horizontally and vertically.
+	-[Done] ️Scoreboard in every shot.
+	-[Done] Special candies spawn when breaking more than 4.
+
+	-[Todo] Remove all candies with the same color with one shot.
+	-[Todo] Make a Swing application for displaying the game.
