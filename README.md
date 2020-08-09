@@ -16,7 +16,7 @@ score objective. Each difficulty has one different.
 ### Functionality
 
 	-[Done] Removes candies horizontally and vertically.
-	-[Done] ️Scoreboard in every shot.
+	-[Done] Scoreboard in every shot.
 	-[Done] Special candies spawn when breaking more than 4.
 
 	-[Todo] Remove all candies with the same color with one shot.

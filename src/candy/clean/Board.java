@@ -57,12 +57,6 @@ public class Board {
 				}
 			}
 		}
-
-		// Testing the special blocks
-//		this.table[4][0].setSpecialBlock(true, Constants.ROW_TYPE);
-//		this.table[1][1].setSpecialBlock(true, Constants.COLUMN_TYPE);
-//		this.table[2][2].setSpecialBlock(true, Constants.ROW_COLUMN_TYPE);
-//		this.table[3][3].setSpecialBlock(true, Constants.ALL_BOARD_TYPE);
 	}
 
 	/**
