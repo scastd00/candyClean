@@ -19,6 +19,8 @@ public class Color {
 	private static final String WHITE = "\u001B[47m";
 	private static final String RESET = "\u001B[0m";
 
+	public static final String BLACK_BLINK = "\u001B[30;5m";
+
 	/**
 	 * String that represents the color.
 	 */

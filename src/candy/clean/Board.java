@@ -21,12 +21,12 @@ public class Board {
 	/**
 	 * Board of the game.
 	 */
-	private final Block[][] board;
+	private final Block[][] table;
 
 	/**
 	 * Number of colors used in the game.
 	 */
-	private int numColors;
+	private final int numColors;
 
 	/**
 	 * Class constructor for random matches.
@@ -50,14 +50,19 @@ public class Board {
 			throw new CandyCleanException(error.toString());
 		} else {
 			this.numColors = numColors;
-			this.board = new Block[size][size];
+			this.table = new Block[size][size];
 			for (int i = 0; i < size; i++) {
 				for (int j = 0; j < size; j++) {
-					this.board[i][j] = new Block(numColors);
+					this.table[i][j] = new Block(numColors);
 				}
 			}
 		}
-		this.board[0][0].setSpecialBlock(true);
+
+		// Testing the special blocks
+		this.table[4][0].setSpecialBlock(true, 1);
+		this.table[1][1].setSpecialBlock(true, 2);
+		this.table[2][2].setSpecialBlock(true, 3);
+		this.table[3][3].setSpecialBlock(true, 4);
 	}
 
 	/**
@@ -69,10 +74,10 @@ public class Board {
 	 */
 	public Board(String[] stringBoard, int numColors) {
 		this.numColors = numColors;
-		this.board = new Block[stringBoard.length][stringBoard[0].length()];
+		this.table = new Block[stringBoard.length][stringBoard[0].length()];
 		for (int i = 0; i < stringBoard.length; i++) {
 			for (int j = 0; j < stringBoard[i].length(); j++) {
-				this.board[i][j] = new Block(stringBoard[i].charAt(j));
+				this.table[i][j] = new Block(stringBoard[i].charAt(j));
 			}
 		}
 	}
@@ -85,9 +90,9 @@ public class Board {
 	public boolean isPossibleToPlay() {
 		boolean isPossibleToPlay = false;
 		int i = 0;
-		while (i < this.board.length && !isPossibleToPlay) {
+		while (i < this.table.length && !isPossibleToPlay) {
 			int j = 0;
-			while (j < this.board.length && !isPossibleToPlay) {
+			while (j < this.table.length && !isPossibleToPlay) {
 				isPossibleToPlay = this.hasSurroundingBlocks(i, j);
 				j++;
 			}
@@ -103,19 +108,61 @@ public class Board {
 	 * @param column The column of the selected Block.
 	 */
 	private void removeBlocks(int row, int column) {
-		int firstLeftCandyPos = this.firstLeftCandyPos(row, column);
-		int lastRightCandyPos = this.lastRightCandyPos(row, column);
-		int firstUpperCandyPos = this.firstUpperCandyPos(row, column);
-		int lastLowerCandyPos = this.lastLowerCandyPos(row, column);
+		if (this.table[row][column].isSpecialBlock()) {
+			switch (this.table[row][column].getType()) {
+				case 1:
+					removeBlocksRow(row);
+					compactBoardWidth(row, 0, this.table.length - 1);
+					break;
+				case 2:
+					removeBlocksColumn(column);
+					break;
+				case 3:
+					removeBlocksRow(row);
+					removeBlocksColumn(column);
+					compactBoardWidth(row, 0, this.table.length - 1);
+					break;
+				case 4:
+					clearTable();
+					break;
+				default:
+					break;
+			}
+		} else {
+			int firstLeftCandyPos = this.firstLeftCandyPos(row, column);
+			int lastRightCandyPos = this.lastRightCandyPos(row, column);
+			int firstUpperCandyPos = this.firstUpperCandyPos(row, column);
+			int lastLowerCandyPos = this.lastLowerCandyPos(row, column);
 
-		// Horizontal replacement.
-		for (int i = firstLeftCandyPos; i <= lastRightCandyPos; i++) {
-			this.board[row][i].setToBlank();
+			// Horizontal replacement.
+			for (int i = firstLeftCandyPos; i <= lastRightCandyPos; i++) {
+				this.table[row][i].setToBlank();
+			}
+
+			// Vertical replacement.
+			for (int i = firstUpperCandyPos; i <= lastLowerCandyPos; i++) {
+				this.table[i][column].setToBlank();
+			}
 		}
+	}
 
-		// Vertical replacement.
-		for (int i = firstUpperCandyPos; i <= lastLowerCandyPos; i++) {
-			this.board[i][column].setToBlank();
+	private void removeBlocksRow(int row) {
+		for (int i = 0; i < this.table.length; i++) {
+			this.table[row][i].setToBlank();
+		}
+	}
+
+	private void removeBlocksColumn(int column) {
+		for (int i = 0; i < this.table.length; i++) {
+			this.table[i][column].setToBlank();
+		}
+	}
+
+	private void clearTable() {
+		for (Block[] blocks : this.table) {
+			for (int j = 0; j < this.table.length; j++) {
+				blocks[j].setToBlank();
+			}
 		}
 	}
 
@@ -127,9 +174,9 @@ public class Board {
 	 * @throws CandyCleanException A CandyCleanException will be thrown if the selected spot is not valid.
 	 */
 	private void isValidSelectedSpot(int row, int column) throws CandyCleanException {
-		if (row >= this.board.length || row < 0 || column >= this.board.length || column < 0) {
+		if (row >= this.table.length || row < 0 || column >= this.table.length || column < 0) {
 			throw new CandyCleanException("The selected spot is outside of the board boundaries. The current board size is "
-				+ this.board.length + " x " + this.board.length);
+				+ this.table.length + " x " + this.table.length);
 		}
 
 		if (!this.hasSurroundingBlocks(row, column)) {
@@ -148,16 +195,21 @@ public class Board {
 	 */
 	public void shoot(int row, int column) throws CandyCleanException {
 		try {
-			this.isValidSelectedSpot(row, column);
-			int leftPos = this.firstLeftCandyPos(row, column);
-			int rightPos = this.lastRightCandyPos(row, column);
-			int upperPos = this.firstUpperCandyPos(row, column);
-			int lowerPos = this.lastLowerCandyPos(row, column);
+			if (this.table[row][column].isSpecialBlock()) {
+				this.removeBlocks(row, column);
+			} else {
+				this.isValidSelectedSpot(row, column);
+				int leftPos = this.firstLeftCandyPos(row, column);
+				int rightPos = this.lastRightCandyPos(row, column);
+				int upperPos = this.firstUpperCandyPos(row, column);
+				int lowerPos = this.lastLowerCandyPos(row, column);
 
 
-			this.removeBlocks(row, column);
-			this.compactBoardWidth(row, leftPos, rightPos);
-			this.compactBoardHeight(column, upperPos, lowerPos);
+				this.removeBlocks(row, column);
+				this.compactBoardWidth(row, leftPos, rightPos);
+				this.compactBoardHeight(column, upperPos, lowerPos);
+			}
+
 			this.fillEmptyWithNewBlocks();
 		} catch (CandyCleanException e) {
 			throw new CandyCleanException(e.getMessage());
@@ -175,9 +227,9 @@ public class Board {
 	private void compactBoardWidth(int row, int leftPos, int rightPos) {
 		for (int i = row; i > 0; i--) {
 			for (int j = leftPos; j <= rightPos; j++) {
-				Block aux = this.board[i - 1][j];
-				this.board[i - 1][j] = this.board[i][j];
-				this.board[i][j] = aux;
+				Block aux = this.table[i - 1][j];
+				this.table[i - 1][j] = this.table[i][j];
+				this.table[i][j] = aux;
 			}
 		}
 	}
@@ -192,7 +244,7 @@ public class Board {
 	 */
 	private void compactBoardHeight(int column, int upperPos, int lowerPos) {
 		for (int i = upperPos; i <= lowerPos; i++) {
-			if (this.board[i][column].isBlank()) {
+			if (this.table[i][column].isBlank()) {
 				this.compactBoardWidth(i, column, column);
 			}
 		}
@@ -220,7 +272,7 @@ public class Board {
 	 */
 	private int firstLeftCandyPos(int row, int column) {
 		int before = column;
-		while (before > 0 && this.board[row][before].equals(this.board[row][before - 1])) {
+		while (before > 0 && this.table[row][before].equals(this.table[row][before - 1])) {
 			before--;
 		}
 		return before;
@@ -235,7 +287,7 @@ public class Board {
 	 */
 	private int lastRightCandyPos(int row, int column) {
 		int after = column;
-		while (after < this.board.length - 1 && this.board[row][after].equals(this.board[row][after + 1])) {
+		while (after < this.table.length - 1 && this.table[row][after].equals(this.table[row][after + 1])) {
 			after++;
 		}
 		return after;
@@ -250,7 +302,7 @@ public class Board {
 	 */
 	private int firstUpperCandyPos(int row, int column) {
 		int before = row;
-		while (before > 0 && (this.board[before][column].equals(this.board[before - 1][column]))) {
+		while (before > 0 && (this.table[before][column].equals(this.table[before - 1][column]))) {
 			before--;
 		}
 		return before;
@@ -265,7 +317,7 @@ public class Board {
 	 */
 	private int lastLowerCandyPos(int row, int column) {
 		int after = row;
-		while (after < this.board.length - 1 && this.board[after][column].equals(this.board[after + 1][column])) {
+		while (after < this.table.length - 1 && this.table[after][column].equals(this.table[after + 1][column])) {
 			after++;
 		}
 		return after;
@@ -275,10 +327,10 @@ public class Board {
 	 * Fills the empty blocks after shooting, making the game infinite.
 	 */
 	private void fillEmptyWithNewBlocks() {
-		for (int i = 0; i < this.board.length; i++) {
-			for (int j = 0; j < this.board.length; j++) {
-				if (this.board[i][j].isBlank()) {
-					this.board[i][j] = new Block(this.numColors);
+		for (int i = 0; i < this.table.length; i++) {
+			for (int j = 0; j < this.table.length; j++) {
+				if (this.table[i][j].isBlank()) {
+					this.table[i][j] = new Block(this.numColors);
 				}
 			}
 		}
@@ -293,7 +345,7 @@ public class Board {
 		StringBuilder debug = new StringBuilder();
 		logger.debug("Debugging board");
 
-		for (Block[] blocks : this.board) {
+		for (Block[] blocks : this.table) {
 			for (Block block : blocks) {
 				debug.append(block.getLetter());
 			}
@@ -310,7 +362,7 @@ public class Board {
 	public String toString() {
 		StringBuilder outputBoard = new StringBuilder("  ");
 		// If the board size is greater than 9 prints the first number of the column.
-		for (int i = 0; i < this.board.length; i++) {
+		for (int i = 0; i < this.table.length; i++) {
 			if (i == 10) {
 				outputBoard.append("|");
 			}
@@ -324,12 +376,12 @@ public class Board {
 
 		// Prints the numbers of the columns.
 		outputBoard.append("\n  ");
-		for (int i = 0; i < this.board.length; i++) {
+		for (int i = 0; i < this.table.length; i++) {
 			outputBoard.append("|").append(i % 10);
 		}
 		outputBoard.append("|" + "\n");
 
-		for (int i = 0; i < this.board.length; i++) {
+		for (int i = 0; i < this.table.length; i++) {
 			// Space for the first number of the line number if it is greater than 9.
 			if (i < 10) {
 				outputBoard.append(" ");
@@ -337,8 +389,8 @@ public class Board {
 
 			// Candies in the line i
 			StringBuilder line = new StringBuilder();
-			for (int j = 0; j < this.board[i].length; j++) {
-				line.append(this.board[i][j]);
+			for (int j = 0; j < this.table[i].length; j++) {
+				line.append(this.table[i][j]);
 			}
 
 			outputBoard.append(i).append("|").append(line.toString()).append("\n");

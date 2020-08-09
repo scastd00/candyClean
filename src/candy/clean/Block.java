@@ -31,8 +31,8 @@ public class Block {
 	/**
 	 * Class constructor that takes an specific color as a char. It uses the next codification:
 	 * R - Red, Y - Yellow, E - Black, G - Green, B - Blue, P - Purple, C - Cyan, W - White.
-	 *  @param letter Letter assigned to the block.
 	 *
+	 * @param letter Letter assigned to the block.
 	 */
 	public Block(char letter) {
 		this.setColor(letter);
@@ -141,6 +141,7 @@ public class Block {
 
 	/**
 	 * Returns the state of the block.
+	 *
 	 * @return <code>true</code> if the block has a special explosion, <code>false</code> if it is a normal block.
 	 */
 	public boolean isSpecialBlock() {
@@ -149,10 +150,13 @@ public class Block {
 
 	/**
 	 * Set the state of the block.
+	 *
 	 * @param specialBlock <code>true</code> if the block is going to be special or <code>false</code> if not.
+	 * @param type the explosion type of the special block.
 	 */
-	public void setSpecialBlock(boolean specialBlock) {
+	public void setSpecialBlock(boolean specialBlock, int type) {
 		this.isSpecialBlock = specialBlock;
+		this.type = type;
 	}
 
 	/**
@@ -201,10 +205,32 @@ public class Block {
 	 * @return String block colored.
 	 */
 	public String toString() {
+		StringBuilder out = new StringBuilder();
 		if (!this.isBlank()) {
-			return this.color.toString(Character.toString(this.letter) + Character.toString(this.letter));
+			if (this.isSpecialBlock) {
+				switch (this.type) {
+					case 1:
+						out.append(this.color.toString(Color.BLACK_BLINK + "RR"));
+						break;
+					case 2:
+						out.append(this.color.toString(Color.BLACK_BLINK + "CC"));
+						break;
+					case 3:
+						out.append(this.color.toString(Color.BLACK_BLINK + "RC"));
+						break;
+					case 4:
+						out.append(this.color.toString(Color.BLACK_BLINK + "AA"));
+						break;
+					default:
+						out.append(this.color.toString());
+				}
+			} else {
+				out.append(this.color.toString());
+			}
 		} else {
-			return this.color.toString();
+			out.append(this.color.toString());
 		}
+
+		return out.toString();
 	}
 }

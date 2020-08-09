@@ -14,7 +14,6 @@ public class MainCandyClean {
 	private static final Logger logger = LogManager.getLogger(MainCandyClean.class);
 
 	public static void main(String[] args) {
-//		System.out.println("\u001B[31;5mBlinking green on black background...\u001B[0m");
 		do {
 			try {
 				int option;
