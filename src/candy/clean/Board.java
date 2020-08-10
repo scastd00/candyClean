@@ -2,6 +2,7 @@ package candy.clean;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.Contract;
 
 /**
  * Class that represents the board of the game.
@@ -43,8 +44,7 @@ public class Board {
 		}
 		if (numColors < Constants.MIN_COLORS || numColors > Constants.MAX_COLORS) {
 			error.append(String.format("You are not able to play with this number of colors: %d."
-					+ " The number of colors must be between %d and %d\n", numColors, Constants.MIN_COLORS,
-				Constants.MAX_COLORS));
+				+ " The number of colors must be between %d and %d\n", numColors, Constants.MIN_COLORS, Constants.MAX_COLORS));
 		}
 		if (error.length() != 0) {
 			throw new CandyCleanException(error.toString());
@@ -296,6 +296,7 @@ public class Board {
 	 * @param column the selected block of the row.
 	 * @return the number of blocks with same color at left.
 	 */
+	@Contract(pure = true)
 	private int firstLeftCandyPos(int row, int column) {
 		int before = column;
 		while (before > 0 && this.table[row][before].equals(this.table[row][before - 1])) {
@@ -311,6 +312,7 @@ public class Board {
 	 * @param column the selected block of the row.
 	 * @return the number of blocks with the same color at right.
 	 */
+	@Contract(pure = true)
 	private int lastRightCandyPos(int row, int column) {
 		int after = column;
 		while (after < this.table.length - 1 && this.table[row][after].equals(this.table[row][after + 1])) {
@@ -326,6 +328,7 @@ public class Board {
 	 * @param column the selected block of the column.
 	 * @return the number of blocks with the same color at top.
 	 */
+	@Contract(pure = true)
 	private int firstUpperCandyPos(int row, int column) {
 		int before = row;
 		while (before > 0 && (this.table[before][column].equals(this.table[before - 1][column]))) {
@@ -341,6 +344,7 @@ public class Board {
 	 * @param column the selected block of the column.
 	 * @return the number of blocks with the same color at bottom.
 	 */
+	@Contract(pure = true)
 	private int lastLowerCandyPos(int row, int column) {
 		int after = row;
 		while (after < this.table.length - 1 && this.table[after][column].equals(this.table[after + 1][column])) {

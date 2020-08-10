@@ -1,6 +1,8 @@
 package candy.clean;
 
 
+import org.jetbrains.annotations.Contract;
+
 /**
  * Class that manages the score of the game.
  *
@@ -37,6 +39,7 @@ public class Score {
 	 *
 	 * @param objective objective of the game.
 	 */
+	@Contract(pure = true)
 	public Score(int objective) {
 		this.additionScore = 10;
 		this.objective = objective;
@@ -47,6 +50,7 @@ public class Score {
 	/**
 	 * Class constructor for default vales.
 	 */
+	@Contract(pure = true)
 	public Score() {
 		this.additionScore = 10;
 		this.objective = 500;

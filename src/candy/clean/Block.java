@@ -1,5 +1,7 @@
 package candy.clean;
 
+import org.jetbrains.annotations.Contract;
+
 import java.util.Random;
 
 /**
@@ -182,6 +184,7 @@ public class Block {
 	 * @return <code>true</code> if it's a block with the same color or its the same block; <code>false</code>
 	 * otherwise.
 	 */
+	@Contract(value = "null -> false", pure = true)
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {

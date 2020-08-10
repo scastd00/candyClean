@@ -1,5 +1,8 @@
 package candy.clean;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Class that represents the colors of the blocks.
  *
@@ -31,7 +34,8 @@ public class Color {
 	 *
 	 * @param background the color is going to be assigned.
 	 */
-	public Color(BackgroundColor background) {
+	@Contract(pure = true)
+	public Color(@NotNull BackgroundColor background) {
 		switch (background) {
 			case RED:
 				this.background = Color.RED;
@@ -95,6 +99,7 @@ public class Color {
 	 * @param o Object that its compared with the instanced color.
 	 * @return boolean value depending on the condition.
 	 */
+	@Contract(value = "null -> false", pure = true)
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {

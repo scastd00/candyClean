@@ -2,6 +2,7 @@ package candy.clean;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.jetbrains.annotations.Contract;
 
 /**
  * User Interface of the game.
@@ -24,6 +25,7 @@ public class TextUI {
 	 *
 	 * @param game the game is going to be played.
 	 */
+	@Contract(pure = true)
 	public TextUI(CandyClean game) {
 		this.game = game;
 	}
