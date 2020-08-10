@@ -1,10 +1,8 @@
 package candy.clean;
 
-public class Constants {
+import org.jetbrains.annotations.Contract;
 
-	private Constants() {
-		throw new IllegalStateException("Utility class");
-	}
+public final class Constants {
 
 	/**
 	 * Maximum number of colors allowed to play.
@@ -51,5 +49,13 @@ public class Constants {
 	 */
 	public static final int ALL_BOARD_TYPE = 4;
 
+	/**
+	 * Candies required to make a candy with special explosion.
+	 */
 	public static final int MINIMUM_CANDIES_FOR_SPECIAL_CANDY = 4;
+
+	@Contract(value = " -> fail", pure = true)
+	private Constants() {
+		throw new IllegalStateException("Utility class");
+	}
 }

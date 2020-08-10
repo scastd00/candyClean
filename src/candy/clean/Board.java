@@ -217,17 +217,21 @@ public class Board {
 				int minimum = Constants.MINIMUM_CANDIES_FOR_SPECIAL_CANDY;
 
 				// Adding 1 because of the structure of Arrays. (e.g. Row: 0, Col: 4  ->  4 - 0 = 4 but you break 5 candies)
-				if (((rightPos - leftPos) + 1 >= minimum) && ((lowerPos - upperPos) + 1 < minimum)) {
+				if (((rightPos - leftPos) + 1 == this.table.length) && ((lowerPos - upperPos) + 1 == this.table.length)) {
+					this.table[row][column] = new Block(blockLetter);
+					this.table[row][column].setSpecialBlock(true, Constants.ALL_BOARD_TYPE);
+
+				} else if (((rightPos - leftPos) + 1 >= minimum) && ((lowerPos - upperPos) + 1 >= minimum)) {
+					this.table[row][column] = new Block(blockLetter);
+					this.table[row][column].setSpecialBlock(true, Constants.ROW_COLUMN_TYPE);
+
+				} else if (((rightPos - leftPos) + 1 >= minimum) && ((lowerPos - upperPos) + 1 < minimum)) {
 					this.table[row][column] = new Block(blockLetter);
 					this.table[row][column].setSpecialBlock(true, Constants.ROW_TYPE);
 
 				} else if (((lowerPos - upperPos) + 1 >= minimum) && ((rightPos - leftPos) + 1 < minimum)) {
 					this.table[row][column] = new Block(blockLetter);
 					this.table[row][column].setSpecialBlock(true, Constants.COLUMN_TYPE);
-
-				} else if (((rightPos - leftPos) + 1 >= minimum) && ((lowerPos - upperPos) + 1 >= minimum)) {
-					this.table[row][column] = new Block(blockLetter);
-					this.table[row][column].setSpecialBlock(true, Constants.ROW_COLUMN_TYPE);
 				}
 
 				this.compactBoardWidth(row, leftPos, rightPos);
