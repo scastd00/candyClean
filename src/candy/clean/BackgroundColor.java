@@ -6,7 +6,6 @@ package candy.clean;
  * @author Samuel Castrillo Domínguez
  * @version 1.1.0
  */
-
 public enum BackgroundColor {
 
 	BLACK, RED, GREEN, YELLOW, BLUE, PURPLE, CYAN, WHITE

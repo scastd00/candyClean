@@ -6,7 +6,6 @@ package candy.clean;
  * @author Samuel Castrillo Domínguez
  * @version 1.1.0
  */
-
 public class CandyClean {
 
 	/**
@@ -67,7 +66,7 @@ public class CandyClean {
 	 * @param row    Row of the selected Block.
 	 * @param column Column of the selected Block.
 	 * @throws CandyCleanException A CandyCleanException will be thrown if the selected spot is not valid, if the selected
-	 * block hasn't any equal color to its sides.
+	 *                             block hasn't any equal color to its sides.
 	 */
 	public void shoot(int row, int column) throws CandyCleanException {
 		try {

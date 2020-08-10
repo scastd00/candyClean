@@ -137,7 +137,7 @@ public class Score {
 	}
 
 	/**
-	 * Checks if the game has ended. (NOT WORKING)
+	 * Checks if the game has ended.
 	 *
 	 * @return <code>true</code> if the score is equal to or greater than the game objective, <code>false</code> otherwise.
 	 */
@@ -152,7 +152,7 @@ public class Score {
 	 */
 	@Override
 	public String toString() {
-		return "\nScore = " + this.punctuation + "  Objective = " + this.objective + "  Multiplier = " + this.multiplier +
+		return "\nScore = " + this.punctuation + "  Objective = " + this.objective + "  Multiplier = x" + this.multiplier +
 			"  Current streak" + " = " + this.streak + '\n';
 	}
 }

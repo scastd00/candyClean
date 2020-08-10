@@ -9,7 +9,6 @@ import org.jetbrains.annotations.NotNull;
  * @author Samuel Castrillo Domínguez
  * @version 1.1.0
  */
-
 public class Color {
 
 	private static final String BLACK = "\u001B[40m";

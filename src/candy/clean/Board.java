@@ -10,9 +10,7 @@ import org.jetbrains.annotations.Contract;
  * @author Samuel Castrillo Domínguez
  * @version 1.1.0
  */
-
 public class Board {
-
 
 	/**
 	 * Logger of the class.

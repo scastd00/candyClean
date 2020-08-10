@@ -9,7 +9,6 @@ import java.io.InputStreamReader;
  * @author Samuel Castrillo Domínguez
  * @version 1.1.0
  */
-
 public final class Keyboard {
 
 	private Keyboard() {

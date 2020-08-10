@@ -2,6 +2,12 @@ package candy.clean;
 
 import org.jetbrains.annotations.Contract;
 
+/**
+ * Class that represents the constants used in the game.
+ *
+ * @author Samuel Castrillo Domínguez
+ * @version 1.1.0
+ */
 public final class Constants {
 
 	/**

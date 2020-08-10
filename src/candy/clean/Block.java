@@ -10,7 +10,6 @@ import java.util.Random;
  * @author Samuel Castrillo Domínguez
  * @version 1.1.0
  */
-
 public class Block {
 
 	/**

@@ -9,7 +9,6 @@ import org.apache.logging.log4j.LogManager;
  * @author Samuel Castrillo Domínguez
  * @version 1.1.0
  */
-
 public class MainCandyClean {
 	private static final Logger logger = LogManager.getLogger(MainCandyClean.class);
 
@@ -30,7 +29,7 @@ public class MainCandyClean {
 						break;
 					case 1:
 						dimensions = 7;
-						numColors = 3;
+						numColors = 2;
 						score = 100;
 						break;
 					case 2:

@@ -10,7 +10,6 @@ import org.jetbrains.annotations.Contract;
  * @author Samuel Castrillo Domínguez
  * @version 1.1.0
  */
-
 public class TextUI {
 
 	private static final Logger logger = LogManager.getLogger(TextUI.class);
@@ -19,6 +18,8 @@ public class TextUI {
 	 * The game is going to be played.
 	 */
 	private final CandyClean game;
+
+	private static final String NAN = " is not a number.";
 
 	/**
 	 * Constructor of the class.
@@ -44,7 +45,7 @@ public class TextUI {
 		try {
 			return Integer.parseInt(option);
 		} catch (NumberFormatException e) {
-			throw new CandyCleanException(option + " is not a number.");
+			throw new CandyCleanException(option + NAN);
 		}
 	}
 
@@ -55,7 +56,8 @@ public class TextUI {
 		logger.info("Welcome to the Candy Clean Game!");
 		this.game.debugBoard();
 		while (game.isPossibleToPlay()) {
-			printBoard();
+			this.printBoard();
+
 			try {
 				int inputLn = inputLine();
 				int inputCol = inputColumn();
@@ -64,13 +66,12 @@ public class TextUI {
 			} catch (CandyCleanException e) {
 				logger.warn(e.getMessage());
 			}
-		}
 
-		printBoard();
-		if (game.haveWon()) {
-			wonMatch();
-		} else {
-			lostMatch();
+			if (this.game.haveWon()) {
+				wonMatch();
+				this.printBoard();
+				break;
+			}
 		}
 	}
 
@@ -83,11 +84,11 @@ public class TextUI {
 	private int inputLine() throws CandyCleanException {
 		logger.trace("Introduce a row to shoot: ");
 		String input = Keyboard.readLine().trim();
-		logger.debug("Row: " + input);
+		logger.debug("Row: {}",input);
 		try {
 			return Integer.parseInt(input);
 		} catch (NumberFormatException e) {
-			throw new CandyCleanException(input + " is not a number.");
+			throw new CandyCleanException(input + NAN);
 		}
 	}
 
@@ -100,11 +101,11 @@ public class TextUI {
 	private int inputColumn() throws CandyCleanException {
 		logger.trace("Introduce a column to shoot: ");
 		String input = Keyboard.readLine().trim();
-		logger.debug("Column: " +  input);
+		logger.debug("Column: {}", input);
 		try {
 			return Integer.parseInt(input);
 		} catch (NumberFormatException e) {
-			throw new CandyCleanException(input + " is not a number.");
+			throw new CandyCleanException(input + NAN);
 		}
 	}
 
@@ -112,7 +113,7 @@ public class TextUI {
 	 * Shows the board with colors and numbers.
 	 */
 	public void printBoard() {
-		logger.trace(this.game.toString());
+		logger.trace(this.game);
 	}
 
 	/**
