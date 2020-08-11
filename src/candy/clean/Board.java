@@ -134,7 +134,7 @@ public class Board {
 			this.isValidSelectedSpot(row, column);
 
 			if (this.table[row][column].isSpecialBlock()) {
-				this.removeBlocks(row, column);
+				this.removeBlocks(row, column, true);
 			} else {
 				int leftPos = this.firstLeftCandyPos(row, column);
 				int rightPos = this.lastRightCandyPos(row, column);
@@ -142,27 +142,9 @@ public class Board {
 				int lowerPos = this.lastLowerCandyPos(row, column);
 
 				char blockLetter = this.table[row][column].getLetter();
-				this.removeBlocks(row, column);
+				this.removeBlocks(row, column, false);
 
-				int minimum = Constants.MINIMUM_CANDIES_FOR_SPECIAL_CANDY;
-
-				// Adding 1 because of the structure of Arrays. (e.g. Row: 0, Col: 4  ->  4 - 0 = 4 but you break 5 candies)
-				if (((rightPos - leftPos) + 1 == this.table.length) && ((lowerPos - upperPos) + 1 == this.table.length)) {
-					this.table[row][column] = new Block(blockLetter);
-					this.table[row][column].setSpecialBlock(true, Constants.ALL_BOARD_TYPE);
-
-				} else if (((rightPos - leftPos) + 1 >= minimum) && ((lowerPos - upperPos) + 1 >= minimum)) {
-					this.table[row][column] = new Block(blockLetter);
-					this.table[row][column].setSpecialBlock(true, Constants.ROW_COLUMN_TYPE);
-
-				} else if (((rightPos - leftPos) + 1 >= minimum)) {
-					this.table[row][column] = new Block(blockLetter);
-					this.table[row][column].setSpecialBlock(true, Constants.ROW_TYPE);
-
-				} else if (((lowerPos - upperPos) + 1 >= minimum)) {
-					this.table[row][column] = new Block(blockLetter);
-					this.table[row][column].setSpecialBlock(true, Constants.COLUMN_TYPE);
-				}
+				this.createNewSpecialBlock(row, column, blockLetter, new int[] {leftPos, rightPos, upperPos, lowerPos});
 
 				this.compactBoardWidth(row, leftPos, rightPos);
 				this.compactBoardHeight(column, upperPos, lowerPos);
@@ -177,11 +159,12 @@ public class Board {
 	/**
 	 * Removes (set to black) the blocks (vertical and horizontal) that have the same color at the selected point.
 	 *
-	 * @param row    The row of the selected Block.
-	 * @param column The column of the selected Block.
+	 * @param row     The row of the selected Block.
+	 * @param column  The column of the selected Block.
+	 * @param special Specifies if the selected block is special.
 	 */
-	private void removeBlocks(int row, int column) {
-		if (this.table[row][column].isSpecialBlock()) {
+	private void removeBlocks(int row, int column, boolean special) {
+		if (special) {
 			switch (this.table[row][column].getType()) {
 				case Constants.ROW_TYPE:
 					removeBlocksRow(row);
@@ -249,6 +232,41 @@ public class Board {
 			for (int j = 0; j < this.table.length; j++) {
 				blocks[j].setToBlank();
 			}
+		}
+	}
+
+	/**
+	 * Creates a new special block when 4 or more candies are removed. All board special candies are generated when removed an
+	 * entire column and row of the board.
+	 *
+	 * @param row         The row of the selected block.
+	 * @param column      the column of the selected block.
+	 * @param blockLetter The letter of the old block. Used for creating the new candy with the same background.
+	 * @param positions   Specifies the conditions for creating the new special candies.
+	 *                    [0] - First candy with the same color to the left.
+	 *                    [1] - Last candy with the same color to the right.
+	 *                    [2] - First candy with the same color to the top.
+	 *                    [3] - Last candy with the same color to the bottom.
+	 */
+	private void createNewSpecialBlock(int row, int column, char blockLetter, int[] positions) {
+		int minimum = Constants.MINIMUM_CANDIES_FOR_SPECIAL_CANDY;
+
+		// Adding 1 because of Arrays' structure. (e.g. Row: 0, Col: 4  ->  4 - 0 = 4 but you break 5 candies)
+		if (((positions[1] - positions[0]) + 1 == this.table.length) && ((positions[3] - positions[2]) + 1 == this.table.length)) {
+			this.table[row][column] = new Block(blockLetter);
+			this.table[row][column].setSpecialBlock(true, Constants.ALL_BOARD_TYPE);
+
+		} else if (((positions[1] - positions[0]) + 1 >= minimum) && ((positions[3] - positions[2]) + 1 >= minimum)) {
+			this.table[row][column] = new Block(blockLetter);
+			this.table[row][column].setSpecialBlock(true, Constants.ROW_COLUMN_TYPE);
+
+		} else if (((positions[1] - positions[0]) + 1 >= minimum)) {
+			this.table[row][column] = new Block(blockLetter);
+			this.table[row][column].setSpecialBlock(true, Constants.ROW_TYPE);
+
+		} else if (((positions[3] - positions[2]) + 1 >= minimum)) {
+			this.table[row][column] = new Block(blockLetter);
+			this.table[row][column].setSpecialBlock(true, Constants.COLUMN_TYPE);
 		}
 	}
 
