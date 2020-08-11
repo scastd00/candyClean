@@ -75,6 +75,15 @@ public class Board {
 	}
 
 	/**
+	 * Returns the board that is played.
+	 *
+	 * @return the board of the current game.
+	 */
+	public Block[][] getTable() {
+		return this.table;
+	}
+
+	/**
 	 * Determines if there are possibilities to shoot at a color.
 	 *
 	 * @return <code>false</code> if there are no more valid color combinations to shoot at. Return <code>true</code>, otherwise.
@@ -91,6 +100,78 @@ public class Board {
 			i++;
 		}
 		return isPossibleToPlay;
+	}
+
+	/**
+	 * Checks if the selected spot has more Blocks in its surroundings. Otherwise, an exception will be thrown.
+	 *
+	 * @param row    Row of the selected Block.
+	 * @param column Column of the selected Block.
+	 * @throws CandyCleanException A CandyCleanException will be thrown if the selected spot is not valid.
+	 */
+	private void isValidSelectedSpot(int row, int column) throws CandyCleanException {
+		if (row >= this.table.length || row < 0 || column >= this.table.length || column < 0) {
+			throw new CandyCleanException("The selected spot is outside of the board boundaries. The current board size is "
+				+ this.table.length + " x " + this.table.length);
+		}
+
+		if (!this.hasSurroundingBlocks(row, column)) {
+			throw new CandyCleanException("The selected block doesn't have any surrounding blocks with the same color");
+		}
+	}
+
+	/**
+	 * Player action of shooting to an specific spot. If the spot is valid, all the surrounding Blocks with the same color
+	 * will be deleted, the board will compact and the empty blocks at the top of the board are filled with new colors.
+	 *
+	 * @param row    Row of the selected spot.
+	 * @param column Column of the selected spot.
+	 * @throws CandyCleanException A CandyCleanException will be thrown if the selected spot is out of the bounds of the
+	 *                             Board or it has no surrounding Blocks with the same Color.
+	 */
+	public void shoot(int row, int column) throws CandyCleanException {
+		try {
+			this.isValidSelectedSpot(row, column);
+
+			if (this.table[row][column].isSpecialBlock()) {
+				this.removeBlocks(row, column);
+			} else {
+				int leftPos = this.firstLeftCandyPos(row, column);
+				int rightPos = this.lastRightCandyPos(row, column);
+				int upperPos = this.firstUpperCandyPos(row, column);
+				int lowerPos = this.lastLowerCandyPos(row, column);
+
+				char blockLetter = this.table[row][column].getLetter();
+				this.removeBlocks(row, column);
+
+				int minimum = Constants.MINIMUM_CANDIES_FOR_SPECIAL_CANDY;
+
+				// Adding 1 because of the structure of Arrays. (e.g. Row: 0, Col: 4  ->  4 - 0 = 4 but you break 5 candies)
+				if (((rightPos - leftPos) + 1 == this.table.length) && ((lowerPos - upperPos) + 1 == this.table.length)) {
+					this.table[row][column] = new Block(blockLetter);
+					this.table[row][column].setSpecialBlock(true, Constants.ALL_BOARD_TYPE);
+
+				} else if (((rightPos - leftPos) + 1 >= minimum) && ((lowerPos - upperPos) + 1 >= minimum)) {
+					this.table[row][column] = new Block(blockLetter);
+					this.table[row][column].setSpecialBlock(true, Constants.ROW_COLUMN_TYPE);
+
+				} else if (((rightPos - leftPos) + 1 >= minimum)) {
+					this.table[row][column] = new Block(blockLetter);
+					this.table[row][column].setSpecialBlock(true, Constants.ROW_TYPE);
+
+				} else if (((lowerPos - upperPos) + 1 >= minimum)) {
+					this.table[row][column] = new Block(blockLetter);
+					this.table[row][column].setSpecialBlock(true, Constants.COLUMN_TYPE);
+				}
+
+				this.compactBoardWidth(row, leftPos, rightPos);
+				this.compactBoardHeight(column, upperPos, lowerPos);
+			}
+
+			this.fillEmptyWithNewBlocks();
+		} catch (CandyCleanException e) {
+			throw new CandyCleanException(e.getMessage());
+		}
 	}
 
 	/**
@@ -172,77 +253,6 @@ public class Board {
 	}
 
 	/**
-	 * Checks if the selected spot has more Blocks in its surroundings. Otherwise, an exception will be thrown.
-	 *
-	 * @param row    Row of the selected Block.
-	 * @param column Column of the selected Block.
-	 * @throws CandyCleanException A CandyCleanException will be thrown if the selected spot is not valid.
-	 */
-	private void isValidSelectedSpot(int row, int column) throws CandyCleanException {
-		if (row >= this.table.length || row < 0 || column >= this.table.length || column < 0) {
-			throw new CandyCleanException("The selected spot is outside of the board boundaries. The current board size is "
-				+ this.table.length + " x " + this.table.length);
-		}
-
-		if (!this.hasSurroundingBlocks(row, column)) {
-			throw new CandyCleanException("The selected block doesn't have any surrounding blocks with the same color");
-		}
-	}
-
-	/**
-	 * Player action of shooting to an specific spot. If the spot is valid, all the surrounding Blocks with the same color
-	 * will be deleted, the board will compact and the empty blocks at the top of the board are filled with new colors.
-	 *
-	 * @param row    Row of the selected spot.
-	 * @param column Column of the selected spot.
-	 * @throws CandyCleanException A CandyCleanException will be thrown if the selected spot is out of the bounds of the
-	 *                             Board or it has no surrounding Blocks with the same Color.
-	 */
-	public void shoot(int row, int column) throws CandyCleanException {
-		try {
-			if (this.table[row][column].isSpecialBlock()) {
-				this.removeBlocks(row, column);
-			} else {
-				this.isValidSelectedSpot(row, column);
-				int leftPos = this.firstLeftCandyPos(row, column);
-				int rightPos = this.lastRightCandyPos(row, column);
-				int upperPos = this.firstUpperCandyPos(row, column);
-				int lowerPos = this.lastLowerCandyPos(row, column);
-
-				char blockLetter = this.table[row][column].getLetter();
-				this.removeBlocks(row, column);
-
-				int minimum = Constants.MINIMUM_CANDIES_FOR_SPECIAL_CANDY;
-
-				// Adding 1 because of the structure of Arrays. (e.g. Row: 0, Col: 4  ->  4 - 0 = 4 but you break 5 candies)
-				if (((rightPos - leftPos) + 1 == this.table.length) && ((lowerPos - upperPos) + 1 == this.table.length)) {
-					this.table[row][column] = new Block(blockLetter);
-					this.table[row][column].setSpecialBlock(true, Constants.ALL_BOARD_TYPE);
-
-				} else if (((rightPos - leftPos) + 1 >= minimum) && ((lowerPos - upperPos) + 1 >= minimum)) {
-					this.table[row][column] = new Block(blockLetter);
-					this.table[row][column].setSpecialBlock(true, Constants.ROW_COLUMN_TYPE);
-
-				} else if (((rightPos - leftPos) + 1 >= minimum) && ((lowerPos - upperPos) + 1 < minimum)) {
-					this.table[row][column] = new Block(blockLetter);
-					this.table[row][column].setSpecialBlock(true, Constants.ROW_TYPE);
-
-				} else if (((lowerPos - upperPos) + 1 >= minimum) && ((rightPos - leftPos) + 1 < minimum)) {
-					this.table[row][column] = new Block(blockLetter);
-					this.table[row][column].setSpecialBlock(true, Constants.COLUMN_TYPE);
-				}
-
-				this.compactBoardWidth(row, leftPos, rightPos);
-				this.compactBoardHeight(column, upperPos, lowerPos);
-			}
-
-			this.fillEmptyWithNewBlocks();
-		} catch (CandyCleanException e) {
-			throw new CandyCleanException(e.getMessage());
-		}
-	}
-
-	/**
 	 * Compacts the board horizontally. Takes the empty candies to the top of the board (It's the same process as getting up
 	 * the empty candies).
 	 *
@@ -288,7 +298,8 @@ public class Board {
 	 */
 	public boolean hasSurroundingBlocks(int row, int column) {
 		return this.firstLeftCandyPos(row, column) != this.lastRightCandyPos(row, column) ||
-			this.firstUpperCandyPos(row, column) != this.lastLowerCandyPos(row, column);
+			this.firstUpperCandyPos(row, column) != this.lastLowerCandyPos(row, column) ||
+			this.table[row][column].isSpecialBlock();
 	}
 
 	/**

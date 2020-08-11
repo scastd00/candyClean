@@ -68,7 +68,7 @@ public class MainCandyClean {
 				 * it will create the predefined board.
 				 * CandyClean game = new CandyClean()
 				 */
-				CandyClean game = new CandyClean(dimensions, numColors, score);
+				CandyClean game = new CandyClean();
 				TextUI ui = new TextUI(game);
 				ui.init();
 			} catch (CandyCleanException e) {

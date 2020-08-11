@@ -10,36 +10,40 @@ public class ScoreTest {
 	private Score scoreObj;
 
 	@Before
-	public void setUp() throws Exception {
-	    score = new Score();
-	    scoreObj = new Score(100);
+	public void setUp() {
+		score = new Score();
+		scoreObj = new Score(100);
 	}
 
 	@Test
 	public void testGetSetScore() {
-	    assertEquals(0, score.getPunctuation());
-	    // Auto-setter in constructor method.
+		assertEquals(0, score.getPunctuation());
+		// Auto-setter in constructor method.
 	}
 
 	@Test
 	public void testGetSetObjective() {
-	    assertEquals(500, score.getObjective());
-	    score.setObjective(100);
-	    assertEquals(100, score.getObjective());
+		assertEquals(500, score.getObjective());
+		score.setObjective(100);
+		assertEquals(100, score.getObjective());
 	}
 
 	@Test
 	public void testGetSetMultiplier() {
-	    assertEquals(1, score.getMultiplier());
-	    score.setMultiplier(2);
+		assertEquals(1, score.getMultiplier());
+		score.setMultiplier(2);
 		assertEquals(2, score.getMultiplier());
 	}
 
 	@Test
 	public void testIncreaseDecreaseScore() {
-	    score.increaseScoreAndStreakUpdateMultiplier();
-	    score.decreaseScore();
-	    score.decreaseScore();
+		score.increaseScoreAndStreakUpdateMultiplier();
+		assertEquals(10, score.getPunctuation());
+		assertEquals(1, score.getMultiplier());
+		score.decreaseScore();
+		assertEquals(0, score.getPunctuation());
+		score.decreaseScore();
+		assertEquals(0, score.getPunctuation());
 		for (byte i = 0; i < 16; i++) {
 			score.increaseScoreAndStreakUpdateMultiplier();
 		}
@@ -61,7 +65,7 @@ public class ScoreTest {
 
 	@Test
 	public void testObjectiveCompleted() {
-	    assertFalse(score.objectiveCompleted());
+		assertFalse(score.objectiveCompleted());
 		for (byte i = 0; i < 20; i++) {
 			score.increaseScoreAndStreakUpdateMultiplier();
 		}
@@ -70,6 +74,6 @@ public class ScoreTest {
 
 	@Test
 	public void testToString() {
-	    assertEquals("\nScore = 0  Objective = 100  Multiplier = 1  Current streak = 0\n", scoreObj.toString());
+		assertEquals("\nScore = 0  Objective = 100  Multiplier = x1  Current streak = 0\n", scoreObj.toString());
 	}
 }

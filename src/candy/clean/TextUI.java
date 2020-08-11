@@ -122,11 +122,4 @@ public class TextUI {
 	private void wonMatch() {
 		logger.info("You won");
 	}
-
-	/**
-	 * Says if you lose the game.
-	 */
-	private void lostMatch() {
-		logger.info("You lose");
-	}
 }

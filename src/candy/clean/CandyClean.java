@@ -37,9 +37,25 @@ public class CandyClean {
 	 * R - Red, Y - Yellow, E - Black, G - Green, B - Blue, P - Purple, C - Cyan, W - White.
 	 */
 	public CandyClean() {
-		String[] predefinedBoard = {"RRRRR", "BBRRR", "BBBBB", "GGBBB", "BBGGG"};
+		String[] predefinedBoard = {
+			"GBBBBBBBBBBBBBR",
+			"GRRRRRRRRRRRRRR",
+			"GRRRPPPPPPPRRRR",
+			"GRRRPRRRRRRRRRR",
+			"GRRRPRRRRRRRRRR",
+			"GRRRPRRRRRRRRRR",
+			"GRRRPRRRRRRRRRR",
+			"GRRRPRRRRRRRRRR",
+			"GRRRPRRRRRRRRRR",
+			"GRRRRRRRRRRRRRR",
+			"GRRRRRRRRRRRRRR",
+			"GRRRRRRRRRRRRRR",
+			"GRRRRRRRRRRRRRR",
+			"GRRRRRRRRRRRRRR",
+			"RRRRRRRRRRRRRRR"
+		};
 		this.board = new Board(predefinedBoard, 4);
-		this.score = new Score(10);
+		this.score = new Score(80);
 	}
 
 	/**
