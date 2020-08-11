@@ -210,22 +210,21 @@ public class Block {
 		StringBuilder out = new StringBuilder();
 		if (!this.isBlank()) {
 			if (this.isSpecialBlock) {
-				out.append(this.color.toString(Color.BLACK_BLINK));
 				switch (this.type) {
 					case 1:
-						out.append("RR");
+						out.append(this.color.toString(Color.BLACK_BLINK + "RR"));
 						break;
 					case 2:
-						out.append("CC");
+						out.append(this.color.toString(Color.BLACK_BLINK + "CC"));
 						break;
 					case 3:
-						out.append("RC");
+						out.append(this.color.toString(Color.BLACK_BLINK + "RC"));
 						break;
 					case 4:
-						out.append("AA");
+						out.append(this.color.toString(Color.BLACK_BLINK + "AA"));
 						break;
 					default:
-						break;
+						out.append(this.color.toString());
 				}
 			} else {
 				out.append(this.color.toString());
