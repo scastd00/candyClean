@@ -61,7 +61,7 @@ public class CandyCleanTest {
 		predefinedBoard.shoot(4, 4);
 		predefinedBoard.shoot(5, 5);
 		predefinedBoard.shoot(6, 6);
-		predefinedBoard.shoot(7, 7);
+		predefinedBoard.shoot(8, 8);
 
 		assertTrue(predefinedBoard.haveWon());
 	}
@@ -74,19 +74,19 @@ public class CandyCleanTest {
 	@Test
 	public void testDebugBoard() {
 		assertEquals("GBBBBBBBBBBBBBR " +
-			"GRRRRRRRRRRRRRR " +
-			"GRRRPPPPPPPRRRR " +
+			"GRRRRRRRRRRRRPR " +
+			"GRRRPPPPPPPRPRR " +
+			"GRRRPRRRRRRPRRR " +
+			"GRRRPRRRRRPRRRR " +
+			"GRRRPRRRRPRRRRR " +
+			"GRRRPRRRPRRRRRR " +
+			"GRRRPRRPRRRRRRR " +
+			"GRRRPRPRRRRRRRR " +
+			"GRRRRPRRRRRRRRR " +
 			"GRRRPRRRRRRRRRR " +
-			"GRRRPRRRRRRRRRR " +
-			"GRRRPRRRRRRRRRR " +
-			"GRRRPRRRRRRRRRR " +
-			"GRRRPRRRRRRRRRR " +
-			"GRRRPRRRRRRRRRR " +
-			"GRRRRRRRRRRRRRR " +
-			"GRRRRRRRRRRRRRR " +
-			"GRRRRRRRRRRRRRR " +
-			"GRRRRRRRRRRRRRR " +
-			"GRRRRRRRRRRRRRR " +
+			"GRRPRRRRRRRRRRR " +
+			"GRPRRRRRRRRRRRR " +
+			"GPRRRRRRRRRRRRR " +
 			"RRRRRRRRRRRRRRR ", predefinedBoard.debugBoard());
 	}
 
