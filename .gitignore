@@ -1,6 +1,7 @@
 # Compiled class file
 *.class
 \classes
+\build
 
 # DB files
 \data

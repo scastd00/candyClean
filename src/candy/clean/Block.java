@@ -133,7 +133,7 @@ public class Block {
 	/**
 	 * Sets the type for special explosions.
 	 *
-	 * @param type the type to set
+	 * @param type the type to set.
 	 */
 	public void setType(int type) {
 		this.type = type;
@@ -153,7 +153,7 @@ public class Block {
 	 * Set the state of the block.
 	 *
 	 * @param specialBlock <code>true</code> if the block is going to be special or <code>false</code> if not.
-	 * @param type the explosion type of the special block.
+	 * @param type         the explosion type of the special block.
 	 */
 	public void setSpecialBlock(boolean specialBlock, int type) {
 		this.isSpecialBlock = specialBlock;
@@ -210,21 +210,22 @@ public class Block {
 		StringBuilder out = new StringBuilder();
 		if (!this.isBlank()) {
 			if (this.isSpecialBlock) {
+				out.append(this.color.toString(Color.BLACK_BLINK));
 				switch (this.type) {
 					case 1:
-						out.append(this.color.toString(Color.BLACK_BLINK + "RR"));
+						out.append("RR");
 						break;
 					case 2:
-						out.append(this.color.toString(Color.BLACK_BLINK + "CC"));
+						out.append("CC");
 						break;
 					case 3:
-						out.append(this.color.toString(Color.BLACK_BLINK + "RC"));
+						out.append("RC");
 						break;
 					case 4:
-						out.append(this.color.toString(Color.BLACK_BLINK + "AA"));
+						out.append("AA");
 						break;
 					default:
-						out.append(this.color.toString());
+						break;
 				}
 			} else {
 				out.append(this.color.toString());
