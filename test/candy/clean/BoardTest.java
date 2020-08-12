@@ -124,6 +124,27 @@ public class BoardTest {
 	}
 
 	@Test
+	public void testRemoveBlocksWithMoreSpecialCandies() throws CandyCleanException {
+		Block[][] aux = specialTable.getTable();
+
+		aux[10][10].setSpecialBlock(true, Constants.COLUMN_TYPE);
+		aux[14][10].setSpecialBlock(true, Constants.ROW_TYPE);
+		aux[14][12].setSpecialBlock(true, Constants.ROW_COLUMN_TYPE);
+
+		assertEquals(Constants.COLUMN_TYPE, aux[10][10].getType());
+		assertEquals(Constants.ROW_TYPE, aux[14][10].getType());
+		assertEquals(Constants.ROW_COLUMN_TYPE, aux[14][12].getType());
+
+		specialTable.shoot(10, 10);
+
+		aux = specialTable.getTable();
+
+		assertEquals(Constants.NORMAL_TYPE, aux[10][10].getType());
+		assertEquals(Constants.NORMAL_TYPE, aux[14][10].getType());
+		assertEquals(Constants.NORMAL_TYPE, aux[14][12].getType());
+	}
+
+	@Test
 	public void testHasSurroundingBlocks() {
 		assertTrue(predefinedBoard.hasSurroundingBlocks(0, 0));
 		assertTrue(predefinedBoard.hasSurroundingBlocks(0, 0));

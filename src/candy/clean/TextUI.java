@@ -39,7 +39,7 @@ public class TextUI {
 	 */
 	public static int selectGameMode() throws CandyCleanException {
 		logger.trace("What level do you want to play? Select an option\n");
-		logger.trace("0 - Exit\n1 - Easy\n2 - Medium\n3 - Hard\n4 - Very Hard\n5 - Extreme\n6 - Chuck Norris");
+		logger.trace("0 - Exit\n1 - Easy\n2 - Medium\n3 - Hard\n4 - Very Hard\n5 - Extreme");
 
 		String option = Keyboard.readLine();
 		try {

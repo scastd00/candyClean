@@ -163,19 +163,19 @@ public class Board {
 	 * @param column  The column of the selected Block.
 	 * @param special Specifies if the selected block is special.
 	 */
-	private void removeBlocks(int row, int column, boolean special) {
+	private void removeBlocks(int row, int column, boolean special) throws CandyCleanException {
 		if (special) {
 			switch (this.table[row][column].getType()) {
 				case Constants.ROW_TYPE:
-					removeBlocksRow(row);
+					removeBlocksRow(row, column);
 					compactBoardWidth(row, 0, this.table.length - 1);
 					break;
 				case Constants.COLUMN_TYPE:
-					removeBlocksColumn(column);
+					removeBlocksColumn(row, column);
 					break;
 				case Constants.ROW_COLUMN_TYPE:
-					removeBlocksRow(row);
-					removeBlocksColumn(column);
+					removeBlocksRow(row, column);
+					removeBlocksColumn(row, column);
 					compactBoardWidth(row, 0, this.table.length - 1);
 					break;
 				case Constants.ALL_BOARD_TYPE:
@@ -206,21 +206,33 @@ public class Board {
 	 * Removes all the blocks in the selected row.
 	 *
 	 * @param row the selected row to remove the blocks.
+	 * @param column the selected column to remove the blocks (used if there are special candies in the same row to shoot at).
 	 */
-	private void removeBlocksRow(int row) {
+	private void removeBlocksRow(int row, int column) throws CandyCleanException {
 		for (int i = 0; i < this.table.length; i++) {
-			this.table[row][i].setToBlank();
+			if (i != column && this.table[row][i].isSpecialBlock()) {
+				this.shoot(row, i);
+			} else {
+				this.table[row][i].setToBlank();
+				this.table[row][i].setSpecialBlock(false, 0);
+			}
 		}
 	}
 
 	/**
 	 * Removes all the blocks in the selected column.
 	 *
+	 * @param row the selected row to remove the blocks (used if there are special candies in the same column to shoot at).
 	 * @param column the selected column to remove the blocks.
 	 */
-	private void removeBlocksColumn(int column) {
-		for (Block[] blocks : this.table) {
-			blocks[column].setToBlank();
+	private void removeBlocksColumn(int row, int column) throws CandyCleanException {
+		for (int i = 0; i < this.table.length; i++) {
+			if (i != row && this.table[i][column].isSpecialBlock()) {
+				this.shoot(i, column);
+			} else {
+				this.table[i][column].setToBlank();
+				this.table[i][column].setSpecialBlock(false, 0);
+			}
 		}
 	}
 
