@@ -13,13 +13,11 @@ import org.jetbrains.annotations.Contract;
 public class TextUI {
 
 	private static final Logger logger = LogManager.getLogger(TextUI.class);
-
+	private static final String NAN = " is not a number.";
 	/**
 	 * The game is going to be played.
 	 */
 	private final CandyClean game;
-
-	private static final String NAN = " is not a number.";
 
 	/**
 	 * Constructor of the class.
@@ -84,7 +82,7 @@ public class TextUI {
 	private int inputLine() throws CandyCleanException {
 		logger.trace("Introduce a row to shoot: ");
 		String input = Keyboard.readLine().trim();
-		logger.debug("Row: {}",input);
+		logger.debug("Row: {}", input);
 		try {
 			return Integer.parseInt(input);
 		} catch (NumberFormatException e) {

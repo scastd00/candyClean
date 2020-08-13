@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class Color {
 
+	public static final String BLACK_BLINK = "\u001B[30;5m";
 	private static final String BLACK = "\u001B[40m";
 	private static final String RED = "\u001B[41m";
 	private static final String GREEN = "\u001B[42m";
@@ -20,9 +21,6 @@ public class Color {
 	private static final String CYAN = "\u001B[46m";
 	private static final String WHITE = "\u001B[47m";
 	private static final String RESET = "\u001B[0m";
-
-	public static final String BLACK_BLINK = "\u001B[30;5m";
-
 	/**
 	 * String that represents the color.
 	 */

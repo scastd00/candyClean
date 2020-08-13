@@ -2,7 +2,7 @@
 max_line_length = 134
 trim_trailing_whitespace = true
 ij_smart_tabs = true
-ij_visual_guides = 134
+ij_visual_guides = 128
 
 [*.feature]
 indent_size = 2

@@ -12,9 +12,6 @@
 # Log file
 *.log
 
-# BlueJ files
-*.ctxt
-
 # IntelliJ files
 *.iml
 .idea
@@ -35,7 +32,7 @@ out
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+# Java virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 /bin/
 

@@ -205,7 +205,7 @@ public class Board {
 	/**
 	 * Removes all the blocks in the selected row.
 	 *
-	 * @param row the selected row to remove the blocks.
+	 * @param row    the selected row to remove the blocks.
 	 * @param column the selected column to remove the blocks (used if there are special candies in the same row to shoot at).
 	 */
 	private void removeBlocksRow(int row, int column) throws CandyCleanException {
@@ -222,7 +222,7 @@ public class Board {
 	/**
 	 * Removes all the blocks in the selected column.
 	 *
-	 * @param row the selected row to remove the blocks (used if there are special candies in the same column to shoot at).
+	 * @param row    the selected row to remove the blocks (used if there are special candies in the same column to shoot at).
 	 * @param column the selected column to remove the blocks.
 	 */
 	private void removeBlocksColumn(int row, int column) throws CandyCleanException {
@@ -237,7 +237,7 @@ public class Board {
 	}
 
 	/**
-	 * Removes all the blocks in the table.
+	 * Removes all the blocks in the table. (Used for the special candy).
 	 */
 	private void clearTable() {
 		for (Block[] blocks : this.table) {

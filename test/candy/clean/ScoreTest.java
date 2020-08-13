@@ -18,7 +18,6 @@ public class ScoreTest {
 	@Test
 	public void testGetSetScore() {
 		assertEquals(0, score.getPunctuation());
-		// Auto-setter in constructor method.
 	}
 
 	@Test
