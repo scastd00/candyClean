@@ -49,6 +49,7 @@ public class Board {
 		} else {
 			this.numColors = numColors;
 			this.table = new Block[size][size];
+
 			for (int i = 0; i < size; i++) {
 				for (int j = 0; j < size; j++) {
 					this.table[i][j] = new Block(numColors);
@@ -254,11 +255,11 @@ public class Board {
 	 * @param row         The row of the selected block.
 	 * @param column      the column of the selected block.
 	 * @param blockLetter The letter of the old block. Used for creating the new candy with the same background.
-	 * @param positions   Specifies the conditions for creating the new special candies.
-	 *                    [0] - First candy with the same color to the left.
-	 *                    [1] - Last candy with the same color to the right.
-	 *                    [2] - First candy with the same color to the top.
-	 *                    [3] - Last candy with the same color to the bottom.
+	 * @param positions   Specifies the conditions for creating the new special candies. The following:
+	 *                    <p>[0] - First candy with the same color to the left.</p>
+	 *                    <p>[1] - Last candy with the same color to the right.</p>
+	 *                    <p>[2] - First candy with the same color to the top.</p>
+	 *                    <p>[3] - Last candy with the same color to the bottom.</p>
 	 */
 	private void createNewSpecialBlock(int row, int column, char blockLetter, int[] positions) {
 		int minimum = Constants.MINIMUM_CANDIES_FOR_SPECIAL_CANDY;
