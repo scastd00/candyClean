@@ -163,6 +163,13 @@
 	<target name="jar" depends="compile">
 		<mkdir dir="build/jar"/>
 		<jar destfile="${jar.dir}/jar/${projectName}.jar" basedir="${classes.dir}">
+			<!-- Including only the essential classes (tests excluded) -->
+			<fileset dir="classes">
+				<include name="*.class"/>
+				<exclude name="*Test*.class"/>
+			</fileset>
+
+			<!-- Specification of the main class to execute the program with the java -jar command -->
 			<manifest>
 				<attribute name="Main-Class" value="${package}.Main${projectName}"/>
 			</manifest>

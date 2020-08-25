@@ -208,6 +208,7 @@ public class Block {
 	 */
 	public String toString() {
 		StringBuilder out = new StringBuilder();
+
 		if (!this.isBlank()) {
 			if (this.isSpecialBlock) {
 				switch (this.type) {
