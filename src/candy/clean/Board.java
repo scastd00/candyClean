@@ -215,7 +215,7 @@ public class Board {
 				this.shoot(row, i);
 			} else {
 				this.table[row][i].setToBlank();
-				this.table[row][i].setSpecialBlock(false, 0);
+				this.table[row][i].setSpecialBlock(Constants.NORMAL_TYPE);
 			}
 		}
 	}
@@ -232,7 +232,7 @@ public class Board {
 				this.shoot(i, column);
 			} else {
 				this.table[i][column].setToBlank();
-				this.table[i][column].setSpecialBlock(false, 0);
+				this.table[i][column].setSpecialBlock(Constants.NORMAL_TYPE);
 			}
 		}
 	}
@@ -267,19 +267,19 @@ public class Board {
 		// Adding 1 because of Arrays' structure. (e.g. Row: 0, Col: 4  ->  4 - 0 = 4 but you break 5 candies)
 		if (((positions[1] - positions[0]) + 1 == this.table.length) && ((positions[3] - positions[2]) + 1 == this.table.length)) {
 			this.table[row][column] = new Block(blockLetter);
-			this.table[row][column].setSpecialBlock(true, Constants.ALL_BOARD_TYPE);
+			this.table[row][column].setSpecialBlock(Constants.ALL_BOARD_TYPE);
 
 		} else if (((positions[1] - positions[0]) + 1 >= minimum) && ((positions[3] - positions[2]) + 1 >= minimum)) {
 			this.table[row][column] = new Block(blockLetter);
-			this.table[row][column].setSpecialBlock(true, Constants.ROW_COLUMN_TYPE);
+			this.table[row][column].setSpecialBlock(Constants.ROW_COLUMN_TYPE);
 
 		} else if (((positions[1] - positions[0]) + 1 >= minimum)) {
 			this.table[row][column] = new Block(blockLetter);
-			this.table[row][column].setSpecialBlock(true, Constants.ROW_TYPE);
+			this.table[row][column].setSpecialBlock(Constants.ROW_TYPE);
 
 		} else if (((positions[3] - positions[2]) + 1 >= minimum)) {
 			this.table[row][column] = new Block(blockLetter);
-			this.table[row][column].setSpecialBlock(true, Constants.COLUMN_TYPE);
+			this.table[row][column].setSpecialBlock(Constants.COLUMN_TYPE);
 		}
 	}
 

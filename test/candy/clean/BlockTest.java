@@ -138,7 +138,7 @@ public class BlockTest {
 		assertFalse(otherColor.isSpecialBlock());
 		assertEquals(Constants.NORMAL_TYPE, otherColor.getType());
 
-		otherColor.setSpecialBlock(true, Constants.ROW_TYPE);
+		otherColor.setSpecialBlock(Constants.ROW_TYPE);
 
 		assertTrue(otherColor.isSpecialBlock());
 		assertEquals(Constants.ROW_TYPE, otherColor.getType());

@@ -108,7 +108,7 @@ public class BoardTest {
 
 	@Test
 	public void testShootSpecialBlocks() throws CandyCleanException {
-		specialTable.getTable()[1][1].setSpecialBlock(true, 5);
+		specialTable.getTable()[1][1].setSpecialBlock(5);
 		specialTable.shoot(1, 1); // Default block in removeBlocks
 		specialTable.shoot(14, 14); // All Board Candy
 		specialTable.shoot(1, 0); // Column Candy
@@ -127,9 +127,9 @@ public class BoardTest {
 	public void testRemoveBlocksWithMoreSpecialCandies() throws CandyCleanException {
 		Block[][] aux = specialTable.getTable();
 
-		aux[10][10].setSpecialBlock(true, Constants.COLUMN_TYPE);
-		aux[14][10].setSpecialBlock(true, Constants.ROW_TYPE);
-		aux[14][12].setSpecialBlock(true, Constants.ROW_COLUMN_TYPE);
+		aux[10][10].setSpecialBlock(Constants.COLUMN_TYPE);
+		aux[14][10].setSpecialBlock(Constants.ROW_TYPE);
+		aux[14][12].setSpecialBlock(Constants.ROW_COLUMN_TYPE);
 
 		assertEquals(Constants.COLUMN_TYPE, aux[10][10].getType());
 		assertEquals(Constants.ROW_TYPE, aux[14][10].getType());

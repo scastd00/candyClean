@@ -150,13 +150,12 @@ public class Block {
 	}
 
 	/**
-	 * Set the state of the block.
+	 * Set the state of the block. If the type is different than Normal_Type it is considered as a special block
 	 *
-	 * @param specialBlock <code>true</code> if the block is going to be special or <code>false</code> if not.
-	 * @param type         the explosion type of the special block.
+	 * @param type the explosion type of the special block.
 	 */
-	public void setSpecialBlock(boolean specialBlock, int type) {
-		this.isSpecialBlock = specialBlock;
+	public void setSpecialBlock(int type) {
+		this.isSpecialBlock = type != Constants.NORMAL_TYPE;
 		this.type = type;
 	}
 
@@ -180,8 +179,7 @@ public class Block {
 	 * Checks if the block has the same color as another one.
 	 *
 	 * @param o Object to be compared with.
-	 * @return <code>true</code> if it's a block with the same color or its the same block; <code>false</code>
-	 * otherwise.
+	 * @return <code>true</code> if it's a block with the same color or it's the same block, <code>false</code> otherwise.
 	 */
 	@Contract(value = "null -> false", pure = true)
 	@Override
