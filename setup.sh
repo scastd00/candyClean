@@ -6,7 +6,7 @@ function initSonar() {
 	echo "SonarQube is now up at port 9000."
 }
 
-# Executes Jenkins container at port 9000. (Not needed because of persistence of the container)
+# Executes Jenkins container at port 8080. (Not needed because of persistence of the container)
 function initJenkins() {
 	sudo docker run -p 8080:8080 -p 50000:50000 -d --name jenkins -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts
 	echo "Jenkins is now up at port 8080."
@@ -28,6 +28,7 @@ function resetJenkins() {
 	initJenkins
 }
 
+# Deletes and initializes SonarQube and Jenkins.
 function resetAll() {
 	resetSonar
 	resetJenkins

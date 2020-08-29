@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>candy.clean</OriginalElement>
+  <nodes>
+    <node x="507.0" y="369.5">candy.clean.TextUI</node>
+    <node x="817.5" y="561.0">candy.clean.Score</node>
+    <node x="189.0" y="1013.0">candy.clean.Board</node>
+    <node x="1311.5" y="129.5">candy.clean.CandyCleanException</node>
+    <node x="-33.5" y="1329.5">candy.clean.Constants</node>
+    <node x="1813.5" y="1742.5">candy.clean.BackgroundColor</node>
+    <node x="1615.0" y="1257.0">candy.clean.Block</node>
+    <node x="1012.0" y="249.5">candy.clean.Keyboard</node>
+    <node x="1019.0" y="502.5">candy.clean.MainCandyClean</node>
+    <node x="1810.0" y="1533.0">candy.clean.Color</node>
+    <node x="493.5" y="785.0">candy.clean.CandyClean</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Orthogonal" zoom="0.5206710605152786" x="998.0" y="953.5000000000001" />
+  <SelectedNodes>
+    <node>candy.clean.TextUI</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>Production</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
