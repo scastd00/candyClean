@@ -3,10 +3,7 @@
 
 name: Candy Clean CI
 
-on:
-  push:
-    branches:
-      - master
+on: push
 
 jobs:
   build:
