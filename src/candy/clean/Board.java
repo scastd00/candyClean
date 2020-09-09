@@ -34,6 +34,7 @@ public class Board {
 	 *
 	 * @param size      Size of the board sides.
 	 * @param numColors Number of colors the game will have.
+	 * @throws CandyCleanException if the introduced dimensions or number of colors are incorrect.
 	 */
 	public Board(int size, int numColors, Score gameScore) throws CandyCleanException {
 		StringBuilder error = new StringBuilder();
@@ -174,6 +175,7 @@ public class Board {
 	 * @param row     The row of the selected Block.
 	 * @param column  The column of the selected Block.
 	 * @param special Specifies if the selected block is special.
+	 * @throws CandyCleanException if the selected spot is not valid.
 	 */
 	private void removeBlocks(int row, int column, boolean special) throws CandyCleanException {
 		if (special) {
@@ -221,6 +223,7 @@ public class Board {
 	 *
 	 * @param row    the selected row to remove the blocks.
 	 * @param column the selected column to remove the blocks (used if there are special candies in the same row to shoot at).
+	 * @throws CandyCleanException if the selected spot is not valid.
 	 */
 	private void removeBlocksRow(int row, int column) throws CandyCleanException {
 		for (int i = 0; i < this.table.length; i++) {
@@ -239,6 +242,7 @@ public class Board {
 	 *
 	 * @param row    the selected row to remove the blocks (used if there are special candies in the same column to shoot at).
 	 * @param column the selected column to remove the blocks.
+	 * @throws CandyCleanException if the selected spot is not valid.
 	 */
 	private void removeBlocksColumn(int row, int column) throws CandyCleanException {
 		for (int i = 0; i < this.table.length; i++) {
