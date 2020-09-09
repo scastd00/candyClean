@@ -104,6 +104,13 @@ public class Score {
 	}
 
 	/**
+	 * Increases the score when a block is broken.
+	 */
+	public void increaseScore() {
+		this.punctuation += this.additionScore * this.multiplier;
+	}
+
+	/**
 	 * Decreases the score when the player doesn't shoot to the correct candies. If the score is less than the addition
 	 * score, the score sets to 0 and never is negative.
 	 */
@@ -118,9 +125,9 @@ public class Score {
 	/**
 	 * Update all the counters in the game: Score, Streak and Multiplier (+1/+3 when the player hits 5/15 candies in a row.
 	 */
-	public void increaseScoreAndStreakUpdateMultiplier() {
-		this.punctuation += this.additionScore * this.multiplier;
+	public void increaseStreakUpdateMultiplier() {
 		this.streak++;
+
 		if (this.streak % 5 == 0)
 			this.multiplier += 1;
 		if (this.streak % 15 == 0)
@@ -153,6 +160,6 @@ public class Score {
 	@Override
 	public String toString() {
 		return "\nScore = " + this.punctuation + "  Objective = " + this.objective + "  Multiplier = x" + this.multiplier +
-			"  Current streak" + " = " + this.streak + '\n';
+			"  Current streak = " + this.streak + '\n';
 	}
 }

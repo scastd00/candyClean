@@ -14,11 +14,6 @@ public class CandyClean {
 	private final Board board;
 
 	/**
-	 * The score of the game.
-	 */
-	private final Score score;
-
-	/**
 	 * Class constructor of the game.
 	 *
 	 * @param dimensions Dimensions of the board introduced by the player.
@@ -28,8 +23,7 @@ public class CandyClean {
 	 *                             aren't valid.
 	 */
 	public CandyClean(int dimensions, int numColors, int objective) throws CandyCleanException {
-		this.board = new Board(dimensions, numColors);
-		this.score = new Score(objective);
+		this.board = new Board(dimensions, numColors, new Score(objective));
 	}
 
 	/**
@@ -54,8 +48,7 @@ public class CandyClean {
 			"GPRRRRRRRRRRRRR",
 			"RRRRRRRRRRRRRRR"
 		};
-		this.board = new Board(predefinedBoard, 4);
-		this.score = new Score(80);
+		this.board = new Board(predefinedBoard, 4, new Score(80));
 	}
 
 	/**
@@ -73,7 +66,7 @@ public class CandyClean {
 	 * @return <code>true</code> if the score is equals to or greater than the objective. Returns <code>false</code> otherwise.
 	 */
 	public boolean haveWon() {
-		return this.score.objectiveCompleted();
+		return this.board.haveWon();
 	}
 
 	/**
@@ -87,9 +80,7 @@ public class CandyClean {
 	public void shoot(int row, int column) throws CandyCleanException {
 		try {
 			this.board.shoot(row, column);
-			this.score.increaseScoreAndStreakUpdateMultiplier();
 		} catch (CandyCleanException e) {
-			this.score.resetMultiplierStreakDecreaseScore();
 			throw new CandyCleanException(e.getMessage());
 		}
 	}
@@ -100,7 +91,7 @@ public class CandyClean {
 	 * @return the board as a String.
 	 */
 	public String toString() {
-		return this.score.toString() + '\n' + this.board.toString();
+		return this.board.toString();
 	}
 
 	/**

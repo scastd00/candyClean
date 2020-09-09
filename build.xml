@@ -210,9 +210,9 @@
 		</copy>
 	</target>
 
-	<!-- Executes the coverage report file in Ubuntu (Chromium) -->
+	<!-- Executes the coverage report file in Ubuntu (Google Chrome) -->
 	<target name="coverage" depends="report">
-		<exec executable="/snap/bin/chromium">
+		<exec executable="/usr/bin/google-chrome">
 			<arg value="${report.file}"/>
 		</exec>
 	</target>
@@ -224,8 +224,6 @@
 		</exec>
 	</target>
 
-	<target name="todo" depends="report, document, execute"/>
-
-	<target name="todoWindows" depends="todo"/>
+	<target name="todo" depends="report, document"/>
 
 </project>

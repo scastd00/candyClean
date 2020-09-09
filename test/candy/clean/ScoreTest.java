@@ -36,22 +36,20 @@ public class ScoreTest {
 
 	@Test
 	public void testIncreaseDecreaseScore() {
-		score.increaseScoreAndStreakUpdateMultiplier();
+		score.increaseScore();
 		assertEquals(10, score.getPunctuation());
 		assertEquals(1, score.getMultiplier());
 		score.decreaseScore();
 		assertEquals(0, score.getPunctuation());
 		score.decreaseScore();
 		assertEquals(0, score.getPunctuation());
-		for (byte i = 0; i < 16; i++) {
-			score.increaseScoreAndStreakUpdateMultiplier();
-		}
 	}
 
 	@Test
 	public void testResetMultiplierStreakDecreaseScore() {
 		for (byte i = 0; i < 6; i++) {
-			score.increaseScoreAndStreakUpdateMultiplier();
+			score.increaseScore();
+			score.increaseStreakUpdateMultiplier();
 		}
 
 		assertEquals(70, score.getPunctuation());
@@ -66,7 +64,8 @@ public class ScoreTest {
 	public void testObjectiveCompleted() {
 		assertFalse(score.objectiveCompleted());
 		for (byte i = 0; i < 20; i++) {
-			score.increaseScoreAndStreakUpdateMultiplier();
+			score.increaseScore();
+			score.increaseStreakUpdateMultiplier();
 		}
 		assertTrue(score.objectiveCompleted());
 	}

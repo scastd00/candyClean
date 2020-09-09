@@ -30,32 +30,32 @@ public class MainCandyClean {
 					case 1:
 						dimensions = 7;
 						numColors = 2;
-						score = 100;
+						score = 1000;
 						break;
 					case 2:
 						dimensions = 12;
 						numColors = 3;
-						score = 200;
+						score = 2000;
 						break;
 					case 3:
 						dimensions = 15;
 						numColors = 4;
-						score = 350;
+						score = 3500;
 						break;
 					case 4:
 						dimensions = 18;
 						numColors = 5;
-						score = 500;
+						score = 5000;
 						break;
 					case 5:
 						dimensions = 21;
 						numColors = 6;
-						score = 900;
+						score = 9000;
 						break;
 					case 6:
 						dimensions = 30;
 						numColors = 7;
-						score = 1900;
+						score = 19000;
 						break;
 					default:
 						System.exit(1);

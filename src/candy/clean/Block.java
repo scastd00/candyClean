@@ -27,6 +27,9 @@ public class Block {
 	 */
 	private int type;
 
+	/**
+	 * Specifies if the candy has a special explosion or not.
+	 */
 	private boolean isSpecialBlock;
 
 	/**
@@ -58,12 +61,11 @@ public class Block {
 			this.color = new Color(randomNum);
 		}
 
-		char[] chars = new char[] {'E', 'R', 'G', 'Y', 'B', 'P', 'C', 'W', 'E'};
-
+		char[] blocks = new char[] {'E', 'R', 'G', 'Y', 'B', 'P', 'C', 'W', 'E'};
 		if (randomNum > Constants.MAX_COLORS) {
-			this.letter = chars[0];
+			this.letter = blocks[0];
 		} else {
-			this.letter = chars[randomNum];
+			this.letter = blocks[randomNum];
 		}
 
 	}

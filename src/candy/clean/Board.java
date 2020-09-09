@@ -27,28 +27,33 @@ public class Board {
 	 */
 	private final int numColors;
 
+	private final Score gameScore;
+
 	/**
 	 * Class constructor for random matches.
 	 *
 	 * @param size      Size of the board sides.
 	 * @param numColors Number of colors the game will have.
 	 */
-	public Board(int size, int numColors) throws CandyCleanException {
+	public Board(int size, int numColors, Score gameScore) throws CandyCleanException {
 		StringBuilder error = new StringBuilder();
 		if (size < Constants.MIN_DIMENSIONS || size > Constants.MAX_DIMENSIONS) {
 			error.append(String.format(
 				"You are not able to play with this board size: %d." + " The size must be between %d and %d\n",
 				size, Constants.MIN_DIMENSIONS, Constants.MAX_DIMENSIONS));
 		}
+
 		if (numColors < Constants.MIN_COLORS || numColors > Constants.MAX_COLORS) {
 			error.append(String.format("You are not able to play with this number of colors: %d."
 				+ " The number of colors must be between %d and %d\n", numColors, Constants.MIN_COLORS, Constants.MAX_COLORS));
 		}
+
 		if (error.length() != 0) {
 			throw new CandyCleanException(error.toString());
 		} else {
 			this.numColors = numColors;
 			this.table = new Block[size][size];
+			this.gameScore = gameScore;
 
 			for (int i = 0; i < size; i++) {
 				for (int j = 0; j < size; j++) {
@@ -64,15 +69,19 @@ public class Board {
 	 *
 	 * @param stringBoard Pre-designed board in a String array. Note: this board can be a rectangle instead of a square.
 	 * @param numColors   Number of colors used in the pre-designed board.
+	 * @param gameScore   The score objective of the game.
 	 */
-	public Board(String[] stringBoard, int numColors) {
+	public Board(String[] stringBoard, int numColors, Score gameScore) {
 		this.numColors = numColors;
 		this.table = new Block[stringBoard.length][stringBoard[0].length()];
+		this.gameScore = gameScore;
+
 		for (int i = 0; i < stringBoard.length; i++) {
 			for (int j = 0; j < stringBoard[i].length(); j++) {
 				this.table[i][j] = new Block(stringBoard[i].charAt(j));
 			}
 		}
+
 	}
 
 	/**
@@ -110,7 +119,7 @@ public class Board {
 	 * @param column Column of the selected Block.
 	 * @throws CandyCleanException A CandyCleanException will be thrown if the selected spot is not valid.
 	 */
-	private void isValidSelectedSpot(int row, int column) throws CandyCleanException {
+	private void checkValidSelectedSpot(int row, int column) throws CandyCleanException {
 		if (row >= this.table.length || row < 0 || column >= this.table.length || column < 0) {
 			throw new CandyCleanException("The selected spot is outside of the board boundaries. The current board size is "
 				+ this.table.length + " x " + this.table.length);
@@ -132,7 +141,7 @@ public class Board {
 	 */
 	public void shoot(int row, int column) throws CandyCleanException {
 		try {
-			this.isValidSelectedSpot(row, column);
+			this.checkValidSelectedSpot(row, column);
 
 			if (this.table[row][column].isSpecialBlock()) {
 				this.removeBlocks(row, column, true);
@@ -151,8 +160,10 @@ public class Board {
 				this.compactBoardHeight(column, upperPos, lowerPos);
 			}
 
+			this.gameScore.increaseStreakUpdateMultiplier();
 			this.fillEmptyWithNewBlocks();
 		} catch (CandyCleanException e) {
+			this.gameScore.resetMultiplierStreakDecreaseScore();
 			throw new CandyCleanException(e.getMessage());
 		}
 	}
@@ -194,11 +205,13 @@ public class Board {
 			// Horizontal replacement.
 			for (int i = firstLeftCandyPos; i <= lastRightCandyPos; i++) {
 				this.table[row][i].setToBlank();
+				this.gameScore.increaseScore();
 			}
 
 			// Vertical replacement.
 			for (int i = firstUpperCandyPos; i <= lastLowerCandyPos; i++) {
 				this.table[i][column].setToBlank();
+				this.gameScore.increaseScore();
 			}
 		}
 	}
@@ -216,6 +229,7 @@ public class Board {
 			} else {
 				this.table[row][i].setToBlank();
 				this.table[row][i].setSpecialBlock(Constants.NORMAL_TYPE);
+				this.gameScore.increaseScore();
 			}
 		}
 	}
@@ -233,6 +247,7 @@ public class Board {
 			} else {
 				this.table[i][column].setToBlank();
 				this.table[i][column].setSpecialBlock(Constants.NORMAL_TYPE);
+				this.gameScore.increaseScore();
 			}
 		}
 	}
@@ -244,6 +259,7 @@ public class Board {
 		for (Block[] blocks : this.table) {
 			for (int j = 0; j < this.table.length; j++) {
 				blocks[j].setToBlank();
+				this.gameScore.increaseScore();
 			}
 		}
 	}
@@ -375,9 +391,11 @@ public class Board {
 	@Contract(pure = true)
 	private int firstUpperCandyPos(int row, int column) {
 		int before = row;
+
 		while (before > 0 && (this.table[before][column].equals(this.table[before - 1][column]))) {
 			before--;
 		}
+
 		return before;
 	}
 
@@ -391,9 +409,11 @@ public class Board {
 	@Contract(pure = true)
 	private int lastLowerCandyPos(int row, int column) {
 		int after = row;
+
 		while (after < this.table.length - 1 && this.table[after][column].equals(this.table[after + 1][column])) {
 			after++;
 		}
+
 		return after;
 	}
 
@@ -428,13 +448,22 @@ public class Board {
 		return debug.toString();
 	}
 
+	public boolean haveWon() {
+		return this.gameScore.objectiveCompleted();
+	}
+
 	/**
 	 * Returns the played board as a String with colors, without letters and the axis numbers.
 	 *
 	 * @return the Board that is played.
 	 */
 	public String toString() {
-		StringBuilder outputBoard = new StringBuilder("  ");
+
+		StringBuilder outputBoard = new StringBuilder();
+
+		// Appending the scoreboard
+		outputBoard.append(this.gameScore.toString()).append("\n");
+
 		// If the board size is greater than 9 prints the first number of the column.
 		for (int i = 0; i < this.table.length; i++) {
 			if (i == 10) {

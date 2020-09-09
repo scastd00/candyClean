@@ -1,11 +1,11 @@
 package candy.clean;
 
-import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
+
+import static org.junit.Assert.*;
 
 public class BoardTest {
 
@@ -16,9 +16,9 @@ public class BoardTest {
 	@Before
 	public void setUp() {
 		String[] boardString = {"RRRRR", "BBRRR", "BBBBB", "GGBBB", "BBGGG"};
-		predefinedBoard = new Board(boardString, 4);
+		predefinedBoard = new Board(boardString, 4, new Score(100));
 		String[] smallStringBoard = {"RGB", "RBY"};
-		smallBoard = new Board(smallStringBoard, 4);
+		smallBoard = new Board(smallStringBoard, 4, new Score(100));
 		String[] boardForSpecialBlocks = {
 			"GBBBBBBBBBBBBBR",
 			"GPRRRRRRRRRRRRR",
@@ -35,13 +35,13 @@ public class BoardTest {
 			"GRRRRRRRRRRRRRR",
 			"GRRRRRRRRRRRRRR",
 			"RRRRRRRRRRRRRRR"};
-		specialTable = new Board(boardForSpecialBlocks, 4);
+		specialTable = new Board(boardForSpecialBlocks, 4, new Score(100));
 
 	}
 
 	@Test
 	public void testRandomConstructor() throws CandyCleanException {
-		Board random = new Board(5, 4);
+		Board random = new Board(5, 4, new Score(100));
 		assertNotEquals(predefinedBoard.toString(), random.toString());
 	}
 
@@ -65,7 +65,7 @@ public class BoardTest {
 		String[] notPossiblePlay = {
 			"CGRB",
 			"PBGY"};
-		Board isNotPossibleBoard = new Board(notPossiblePlay, 4);
+		Board isNotPossibleBoard = new Board(notPossiblePlay, 4, new Score(100));
 		assertFalse(isNotPossibleBoard.isPossibleToPlay());
 	}
 
@@ -163,8 +163,9 @@ public class BoardTest {
 		String[] board15S = {"RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR",
 			"RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR",
 			"RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR"};
-		Board board15 = new Board(board15S, 4);
-		assertEquals("                      |1|1|1|1|1|\n  |0|1|2|3|4|5|6|7|8|9|0|1|2|3|4|",
-			board15.toString().substring(0, 67));
+		Board board15 = new Board(board15S, 4, new Score(100));
+		assertEquals("\nScore = 0  Objective = 100  Multiplier = x1  Current streak = 0\n\n                    " +
+				"|1|1|1|1|1|\n  |0|1|2|3|4|5|6|7|8|9|0|1|2|3|4|",
+			board15.toString().substring(0, 131));
 	}
 }
