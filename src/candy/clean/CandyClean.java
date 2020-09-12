@@ -59,15 +59,6 @@ public class CandyClean {
 	}
 
 	/**
-	 * Checks if there are possibilities to shoot at a color.
-	 *
-	 * @return <code>false</code> if there are no more valid color combinations to shoot at, <code>true</code>, otherwise.
-	 */
-	public boolean isPossibleToPlay() {
-		return this.board.isPossibleToPlay();
-	}
-
-	/**
 	 * Checks if the score is greater than the objective.
 	 *
 	 * @return <code>true</code> if the score is equals to or greater than the objective, <code>false</code> otherwise.

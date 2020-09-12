@@ -61,7 +61,7 @@ public class TextUI {
 	public void init() {
 		logger.info("Welcome to the Candy Clean Game!");
 		this.game.debugBoard();
-		while (game.isPossibleToPlay()) {
+		while (true) {
 			this.printBoard();
 
 			try {

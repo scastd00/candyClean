@@ -37,6 +37,7 @@ public class Board {
 	 *
 	 * @param size      Size of the board (Square).
 	 * @param numColors Number of colors the game will have.
+	 * @param gameScore Objective score of the game.
 	 * @throws CandyCleanException If the introduced dimensions or number of colors are incorrect.
 	 */
 	public Board(int size, int numColors, Score gameScore) throws CandyCleanException {
@@ -103,26 +104,6 @@ public class Board {
 	 */
 	public Block[][] getTable() {
 		return this.table;
-	}
-
-	/**
-	 * Todo: Method not necessary
-	 * Determines if there are possibilities to shoot at a color.
-	 *
-	 * @return <code>false</code> if there are no more valid color combinations to shoot at. Return <code>true</code>, otherwise.
-	 */
-	public boolean isPossibleToPlay() {
-		boolean isPossibleToPlay = false;
-		int i = 0;
-		while (i < this.table.length && !isPossibleToPlay) {
-			int j = 0;
-			while (j < this.table.length && !isPossibleToPlay) {
-				isPossibleToPlay = this.hasSurroundingBlocks(i, j);
-				j++;
-			}
-			i++;
-		}
-		return isPossibleToPlay;
 	}
 
 	/**
@@ -316,8 +297,8 @@ public class Board {
 	}
 
 	/**
-	 * Compacts the board horizontally. Takes the empty candies to the top of the board (It's the same process as getting up
-	 * the empty candies).
+	 * Compacts the board horizontally. Takes the empty candies to the top of the board (It's the same process as getting up the
+	 * empty candies).
 	 *
 	 * @param row      Row where the candies were removed.
 	 * @param leftPos  Left position where the first candy was deleted.
@@ -483,7 +464,7 @@ public class Board {
 		StringBuilder outputBoard = new StringBuilder();
 
 		// Appending the scoreboard
-		outputBoard.append(this.gameScore.toString()).append("\n");
+		outputBoard.append(this.gameScore.toString()).append("\n  ");
 
 		// If the board size is greater than 9 prints the first number of the column.
 		for (int i = 0; i < this.table.length; i++) {

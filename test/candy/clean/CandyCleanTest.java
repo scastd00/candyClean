@@ -19,7 +19,7 @@ public class CandyCleanTest {
 	@Test
 	public void testCorrectConstructor() throws CandyCleanException {
 		CandyClean otherBoard = new CandyClean(16, 5, 1);
-		assertFalse(otherBoard.toString().equals(candy1.toString()));
+		assertNotEquals(otherBoard.toString(), candy1.toString());
 	}
 
 	@Test(expected = CandyCleanException.class)
@@ -45,11 +45,6 @@ public class CandyCleanTest {
 	@Test(expected = CandyCleanException.class)
 	public void testALotOfCandies() throws CandyCleanException {
 		new CandyClean(13, 8, 1);
-	}
-
-	@Test
-	public void testPossibleToPlayTrue() {
-		assertTrue(predefinedBoard.isPossibleToPlay());
 	}
 
 	@Test

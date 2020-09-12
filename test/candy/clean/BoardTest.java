@@ -56,23 +56,16 @@ public class BoardTest {
 	}
 
 	@Test
-	public void testIsPossibleToPlay() {
-		assertTrue(predefinedBoard.toString(), predefinedBoard.isPossibleToPlay());
-	}
-
-	@Test
 	public void testIsNotPossibleToPlay() {
 		String[] notPossiblePlay = {
 			"CGRB",
 			"PBGY"};
 		Board isNotPossibleBoard = new Board(notPossiblePlay, 4, new Score(100));
-		assertFalse(isNotPossibleBoard.isPossibleToPlay());
 	}
 
 	@Test
 	public void testShoot() throws CandyCleanException {
 		predefinedBoard.shoot(0, 0);
-		assertTrue(predefinedBoard.isPossibleToPlay());
 	}
 
 	@Test(expected = CandyCleanException.class)
@@ -103,7 +96,6 @@ public class BoardTest {
 	@Test
 	public void testShootWithCompact() throws CandyCleanException {
 		predefinedBoard.shoot(1, 0);
-		assertTrue(predefinedBoard.isPossibleToPlay());
 	}
 
 	@Test
@@ -119,8 +111,6 @@ public class BoardTest {
 		specialTable.shoot(1, 2); // Row Candy
 		specialTable.shoot(9, 4); // Row/Column Candy
 		specialTable.shoot(14, 14); // All Board Candy
-
-		assertTrue(specialTable.isPossibleToPlay());
 	}
 
 	@Test
@@ -165,7 +155,7 @@ public class BoardTest {
 			"RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR"};
 		Board board15 = new Board(board15S, 4, new Score(100));
 		assertEquals("\nScore = 0  Objective = 100  Multiplier = x1  Current streak = 0\n\n                    " +
-				"|1|1|1|1|1|\n  |0|1|2|3|4|5|6|7|8|9|0|1|2|3|4|",
-			board15.toString().substring(0, 131));
+				"  |1|1|1|1|1|\n  |0|1|2|3|4|5|6|7|8|9|0|1|2|3|4|",
+			board15.toString().substring(0, 133));
 	}
 }
