@@ -3,8 +3,8 @@ package candy.clean;
 /**
  * Class that have important information of the game.
  *
- * @author Samuel Castrillo Domínguez
- * @version 1.1.0
+ * @author Samuel Castrillo Dominguez
+ * @version 1.2.0
  */
 public class CandyClean {
 
@@ -18,9 +18,8 @@ public class CandyClean {
 	 *
 	 * @param dimensions Dimensions of the board introduced by the player.
 	 * @param numColors  Number of colors the game will have.
-	 * @param objective  The objective of de game depending on the selected difficulty.
-	 * @throws CandyCleanException A CandyCleanException will be thrown if the size of the board or the number of colors
-	 *                             aren't valid.
+	 * @param objective  The objective of the game depending on the selected difficulty level.
+	 * @throws CandyCleanException If the size of the board or the number of colors aren't valid.
 	 */
 	public CandyClean(int dimensions, int numColors, int objective) throws CandyCleanException {
 		this.board = new Board(dimensions, numColors, new Score(objective));
@@ -28,7 +27,15 @@ public class CandyClean {
 
 	/**
 	 * Constructor of the game with a predefined Board. It uses the next codification:
-	 * R - Red, Y - Yellow, E - Black, G - Green, B - Blue, P - Purple, C - Cyan, W - White.
+	 *
+	 * <p style="color: red;">R - Red</p>
+	 * <p style="color: yellow;">Y - Yellow</p>
+	 * <p style="color: black;">E - Black</p>
+	 * <p style="color: green;">G - Green</p>
+	 * <p style="color: blue;">B - Blue</p>
+	 * <p style="color: purple;">P - Purple</p>
+	 * <p style="color: cyan;">C - Cyan</p>
+	 * <p style="color: grey;">W - White</p>
 	 */
 	public CandyClean() {
 		String[] predefinedBoard = {
@@ -54,7 +61,7 @@ public class CandyClean {
 	/**
 	 * Checks if there are possibilities to shoot at a color.
 	 *
-	 * @return <code>false</code> if there are no more valid color combinations to shoot at. Returns <code>true</code>, otherwise.
+	 * @return <code>false</code> if there are no more valid color combinations to shoot at, <code>true</code>, otherwise.
 	 */
 	public boolean isPossibleToPlay() {
 		return this.board.isPossibleToPlay();
@@ -63,7 +70,7 @@ public class CandyClean {
 	/**
 	 * Checks if the score is greater than the objective.
 	 *
-	 * @return <code>true</code> if the score is equals to or greater than the objective. Returns <code>false</code> otherwise.
+	 * @return <code>true</code> if the score is equals to or greater than the objective, <code>false</code> otherwise.
 	 */
 	public boolean haveWon() {
 		return this.board.haveWon();
@@ -74,8 +81,7 @@ public class CandyClean {
 	 *
 	 * @param row    Row of the selected Block.
 	 * @param column Column of the selected Block.
-	 * @throws CandyCleanException A CandyCleanException will be thrown if the selected spot is not valid, if the selected
-	 *                             block hasn't any equal color to its sides.
+	 * @throws CandyCleanException If the selected spot is not valid or if the selected block hasn't any equal color to its sides.
 	 */
 	public void shoot(int row, int column) throws CandyCleanException {
 		try {
@@ -86,9 +92,9 @@ public class CandyClean {
 	}
 
 	/**
-	 * Returns the board as a String with colors and the numbers of the different axis.
+	 * Returns the board as a String with colors and the numbers of the axis.
 	 *
-	 * @return the board as a String.
+	 * @return The board as a String.
 	 */
 	public String toString() {
 		return this.board.toString();
@@ -97,7 +103,7 @@ public class CandyClean {
 	/**
 	 * Logs the board of the game as a String.
 	 *
-	 * @return return the Board.
+	 * @return Returns the Board.
 	 */
 	public String debugBoard() {
 		return board.debugBoard();

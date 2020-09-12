@@ -23,7 +23,6 @@
 	<property name="coverage.result.exec.file" location="${coverage.result.dir}/jacoco.exec"/>
 	<property name="report.file" location="${coverage.result.report.dir}/${package}/index.html"/>
 
-
 	<!--Loading jacoco libraries -->
 	<taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
 		<classpath path="${lib.dir}/jacocoant.jar"/>
@@ -72,7 +71,7 @@
 	<target name="document">
 		<mkdir dir="${doc.dir}"/>
 		<javadoc sourcepath="${src.dir}" packagenames="${package}" destdir="${doc.dir}" verbose="false" author="true"
-				 access="private" splitindex="true" version="true" windowtitle="${title}" doctitle="${title}">
+		         access="private" splitindex="true" version="true" windowtitle="${title}" doctitle="${title}">
 			<classpath>
 				<fileset dir="${lib.dir}">
 					<include name="**/*.jar"/>
@@ -210,18 +209,33 @@
 		</copy>
 	</target>
 
-	<!-- Executes the coverage report file in Ubuntu (Google Chrome) -->
-	<target name="coverage" depends="report">
+	<!-- Checking if the build script is running on Windows OS -->
+	<condition property="isWindows">
+		<os family="windows"/>
+	</condition>
+
+	<!-- Checking if the build script is running on Unix based OS -->
+	<condition property="isUnix">
+		<os family="unix"/>
+	</condition>
+
+	<target name="coverageUnix" if="isUnix">
 		<exec executable="/usr/bin/google-chrome">
 			<arg value="${report.file}"/>
 		</exec>
+		<echo message="Coverage executed correctly on Unix"/>
 	</target>
 
-	<!-- Executes the coverage report file in Windows (Google Chrome) -->
-	<target name="coverageWindows" depends="report">
+	<target name="coverageWindows" if="isWindows">
 		<exec executable="C:\Program Files (x86)\Google\Chrome\Application\chrome">
 			<arg value="${report.file}"/>
 		</exec>
+		<echo message="Coverage executed correctly on Windows"/>
+	</target>
+
+	<!-- Executes the coverage report file depending on the OS. -->
+	<target name="coverage" depends="report, coverageUnix, coverageWindows">
+		<echo message="Coverage executed correctly"/>
 	</target>
 
 	<target name="todo" depends="report, document"/>

@@ -5,10 +5,10 @@ import org.jetbrains.annotations.Contract;
 import java.util.Random;
 
 /**
- * Class that represents the game's individual block.
+ * Class that represents the individual blocks of the game.
  *
- * @author Samuel Castrillo Domínguez
- * @version 1.1.0
+ * @author Samuel Castrillo Dominguez
+ * @version 1.2.0
  */
 public class Block {
 
@@ -18,12 +18,18 @@ public class Block {
 	private Color color;
 
 	/**
-	 * Letter which also represents the assigned color for the block.
+	 * Letter which also represents the assigned color to the block.
 	 */
 	private char letter;
 
 	/**
-	 * Type of the candy explosion. Notation: 0 - Normal, 1 - Row, 2 - Column, 3 - Row and Column, 4 - All the board.
+	 * Type of the candy explosion. Notation:
+	 *
+	 * <p>0 - Normal</p>
+	 * <p>1 - Row</p>
+	 * <p>2 - Column</p>
+	 * <p>3 - Row and Column</p>
+	 * <p>4 - All the board</p>
 	 */
 	private int type;
 
@@ -33,8 +39,16 @@ public class Block {
 	private boolean isSpecialBlock;
 
 	/**
-	 * Class constructor that takes an specific color as a char. It uses the next codification:
-	 * R - Red, Y - Yellow, E - Black, G - Green, B - Blue, P - Purple, C - Cyan, W - White.
+	 * Class constructor that takes a specific color as a char parameter. It uses the next codification:
+	 *
+	 * <p style="color: red;">R - Red</p>
+	 * <p style="color: yellow;">Y - Yellow</p>
+	 * <p style="color: black;">E - Black</p>
+	 * <p style="color: green;">G - Green</p>
+	 * <p style="color: blue;">B - Blue</p>
+	 * <p style="color: purple;">P - Purple</p>
+	 * <p style="color: cyan;">C - Cyan</p>
+	 * <p style="color: grey;">W - White</p>
 	 *
 	 * @param letter Letter assigned to the block.
 	 */
@@ -115,7 +129,7 @@ public class Block {
 	}
 
 	/**
-	 * Returns the letter of the color assigned to a block.
+	 * Returns the letter assigned to a block which corresponds to its color.
 	 *
 	 * @return Character that represents the color.
 	 */
@@ -126,7 +140,7 @@ public class Block {
 	/**
 	 * Returns the type of the candy.
 	 *
-	 * @return number depending on the type of the candy (Defined in Constants class).
+	 * @return Number depending on the type of the candy (Defined in Constants class).
 	 */
 	public int getType() {
 		return this.type;
@@ -135,7 +149,7 @@ public class Block {
 	/**
 	 * Sets the type for special explosions.
 	 *
-	 * @param type the type to set.
+	 * @param type The type to set.
 	 */
 	public void setType(int type) {
 		this.type = type;
@@ -152,9 +166,9 @@ public class Block {
 	}
 
 	/**
-	 * Set the state of the block. If the type is different than Normal_Type it is considered as a special block
+	 * Set the state of the block. If the type is different than NORMAL_TYPE it's considered as a special block.
 	 *
-	 * @param type the explosion type of the special block.
+	 * @param type The explosion type of the special block.
 	 */
 	public void setSpecialBlock(int type) {
 		this.isSpecialBlock = type != Constants.NORMAL_TYPE;
@@ -164,10 +178,10 @@ public class Block {
 	/**
 	 * Checks if the block is empty.
 	 *
-	 * @return <code>true</code> if empty, <code>false</code> otherwise.
+	 * @return <code>true</code> if empty (black color, <code>false</code> otherwise.
 	 */
 	public boolean isBlank() {
-		return (this.letter == 'E'); // Black color
+		return (this.letter == 'E');
 	}
 
 	/**
@@ -196,15 +210,20 @@ public class Block {
 		}
 	}
 
+	/**
+	 * Returns an Integer which is the sum of the letter assigned to the block and the {@link Color#hashCode()} of the color.
+	 *
+	 * @return An Integer value of the block.
+	 */
 	@Override
 	public int hashCode() {
 		return this.letter + this.color.hashCode();
 	}
 
 	/**
-	 * Returns the block colored that represents the color.
+	 * Returns the colored block.
 	 *
-	 * @return String block colored.
+	 * @return String with the colored block.
 	 */
 	public String toString() {
 		StringBuilder out = new StringBuilder();

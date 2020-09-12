@@ -7,13 +7,21 @@ import org.jetbrains.annotations.Contract;
 /**
  * User Interface of the game.
  *
- * @author Samuel Castrillo Domínguez
- * @version 1.1.0
+ * @author Samuel Castrillo Dominguez
+ * @version 1.2.0
  */
 public class TextUI {
 
+	/**
+	 * Logger of the TextUI.
+	 */
 	private static final Logger logger = LogManager.getLogger(TextUI.class);
+
+	/**
+	 * Constant defined to print when a bad character is introduced.
+	 */
 	private static final String NAN = " is not a number.";
+
 	/**
 	 * The game is going to be played.
 	 */
@@ -22,7 +30,7 @@ public class TextUI {
 	/**
 	 * Constructor of the class.
 	 *
-	 * @param game the game is going to be played.
+	 * @param game The game is going to be played.
 	 */
 	@Contract(pure = true)
 	public TextUI(CandyClean game) {
@@ -32,8 +40,8 @@ public class TextUI {
 	/**
 	 * Game difficulty menu when the game starts or when a game is finished.
 	 *
-	 * @return the selected game mode.
-	 * @throws CandyCleanException if the option is not an Integer.
+	 * @return The selected game mode.
+	 * @throws CandyCleanException If the option is not an Integer.
 	 */
 	public static int selectGameMode() throws CandyCleanException {
 		logger.trace("What level do you want to play? Select an option\n");
@@ -57,9 +65,9 @@ public class TextUI {
 			this.printBoard();
 
 			try {
-				int inputLn = inputLine();
+				int inputRow = inputRow();
 				int inputCol = inputColumn();
-				game.shoot(inputLn, inputCol);
+				game.shoot(inputRow, inputCol);
 				logger.debug("Valid shoot");
 			} catch (CandyCleanException e) {
 				logger.warn(e.getMessage());
@@ -76,10 +84,10 @@ public class TextUI {
 	/**
 	 * Asks the number of the row of the board where the player wants to shoot.
 	 *
-	 * @return number of the row introduced by the player.
-	 * @throws CandyCleanException A CandyCleanException will be thrown if the row introduced is not an integer value.
+	 * @return Number of the row introduced by the player.
+	 * @throws CandyCleanException If the row introduced is not an integer value.
 	 */
-	private int inputLine() throws CandyCleanException {
+	private int inputRow() throws CandyCleanException {
 		logger.trace("Introduce a row to shoot: ");
 		String input = Keyboard.readLine().trim();
 		logger.debug("Row: {}", input);
@@ -93,8 +101,8 @@ public class TextUI {
 	/**
 	 * Asks the number of the column of the board where the player wants to shoot.
 	 *
-	 * @return number of the column introduced by the player.
-	 * @throws CandyCleanException A CandyCleanException will be thrown if the column introduced is not an integer value.
+	 * @return Number of the column introduced by the player.
+	 * @throws CandyCleanException If the column introduced is not an integer value.
 	 */
 	private int inputColumn() throws CandyCleanException {
 		logger.trace("Introduce a column to shoot: ");
@@ -115,7 +123,7 @@ public class TextUI {
 	}
 
 	/**
-	 * Says if you won the game.
+	 * Says if the player won the game.
 	 */
 	private void wonMatch() {
 		logger.info("You won");

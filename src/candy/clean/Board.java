@@ -7,8 +7,8 @@ import org.jetbrains.annotations.Contract;
 /**
  * Class that represents the board of the game.
  *
- * @author Samuel Castrillo Domínguez
- * @version 1.1.0
+ * @author Samuel Castrillo Dominguez
+ * @version 1.2.0
  */
 public class Board {
 
@@ -27,14 +27,17 @@ public class Board {
 	 */
 	private final int numColors;
 
+	/**
+	 * Score of the game.
+	 */
 	private final Score gameScore;
 
 	/**
 	 * Class constructor for random matches.
 	 *
-	 * @param size      Size of the board sides.
+	 * @param size      Size of the board (Square).
 	 * @param numColors Number of colors the game will have.
-	 * @throws CandyCleanException if the introduced dimensions or number of colors are incorrect.
+	 * @throws CandyCleanException If the introduced dimensions or number of colors are incorrect.
 	 */
 	public Board(int size, int numColors, Score gameScore) throws CandyCleanException {
 		StringBuilder error = new StringBuilder();
@@ -66,7 +69,15 @@ public class Board {
 
 	/**
 	 * Class constructor for pre-designed boards. It uses the next codification:
-	 * R - Red, Y - Yellow, E - Black, G - Green, B - Blue, P - Purple, C - Cyan, W - White.
+	 *
+	 * <p style="color: red;">R - Red</p>
+	 * <p style="color: yellow;">Y - Yellow</p>
+	 * <p style="color: black;">E - Black</p>
+	 * <p style="color: green;">G - Green</p>
+	 * <p style="color: blue;">B - Blue</p>
+	 * <p style="color: purple;">P - Purple</p>
+	 * <p style="color: cyan;">C - Cyan</p>
+	 * <p style="color: grey;">W - White</p>
 	 *
 	 * @param stringBoard Pre-designed board in a String array. Note: this board can be a rectangle instead of a square.
 	 * @param numColors   Number of colors used in the pre-designed board.
@@ -88,13 +99,14 @@ public class Board {
 	/**
 	 * Returns the board that is played.
 	 *
-	 * @return the board of the current game.
+	 * @return The board of the current game.
 	 */
 	public Block[][] getTable() {
 		return this.table;
 	}
 
 	/**
+	 * Todo: Method not necessary
 	 * Determines if there are possibilities to shoot at a color.
 	 *
 	 * @return <code>false</code> if there are no more valid color combinations to shoot at. Return <code>true</code>, otherwise.
@@ -114,11 +126,11 @@ public class Board {
 	}
 
 	/**
-	 * Checks if the selected spot has more Blocks in its surroundings. Otherwise, an exception will be thrown.
+	 * Checks if the selected spot has more equal Blocks in its surroundings. Otherwise, an exception will be thrown.
 	 *
 	 * @param row    Row of the selected Block.
 	 * @param column Column of the selected Block.
-	 * @throws CandyCleanException A CandyCleanException will be thrown if the selected spot is not valid.
+	 * @throws CandyCleanException If the selected spot is not valid.
 	 */
 	private void checkValidSelectedSpot(int row, int column) throws CandyCleanException {
 		if (row >= this.table.length || row < 0 || column >= this.table.length || column < 0) {
@@ -137,8 +149,8 @@ public class Board {
 	 *
 	 * @param row    Row of the selected spot.
 	 * @param column Column of the selected spot.
-	 * @throws CandyCleanException A CandyCleanException will be thrown if the selected spot is out of the bounds of the
-	 *                             Board or it has no surrounding Blocks with the same Color.
+	 * @throws CandyCleanException If the selected spot is out of the bounds of the Board or it has no surrounding Blocks with
+	 *                             the same Color.
 	 */
 	public void shoot(int row, int column) throws CandyCleanException {
 		try {
@@ -170,12 +182,12 @@ public class Board {
 	}
 
 	/**
-	 * Removes (set to black) the blocks (vertical and horizontal) that have the same color at the selected point.
+	 * Removes (set to black) the blocks (vertical and horizontal) that have the same color near to the selected point.
 	 *
 	 * @param row     The row of the selected Block.
 	 * @param column  The column of the selected Block.
 	 * @param special Specifies if the selected block is special.
-	 * @throws CandyCleanException if the selected spot is not valid.
+	 * @throws CandyCleanException If the selected spot is not valid.
 	 */
 	private void removeBlocks(int row, int column, boolean special) throws CandyCleanException {
 		if (special) {
@@ -221,9 +233,9 @@ public class Board {
 	/**
 	 * Removes all the blocks in the selected row.
 	 *
-	 * @param row    the selected row to remove the blocks.
-	 * @param column the selected column to remove the blocks (used if there are special candies in the same row to shoot at).
-	 * @throws CandyCleanException if the selected spot is not valid.
+	 * @param row    The selected row to remove the blocks.
+	 * @param column The selected column to remove the blocks (used if there are special candies in the same row to shoot at).
+	 * @throws CandyCleanException If the selected spot is not valid.
 	 */
 	private void removeBlocksRow(int row, int column) throws CandyCleanException {
 		for (int i = 0; i < this.table.length; i++) {
@@ -240,9 +252,9 @@ public class Board {
 	/**
 	 * Removes all the blocks in the selected column.
 	 *
-	 * @param row    the selected row to remove the blocks (used if there are special candies in the same column to shoot at).
-	 * @param column the selected column to remove the blocks.
-	 * @throws CandyCleanException if the selected spot is not valid.
+	 * @param row    The selected row to remove the blocks. (Used if there are special candies in the same column to shoot at).
+	 * @param column The selected column to remove the blocks.
+	 * @throws CandyCleanException If the selected spot is not valid.
 	 */
 	private void removeBlocksColumn(int row, int column) throws CandyCleanException {
 		for (int i = 0; i < this.table.length; i++) {
@@ -269,11 +281,11 @@ public class Board {
 	}
 
 	/**
-	 * Creates a new special block when 4 or more candies are removed. All board special candies are generated when removed an
+	 * Creates a new special block when 4 or more candies are removed. ALL_BOARD_TYPE special candies are generated when removed an
 	 * entire column and row of the board.
 	 *
 	 * @param row         The row of the selected block.
-	 * @param column      the column of the selected block.
+	 * @param column      The column of the selected block.
 	 * @param blockLetter The letter of the old block. Used for creating the new candy with the same background.
 	 * @param positions   Specifies the conditions for creating the new special candies. The following:
 	 *                    <p>[0] - First candy with the same color to the left.</p>
@@ -308,8 +320,8 @@ public class Board {
 	 * the empty candies).
 	 *
 	 * @param row      Row where the candies were removed.
-	 * @param leftPos  Left Position where the first candy was deleted.
-	 * @param rightPos Right Position where the last candy was deleted.
+	 * @param leftPos  Left position where the first candy was deleted.
+	 * @param rightPos Right position where the last candy was deleted.
 	 */
 	private void compactBoardWidth(int row, int leftPos, int rightPos) {
 		for (int i = row; i > 0; i--) {
@@ -324,8 +336,8 @@ public class Board {
 	}
 
 	/**
-	 * Compacts the board vertically, using the method {@link #compactBoardWidth(int, int, int)} to take each empty block to
-	 * the top of the board.
+	 * Compacts the board vertically, using the method {@link #compactBoardWidth(int, int, int)} to take each empty block to the
+	 * top of the board.
 	 *
 	 * @param column   Column where the candies were removed.
 	 * @param upperPos Upper position where the first candy was deleted.
@@ -344,8 +356,8 @@ public class Board {
 	 *
 	 * @param row    Row of the selected spot.
 	 * @param column Column of the selected spot.
-	 * @return <code>true</code> if the selected Block has more Blocks with the same Color at its left, right, top and/or
-	 * bottom, <code>false</code> otherwise.
+	 * @return <code>true</code> if the selected Block has more Blocks with the same Color at its left, right, top and/or bottom,
+	 * <code>false</code> otherwise.
 	 */
 	public boolean hasSurroundingBlocks(int row, int column) {
 		return this.firstLeftCandyPos(row, column) != this.lastRightCandyPos(row, column) ||
@@ -356,9 +368,9 @@ public class Board {
 	/**
 	 * Checks if the color of the selected block is equal to the color of the left blocks.
 	 *
-	 * @param row    the selected row to remove the blocks.
-	 * @param column the selected block of the row.
-	 * @return the number of blocks with same color at left.
+	 * @param row    The selected row to remove the blocks.
+	 * @param column The selected block of the row.
+	 * @return The number of blocks with same color at left.
 	 */
 	@Contract(pure = true)
 	private int firstLeftCandyPos(int row, int column) {
@@ -372,9 +384,9 @@ public class Board {
 	/**
 	 * Check if the color of the selected block is equal to the color of the right blocks.
 	 *
-	 * @param row    the selected row to remove the blocks.
-	 * @param column the selected block of the row.
-	 * @return the number of blocks with the same color at right.
+	 * @param row    The selected row to remove the blocks.
+	 * @param column The selected block of the row.
+	 * @return The number of blocks with the same color at right.
 	 */
 	@Contract(pure = true)
 	private int lastRightCandyPos(int row, int column) {
@@ -388,9 +400,9 @@ public class Board {
 	/**
 	 * Check if the color of the selected block is equal to the color of the upper blocks.
 	 *
-	 * @param row    the selected row of the column.
-	 * @param column the selected block of the column.
-	 * @return the number of blocks with the same color at top.
+	 * @param row    The selected row of the column.
+	 * @param column The selected block of the column.
+	 * @return The number of blocks with the same color at top.
 	 */
 	@Contract(pure = true)
 	private int firstUpperCandyPos(int row, int column) {
@@ -406,9 +418,9 @@ public class Board {
 	/**
 	 * Check if the color of the selected block is equal to the color of the lower blocks.
 	 *
-	 * @param row    the selected row of the column.
-	 * @param column the selected block of the column.
-	 * @return the number of blocks with the same color at bottom.
+	 * @param row    The selected row of the column.
+	 * @param column The selected block of the column.
+	 * @return The number of blocks with the same color at bottom.
 	 */
 	@Contract(pure = true)
 	private int lastLowerCandyPos(int row, int column) {
@@ -437,7 +449,7 @@ public class Board {
 	/**
 	 * Logs the board with its letters only.
 	 *
-	 * @return returns the Board.
+	 * @return Returns the Board.
 	 */
 	public String debugBoard() {
 		StringBuilder debug = new StringBuilder();
@@ -452,14 +464,19 @@ public class Board {
 		return debug.toString();
 	}
 
+	/**
+	 * Verifies if the player has won the game.
+	 *
+	 * @return <code>true</code> if the score is greater than the objective, <code>false</code> otherwise.
+	 */
 	public boolean haveWon() {
 		return this.gameScore.objectiveCompleted();
 	}
 
 	/**
-	 * Returns the played board as a String with colors, without letters and the axis numbers.
+	 * Returns the played board as a String with colors, without letters and the axis' numbers.
 	 *
-	 * @return the Board that is played.
+	 * @return The Board that is played.
 	 */
 	public String toString() {
 

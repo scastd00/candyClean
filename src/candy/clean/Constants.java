@@ -5,8 +5,8 @@ import org.jetbrains.annotations.Contract;
 /**
  * Class that represents the constants used in the game.
  *
- * @author Samuel Castrillo Domínguez
- * @version 1.1.0
+ * @author Samuel Castrillo Dominguez
+ * @version 1.2.0
  */
 public final class Constants {
 
@@ -31,27 +31,27 @@ public final class Constants {
 	public static final int MIN_DIMENSIONS = 3;
 
 	/**
-	 * Explodes the connected horizontal or vertical candies.
+	 * Candy that explodes the connected horizontal or vertical candies.
 	 */
 	public static final int NORMAL_TYPE = 0;
 
 	/**
-	 * Explodes all the row.
+	 * Special candy that explodes all the row where the player shoots.
 	 */
 	public static final int ROW_TYPE = 1;
 
 	/**
-	 * Explodes all the column.
+	 * Special candy that explodes all the column where the player shoots.
 	 */
 	public static final int COLUMN_TYPE = 2;
 
 	/**
-	 * Explodes all the candies in the row and column.
+	 * Special candy that explodes all the candies in the row and column where the player shoots.
 	 */
 	public static final int ROW_COLUMN_TYPE = 3;
 
 	/**
-	 * Explodes all the candies.
+	 * Special candy that explodes all the candies.
 	 */
 	public static final int ALL_BOARD_TYPE = 4;
 

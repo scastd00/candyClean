@@ -6,8 +6,8 @@ import org.jetbrains.annotations.Contract;
 /**
  * Class that manages the score of the game.
  *
- * @author Samuel Castrillo Domínguez
- * @version 1.1.0
+ * @author Samuel Castrillo Dominguez
+ * @version 1.2.0
  */
 public class Score {
 
@@ -15,10 +15,12 @@ public class Score {
 	 * Quantity to add every time candies are broken.
 	 */
 	private final int additionScore;
+
 	/**
 	 * Score of the game.
 	 */
 	private int punctuation;
+
 	/**
 	 * Game objective.
 	 */
@@ -37,7 +39,7 @@ public class Score {
 	/**
 	 * Class constructor with the specified objective of the game.
 	 *
-	 * @param objective objective of the game.
+	 * @param objective Objective of the game.
 	 */
 	@Contract(pure = true)
 	public Score(int objective) {
@@ -48,7 +50,7 @@ public class Score {
 	}
 
 	/**
-	 * Class constructor for default vales.
+	 * Class constructor for default values.
 	 */
 	@Contract(pure = true)
 	public Score() {
@@ -61,7 +63,7 @@ public class Score {
 	/**
 	 * Score getter.
 	 *
-	 * @return the score of the game.
+	 * @return The score of the game.
 	 */
 	public int getPunctuation() {
 		return this.punctuation;
@@ -70,7 +72,7 @@ public class Score {
 	/**
 	 * Objective getter.
 	 *
-	 * @return the objective of the game.
+	 * @return The objective of the game.
 	 */
 	public int getObjective() {
 		return this.objective;
@@ -79,7 +81,7 @@ public class Score {
 	/**
 	 * Objective setter.
 	 *
-	 * @param objective the objective to set.
+	 * @param objective The objective to set.
 	 */
 	public void setObjective(int objective) {
 		this.objective = objective;
@@ -88,7 +90,7 @@ public class Score {
 	/**
 	 * Multiplier getter.
 	 *
-	 * @return the current multiplier of the game.
+	 * @return The current multiplier of the game.
 	 */
 	public int getMultiplier() {
 		return this.multiplier;
@@ -97,7 +99,7 @@ public class Score {
 	/**
 	 * Multiplier setter.
 	 *
-	 * @param multiplier the multiplier to set.
+	 * @param multiplier The multiplier to set.
 	 */
 	public void setMultiplier(int multiplier) {
 		this.multiplier = multiplier;
@@ -111,8 +113,8 @@ public class Score {
 	}
 
 	/**
-	 * Decreases the score when the player doesn't shoot to the correct candies. If the score is less than the addition
-	 * score, the score sets to 0 and never is negative.
+	 * Decreases the score when the player doesn't shoot to the correct candies. If the score is less than the addition score,
+	 * it resets to 0 and never is negative.
 	 */
 	public void decreaseScore() {
 		if (this.punctuation < this.additionScore) {
@@ -123,7 +125,7 @@ public class Score {
 	}
 
 	/**
-	 * Update all the counters in the game: Score, Streak and Multiplier (+1/+3 when the player hits 5/15 candies in a row.
+	 * Update all the counters in the game: Streak and Multiplier (+1/+3 when the player has 5/15 shot streak).
 	 */
 	public void increaseStreakUpdateMultiplier() {
 		this.streak++;
@@ -155,7 +157,7 @@ public class Score {
 	/**
 	 * String version of the object.
 	 *
-	 * @return the string display of the score and the other counters.
+	 * @return The string display of the score and the other counters.
 	 */
 	@Override
 	public String toString() {

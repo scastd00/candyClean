@@ -1,13 +1,11 @@
 package candy.clean;
 
 /**
- * Class that contains the colors' name that can be used in the game.
+ * Class that contains the colors' names that can be used in the game.
  *
- * @author Samuel Castrillo Domínguez
- * @version 1.1.0
+ * @author Samuel Castrillo Dominguez
+ * @version 1.2.0
  */
 public enum BackgroundColor {
-
 	BLACK, RED, GREEN, YELLOW, BLUE, PURPLE, CYAN, WHITE
-
 }
