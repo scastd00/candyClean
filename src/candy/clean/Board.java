@@ -43,14 +43,15 @@ public class Board {
 	public Board(int size, int numColors, Score gameScore) throws CandyCleanException {
 		StringBuilder error = new StringBuilder();
 		if (size < Constants.MIN_DIMENSIONS || size > Constants.MAX_DIMENSIONS) {
-			error.append(String.format(
-				"You are not able to play with this board size: %d." + " The size must be between %d and %d\n",
+			error.append(String.format("You are not able to play with this board size: %d." +
+					" The size must be between %d and %d\n",
 				size, Constants.MIN_DIMENSIONS, Constants.MAX_DIMENSIONS));
 		}
 
 		if (numColors < Constants.MIN_COLORS || numColors > Constants.MAX_COLORS) {
 			error.append(String.format("You are not able to play with this number of colors: %d."
-				+ " The number of colors must be between %d and %d\n", numColors, Constants.MIN_COLORS, Constants.MAX_COLORS));
+					+ " The number of colors must be between %d and %d\n",
+				numColors, Constants.MIN_COLORS, Constants.MAX_COLORS));
 		}
 
 		if (error.length() != 0) {
@@ -165,13 +166,13 @@ public class Board {
 	/**
 	 * Removes (set to black) the blocks (vertical and horizontal) that have the same color near to the selected point.
 	 *
-	 * @param row     The row of the selected Block.
-	 * @param column  The column of the selected Block.
-	 * @param special Specifies if the selected block is special.
+	 * @param row            The row of the selected Block.
+	 * @param column         The column of the selected Block.
+	 * @param isSpecialCandy Specifies if the selected block is special.
 	 * @throws CandyCleanException If the selected spot is not valid.
 	 */
-	private void removeBlocks(int row, int column, boolean special) throws CandyCleanException {
-		if (special) {
+	private void removeBlocks(int row, int column, boolean isSpecialCandy) throws CandyCleanException {
+		if (isSpecialCandy) {
 			switch (this.table[row][column].getType()) {
 				case Constants.ROW_TYPE:
 					removeBlocksRow(row, column);
@@ -277,7 +278,7 @@ public class Board {
 	private void createNewSpecialBlock(int row, int column, char blockLetter, int[] positions) {
 		int minimum = Constants.MINIMUM_CANDIES_FOR_SPECIAL_CANDY;
 
-		// Adding 1 because of Arrays' structure. (e.g. Row: 0, Col: 4  ->  4 - 0 = 4 but you break 5 candies)
+		// Adding 1 because of Arrays' structure. (e.g. Row: 0, Col: 4  ->  4 - 0 = 4 but player breaks 5 candies)
 		if (((positions[1] - positions[0]) + 1 == this.table.length) && ((positions[3] - positions[2]) + 1 == this.table.length)) {
 			this.table[row][column] = new Block(blockLetter);
 			this.table[row][column].setSpecialBlock(Constants.ALL_BOARD_TYPE);
@@ -356,9 +357,11 @@ public class Board {
 	@Contract(pure = true)
 	private int firstLeftCandyPos(int row, int column) {
 		int before = column;
+
 		while (before > 0 && this.table[row][before].equals(this.table[row][before - 1])) {
 			before--;
 		}
+
 		return before;
 	}
 
@@ -372,9 +375,11 @@ public class Board {
 	@Contract(pure = true)
 	private int lastRightCandyPos(int row, int column) {
 		int after = column;
+
 		while (after < this.table.length - 1 && this.table[row][after].equals(this.table[row][after + 1])) {
 			after++;
 		}
+
 		return after;
 	}
 
@@ -442,6 +447,7 @@ public class Board {
 			}
 			debug.append(' ');
 		}
+
 		return debug.toString();
 	}
 
@@ -460,11 +466,10 @@ public class Board {
 	 * @return The Board that is played.
 	 */
 	public String toString() {
-
-		StringBuilder outputBoard = new StringBuilder();
-
 		// Appending the scoreboard
-		outputBoard.append(this.gameScore.toString()).append("\n  ");
+		StringBuilder outputBoard = new StringBuilder(this.gameScore.toString());
+
+		outputBoard.append("\n  ");
 
 		// If the board size is greater than 9 prints the first number of the column.
 		for (int i = 0; i < this.table.length; i++) {

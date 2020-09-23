@@ -146,14 +146,14 @@ public class Color {
 	@Contract(value = "null -> false", pure = true)
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) {
-			return true;
-		} else if (o == null || getClass() != o.getClass()) {
-			return false;
-		} else {
+		if (this == o) return true;
+
+		if (o instanceof Color) {
 			Color other = (Color) o;
 			return this.background.equals(other.getBackground());
 		}
+
+		return false;
 	}
 
 	/**

@@ -3,8 +3,8 @@
   <ID>JAVA</ID>
   <OriginalElement>candy.clean</OriginalElement>
   <nodes>
-    <node x="507.0" y="369.5">candy.clean.TextUI</node>
     <node x="817.5" y="561.0">candy.clean.Score</node>
+    <node x="507.0" y="369.5">candy.clean.TextUI</node>
     <node x="189.0" y="1013.0">candy.clean.Board</node>
     <node x="1311.5" y="129.5">candy.clean.CandyCleanException</node>
     <node x="-33.5" y="1329.5">candy.clean.Constants</node>
@@ -17,7 +17,7 @@
   </nodes>
   <notes />
   <edges />
-  <settings layout="Orthogonal" zoom="0.5206710605152786" x="998.0" y="953.5000000000001" />
+  <settings layout="Orthogonal" zoom="0.5200718993409227" x="998.0" y="953.5" />
   <SelectedNodes>
     <node>candy.clean.TextUI</node>
   </SelectedNodes>

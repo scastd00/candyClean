@@ -61,6 +61,7 @@ public class TextUI {
 	public void init() {
 		logger.info("Welcome to the Candy Clean Game!");
 		this.game.debugBoard();
+
 		while (true) {
 			this.printBoard();
 
@@ -91,6 +92,7 @@ public class TextUI {
 		logger.trace("Introduce a row to shoot: ");
 		String input = Keyboard.readLine().trim();
 		logger.debug("Row: {}", input);
+
 		try {
 			return Integer.parseInt(input);
 		} catch (NumberFormatException e) {
@@ -108,6 +110,7 @@ public class TextUI {
 		logger.trace("Introduce a column to shoot: ");
 		String input = Keyboard.readLine().trim();
 		logger.debug("Column: {}", input);
+
 		try {
 			return Integer.parseInt(input);
 		} catch (NumberFormatException e) {

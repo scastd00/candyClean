@@ -67,21 +67,16 @@ public class Block {
 		this.type = 0;
 		this.isSpecialBlock = false;
 
+		char[] blocks = new char[] {'E', 'R', 'G', 'Y', 'B', 'P', 'C', 'W'};
 		int randomNum = new Random().nextInt(num) + 1;
 
 		if (randomNum > Constants.MAX_COLORS) {
 			this.color = new Color(BackgroundColor.BLACK);
-		} else {
-			this.color = new Color(randomNum);
-		}
-
-		char[] blocks = new char[] {'E', 'R', 'G', 'Y', 'B', 'P', 'C', 'W', 'E'};
-		if (randomNum > Constants.MAX_COLORS) {
 			this.letter = blocks[0];
 		} else {
+			this.color = new Color(randomNum);
 			this.letter = blocks[randomNum];
 		}
-
 	}
 
 	/**
@@ -171,8 +166,8 @@ public class Block {
 	 * @param type The explosion type of the special block.
 	 */
 	public void setSpecialBlock(int type) {
-		this.isSpecialBlock = type != Constants.NORMAL_TYPE;
 		this.type = type;
+		this.isSpecialBlock = (type != Constants.NORMAL_TYPE);
 	}
 
 	/**
@@ -181,7 +176,7 @@ public class Block {
 	 * @return <code>true</code> if empty (black color, <code>false</code> otherwise.
 	 */
 	public boolean isBlank() {
-		return (this.letter == 'E');
+		return this.letter == 'E';
 	}
 
 	/**
@@ -200,14 +195,14 @@ public class Block {
 	@Contract(value = "null -> false", pure = true)
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) {
-			return true;
-		} else if (o == null || getClass() != o.getClass()) {
-			return false;
-		} else {
+		if (this == o) return true;
+
+		if (o instanceof Block) {
 			Block other = (Block) o;
-			return this.color.equals(other.getColor()) && this.isSpecialBlock == other.isSpecialBlock();
+			return (this.color.equals(other.getColor())) && (this.isSpecialBlock == other.isSpecialBlock());
 		}
+
+		return false;
 	}
 
 	/**

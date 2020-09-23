@@ -70,7 +70,7 @@ public class MainCandyClean {
 						break;
 				}
 
-				//When using an empty constructor, it will create the predefined board. CandyClean game = new CandyClean()
+				// When using an empty constructor, it will create the predefined board. CandyClean game = new CandyClean()
 				CandyClean game = new CandyClean(dimensions, numColors, score);
 				TextUI ui = new TextUI(game);
 				ui.init();
