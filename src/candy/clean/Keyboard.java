@@ -1,5 +1,7 @@
 package candy.clean;
 
+import org.jetbrains.annotations.Contract;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
@@ -11,6 +13,7 @@ import java.io.InputStreamReader;
  */
 public final class Keyboard {
 
+	@Contract(value = " -> fail", pure = true)
 	private Keyboard() {
 		throw new IllegalStateException("Utility class");
 	}
@@ -19,6 +22,7 @@ public final class Keyboard {
 	 * Read a line from console.
 	 *
 	 * @return String written in the command.
+	 *
 	 * @throws CandyCleanException If there would be any issue with the I/O system.
 	 */
 	public static String readLine() throws CandyCleanException {

@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
  * @author Samuel Castrillo Dominguez
  * @version 1.2.0
  */
-public class Color {
+public class Color implements Comparable<Color> {
 
 	/**
 	 * Black blinking color for special blocks.
@@ -184,5 +184,10 @@ public class Color {
 	@Override
 	public String toString() {
 		return this.toString("  ");
+	}
+
+	@Override
+	public int compareTo(Color other) {
+		return this.background.compareTo(other.background);
 	}
 }

@@ -38,20 +38,21 @@ public class Board {
 	 * @param size      Size of the board (Square).
 	 * @param numColors Number of colors the game will have.
 	 * @param gameScore Objective score of the game.
+	 *
 	 * @throws CandyCleanException If the introduced dimensions or number of colors are incorrect.
 	 */
 	public Board(int size, int numColors, Score gameScore) throws CandyCleanException {
 		StringBuilder error = new StringBuilder();
 		if (size < Constants.MIN_DIMENSIONS || size > Constants.MAX_DIMENSIONS) {
 			error.append(String.format("You are not able to play with this board size: %d." +
-					" The size must be between %d and %d\n",
-				size, Constants.MIN_DIMENSIONS, Constants.MAX_DIMENSIONS));
+							" The size must be between %d and %d\n",
+					size, Constants.MIN_DIMENSIONS, Constants.MAX_DIMENSIONS));
 		}
 
 		if (numColors < Constants.MIN_COLORS || numColors > Constants.MAX_COLORS) {
 			error.append(String.format("You are not able to play with this number of colors: %d."
-					+ " The number of colors must be between %d and %d\n",
-				numColors, Constants.MIN_COLORS, Constants.MAX_COLORS));
+							+ " The number of colors must be between %d and %d\n",
+					numColors, Constants.MIN_COLORS, Constants.MAX_COLORS));
 		}
 
 		if (error.length() != 0) {
@@ -112,12 +113,13 @@ public class Board {
 	 *
 	 * @param row    Row of the selected Block.
 	 * @param column Column of the selected Block.
+	 *
 	 * @throws CandyCleanException If the selected spot is not valid.
 	 */
 	private void checkValidSelectedSpot(int row, int column) throws CandyCleanException {
 		if (row >= this.table.length || row < 0 || column >= this.table.length || column < 0) {
 			throw new CandyCleanException("The selected spot is outside of the board boundaries. The current board size is "
-				+ this.table.length + " x " + this.table.length);
+					+ this.table.length + " x " + this.table.length);
 		}
 
 		if (!this.hasSurroundingBlocks(row, column)) {
@@ -131,6 +133,7 @@ public class Board {
 	 *
 	 * @param row    Row of the selected spot.
 	 * @param column Column of the selected spot.
+	 *
 	 * @throws CandyCleanException If the selected spot is out of the bounds of the Board or it has no surrounding Blocks with
 	 *                             the same Color.
 	 */
@@ -149,7 +152,7 @@ public class Board {
 				char blockLetter = this.table[row][column].getLetter();
 				this.removeBlocks(row, column, false);
 
-				this.createNewSpecialBlock(row, column, blockLetter, new int[] {leftPos, rightPos, upperPos, lowerPos});
+				this.createNewSpecialBlock(row, column, blockLetter, new int[]{leftPos, rightPos, upperPos, lowerPos});
 
 				this.compactBoardWidth(row, leftPos, rightPos);
 				this.compactBoardHeight(column, upperPos, lowerPos);
@@ -169,47 +172,49 @@ public class Board {
 	 * @param row            The row of the selected Block.
 	 * @param column         The column of the selected Block.
 	 * @param isSpecialCandy Specifies if the selected block is special.
+	 *
 	 * @throws CandyCleanException If the selected spot is not valid.
 	 */
 	private void removeBlocks(int row, int column, boolean isSpecialCandy) throws CandyCleanException {
-		if (isSpecialCandy) {
-			switch (this.table[row][column].getType()) {
-				case Constants.ROW_TYPE:
-					removeBlocksRow(row, column);
-					compactBoardWidth(row, 0, this.table.length - 1);
-					break;
-				case Constants.COLUMN_TYPE:
-					removeBlocksColumn(row, column);
-					break;
-				case Constants.ROW_COLUMN_TYPE:
-					removeBlocksRow(row, column);
-					removeBlocksColumn(row, column);
-					compactBoardWidth(row, 0, this.table.length - 1);
-					break;
-				case Constants.ALL_BOARD_TYPE:
-					clearTable();
-					break;
-				default:
-					break;
-			}
-		} else {
-			int firstLeftCandyPos = this.firstLeftCandyPos(row, column);
-			int lastRightCandyPos = this.lastRightCandyPos(row, column);
-			int firstUpperCandyPos = this.firstUpperCandyPos(row, column);
-			int lastLowerCandyPos = this.lastLowerCandyPos(row, column);
-
-			// Horizontal replacement.
-			for (int i = firstLeftCandyPos; i <= lastRightCandyPos; i++) {
-				this.table[row][i].setToBlank();
-				this.gameScore.increaseScore();
-			}
-
-			// Vertical replacement.
-			for (int i = firstUpperCandyPos; i <= lastLowerCandyPos; i++) {
-				this.table[i][column].setToBlank();
-				this.gameScore.increaseScore();
-			}
-		}
+//		if (isSpecialCandy) {
+//			switch (this.table[row][column].getType()) {
+//				case Constants.ROW_TYPE:
+//					this.removeBlocksRow(row, column);
+//					this.compactBoardWidth(row, 0, this.table.length - 1);
+//					break;
+//				case Constants.COLUMN_TYPE:
+//					this.removeBlocksColumn(row, column);
+//					break;
+//				case Constants.ROW_COLUMN_TYPE:
+//					this.removeBlocksRow(row, column);
+//					this.removeBlocksColumn(row, column);
+//					this.compactBoardWidth(row, 0, this.table.length - 1);
+//					break;
+//				case Constants.ALL_BOARD_TYPE:
+//					this.clearTable();
+//					break;
+//				default:
+//					break;
+//			}
+//		} else {
+//			int firstLeftCandyPos = this.firstLeftCandyPos(row, column);
+//			int lastRightCandyPos = this.lastRightCandyPos(row, column);
+//			int firstUpperCandyPos = this.firstUpperCandyPos(row, column);
+//			int lastLowerCandyPos = this.lastLowerCandyPos(row, column);
+//
+//			// Horizontal replacement.
+//			for (int i = firstLeftCandyPos; i <= lastRightCandyPos; i++) {
+//				this.table[row][i].setToBlank();
+//				this.gameScore.increaseScore();
+//			}
+//
+//			// Vertical replacement.
+//			for (int i = firstUpperCandyPos; i <= lastLowerCandyPos; i++) {
+//				this.table[i][column].setToBlank();
+//				this.gameScore.increaseScore();
+//			}
+//		}
+		this.deleteBlocks(row, column);
 	}
 
 	/**
@@ -217,6 +222,7 @@ public class Board {
 	 *
 	 * @param row    The selected row to remove the blocks.
 	 * @param column The selected column to remove the blocks (used if there are special candies in the same row to shoot at).
+	 *
 	 * @throws CandyCleanException If the selected spot is not valid.
 	 */
 	private void removeBlocksRow(int row, int column) throws CandyCleanException {
@@ -236,6 +242,7 @@ public class Board {
 	 *
 	 * @param row    The selected row to remove the blocks. (Used if there are special candies in the same column to shoot at).
 	 * @param column The selected column to remove the blocks.
+	 *
 	 * @throws CandyCleanException If the selected spot is not valid.
 	 */
 	private void removeBlocksColumn(int row, int column) throws CandyCleanException {
@@ -263,8 +270,8 @@ public class Board {
 	}
 
 	/**
-	 * Creates a new special block when 4 or more candies are removed. ALL_BOARD_TYPE special candies are generated when removed an
-	 * entire column and row of the board.
+	 * Creates a new special block when 4 or more candies are removed. ALL_BOARD_TYPE special candies are generated when
+	 * removed an entire column and row of the board.
 	 *
 	 * @param row         The row of the selected block.
 	 * @param column      The column of the selected block.
@@ -277,29 +284,28 @@ public class Board {
 	 */
 	private void createNewSpecialBlock(int row, int column, char blockLetter, int[] positions) {
 		int minimum = Constants.MINIMUM_CANDIES_FOR_SPECIAL_CANDY;
+		Block nBlock = new Block(blockLetter);
 
 		// Adding 1 because of Arrays' structure. (e.g. Row: 0, Col: 4  ->  4 - 0 = 4 but player breaks 5 candies)
 		if (((positions[1] - positions[0]) + 1 == this.table.length) && ((positions[3] - positions[2]) + 1 == this.table.length)) {
-			this.table[row][column] = new Block(blockLetter);
-			this.table[row][column].setSpecialBlock(Constants.ALL_BOARD_TYPE);
+			nBlock.setSpecialBlock(Constants.ALL_BOARD_TYPE);
 
 		} else if (((positions[1] - positions[0]) + 1 >= minimum) && ((positions[3] - positions[2]) + 1 >= minimum)) {
-			this.table[row][column] = new Block(blockLetter);
-			this.table[row][column].setSpecialBlock(Constants.ROW_COLUMN_TYPE);
+			nBlock.setSpecialBlock(Constants.ROW_COLUMN_TYPE);
 
 		} else if (((positions[1] - positions[0]) + 1 >= minimum)) {
-			this.table[row][column] = new Block(blockLetter);
-			this.table[row][column].setSpecialBlock(Constants.ROW_TYPE);
+			nBlock.setSpecialBlock(Constants.ROW_TYPE);
 
 		} else if (((positions[3] - positions[2]) + 1 >= minimum)) {
-			this.table[row][column] = new Block(blockLetter);
-			this.table[row][column].setSpecialBlock(Constants.COLUMN_TYPE);
+			nBlock.setSpecialBlock(Constants.COLUMN_TYPE);
 		}
+
+		this.table[row][column] = nBlock;
 	}
 
 	/**
-	 * Compacts the board horizontally. Takes the empty candies to the top of the board (It's the same process as getting up the
-	 * empty candies).
+	 * Compacts the board horizontally. Takes the empty candies to the top of the board (It's the same process as getting
+	 * up the empty candies).
 	 *
 	 * @param row      Row where the candies were removed.
 	 * @param leftPos  Left position where the first candy was deleted.
@@ -318,8 +324,8 @@ public class Board {
 	}
 
 	/**
-	 * Compacts the board vertically, using the method {@link #compactBoardWidth(int, int, int)} to take each empty block to the
-	 * top of the board.
+	 * Compacts the board vertically, using the method {@link #compactBoardWidth(int, int, int)} to take each empty
+	 * block to the top of the board.
 	 *
 	 * @param column   Column where the candies were removed.
 	 * @param upperPos Upper position where the first candy was deleted.
@@ -338,13 +344,14 @@ public class Board {
 	 *
 	 * @param row    Row of the selected spot.
 	 * @param column Column of the selected spot.
-	 * @return <code>true</code> if the selected Block has more Blocks with the same Color at its left, right, top and/or bottom,
-	 * <code>false</code> otherwise.
+	 *
+	 * @return <code>true</code> if the selected Block has more Blocks with the same Color at its left, right, top and/or
+	 * bottom, <code>false</code> otherwise.
 	 */
 	public boolean hasSurroundingBlocks(int row, int column) {
 		return this.firstLeftCandyPos(row, column) != this.lastRightCandyPos(row, column) ||
-			this.firstUpperCandyPos(row, column) != this.lastLowerCandyPos(row, column) ||
-			this.table[row][column].isSpecialBlock();
+				this.firstUpperCandyPos(row, column) != this.lastLowerCandyPos(row, column) ||
+				this.table[row][column].isSpecialBlock();
 	}
 
 	/**
@@ -352,6 +359,7 @@ public class Board {
 	 *
 	 * @param row    The selected row to remove the blocks.
 	 * @param column The selected block of the row.
+	 *
 	 * @return The number of blocks with same color at left.
 	 */
 	@Contract(pure = true)
@@ -370,6 +378,7 @@ public class Board {
 	 *
 	 * @param row    The selected row to remove the blocks.
 	 * @param column The selected block of the row.
+	 *
 	 * @return The number of blocks with the same color at right.
 	 */
 	@Contract(pure = true)
@@ -388,6 +397,7 @@ public class Board {
 	 *
 	 * @param row    The selected row of the column.
 	 * @param column The selected block of the column.
+	 *
 	 * @return The number of blocks with the same color at top.
 	 */
 	@Contract(pure = true)
@@ -406,6 +416,7 @@ public class Board {
 	 *
 	 * @param row    The selected row of the column.
 	 * @param column The selected block of the column.
+	 *
 	 * @return The number of blocks with the same color at bottom.
 	 */
 	@Contract(pure = true)
@@ -507,5 +518,35 @@ public class Board {
 		}
 
 		return outputBoard.toString();
+	}
+
+	/**
+	 * Deleting all the connected block using recursion.
+	 *
+	 * @param row    Row of the selected spot.
+	 * @param column Column of the selected spot.
+	 */
+	private void deleteBlocks(int row, int column) {
+		try {
+			// Right candy
+			if (this.table[row][column].compareTo(this.table[row][column + 1]) == 0) {
+				deleteBlocks(row, column + 1);
+			}
+			// Left candy
+			if (this.table[row][column].compareTo(this.table[row][column - 1]) == 0) {
+				deleteBlocks(row, column - 1);
+			}
+			// Upper candy
+			if (this.table[row][column].compareTo(this.table[row - 1][column]) == 0) {
+				deleteBlocks(row - 1, column);
+			}
+			// Bottom candy
+			if (this.table[row][column].compareTo(this.table[row + 1][column]) == 0) {
+				deleteBlocks(row + 1, column);
+			}
+
+			this.table[row][column].setToBlank();
+		} catch (ArrayIndexOutOfBoundsException ignored) {
+		}
 	}
 }

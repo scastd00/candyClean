@@ -10,7 +10,7 @@ import java.util.Random;
  * @author Samuel Castrillo Dominguez
  * @version 1.2.0
  */
-public class Block {
+public class Block implements Comparable<Block> {
 
 	/**
 	 * Color of the block.
@@ -249,5 +249,10 @@ public class Block {
 		}
 
 		return out.toString();
+	}
+
+	@Override
+	public int compareTo(Block other) {
+		return Character.compare(this.letter, other.letter);
 	}
 }
