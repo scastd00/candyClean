@@ -152,14 +152,14 @@ public class Board {
 				char blockLetter = this.table[row][column].getLetter();
 				this.removeBlocks(row, column, false);
 
-				this.createNewSpecialBlock(row, column, blockLetter, new int[]{leftPos, rightPos, upperPos, lowerPos});
-
-				this.compactBoardWidth(row, leftPos, rightPos);
-				this.compactBoardHeight(column, upperPos, lowerPos);
+//				this.createNewSpecialBlock(row, column, blockLetter, new int[]{leftPos, rightPos, upperPos, lowerPos});
+//
+//				this.compactBoardWidth(row, leftPos, rightPos);
+//				this.compactBoardHeight(column, upperPos, lowerPos);
 			}
 
-			this.gameScore.increaseStreakUpdateMultiplier();
-			this.fillEmptyWithNewBlocks();
+//			this.gameScore.increaseStreakUpdateMultiplier();
+//			this.fillEmptyWithNewBlocks();
 		} catch (CandyCleanException e) {
 			this.gameScore.resetMultiplierStreakDecreaseScore();
 			throw new CandyCleanException(e.getMessage());
@@ -528,25 +528,33 @@ public class Board {
 	 */
 	private void deleteBlocks(int row, int column) {
 		try {
-			// Right candy
-			if (this.table[row][column].compareTo(this.table[row][column + 1]) == 0) {
-				deleteBlocks(row, column + 1);
-			}
-			// Left candy
-			if (this.table[row][column].compareTo(this.table[row][column - 1]) == 0) {
-				deleteBlocks(row, column - 1);
-			}
-			// Upper candy
-			if (this.table[row][column].compareTo(this.table[row - 1][column]) == 0) {
-				deleteBlocks(row - 1, column);
-			}
-			// Bottom candy
-			if (this.table[row][column].compareTo(this.table[row + 1][column]) == 0) {
-				deleteBlocks(row + 1, column);
+			if (!this.table[row][column].isVisited()) {
+				this.table[row][column].setVisited(true);
+
+				// Right candy
+				if (this.table[row][column].compareTo(this.table[row][column + 1]) == 0) {
+					this.deleteBlocks(row, column + 1);
+				}
+
+				// Upper candy
+				if (this.table[row][column].compareTo(this.table[row - 1][column]) == 0) {
+					this.deleteBlocks(row - 1, column);
+				}
+
+				// Bottom candy
+				if (this.table[row][column].compareTo(this.table[row + 1][column]) == 0) {
+					this.deleteBlocks(row + 1, column);
+				}
+
+				// Left candy
+				if (this.table[row][column].compareTo(this.table[row][column - 1]) == 0) {
+					this.deleteBlocks(row, column - 1);
+				}
+			} else {
+				return;
 			}
 
 			this.table[row][column].setToBlank();
-		} catch (ArrayIndexOutOfBoundsException ignored) {
-		}
+		} catch (ArrayIndexOutOfBoundsException ignored) {/**/}
 	}
 }

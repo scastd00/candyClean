@@ -39,6 +39,11 @@ public class Block implements Comparable<Block> {
 	private boolean isSpecialBlock;
 
 	/**
+	 * Indicates if the candy has been visited in the candy deletion recursive method.
+	 */
+	private boolean visited;
+
+	/**
 	 * Class constructor that takes a specific color as a char parameter. It uses the next codification:
 	 *
 	 * <p style="color: red;">R - Red</p>
@@ -56,6 +61,7 @@ public class Block implements Comparable<Block> {
 		this.setColor(letter);
 		this.type = 0;
 		this.isSpecialBlock = false;
+		this.visited = false;
 	}
 
 	/**
@@ -66,8 +72,9 @@ public class Block implements Comparable<Block> {
 	public Block(int num) {
 		this.type = 0;
 		this.isSpecialBlock = false;
+		this.visited = false;
 
-		char[] blocks = new char[] {'E', 'R', 'G', 'Y', 'B', 'P', 'C', 'W'};
+		char[] blocks = new char[]{'E', 'R', 'G', 'Y', 'B', 'P', 'C', 'W'};
 		int randomNum = new Random().nextInt(num) + 1;
 
 		if (randomNum > Constants.MAX_COLORS) {
@@ -171,6 +178,24 @@ public class Block implements Comparable<Block> {
 	}
 
 	/**
+	 * Establish the new state of the block if it is visited while recursion.
+	 *
+	 * @param state boolean that specifies the new state of the block.
+	 */
+	public void setVisited(boolean state) {
+		this.visited = state;
+	}
+
+	/**
+	 * Return the current state of the block.
+	 *
+	 * @return current state of the block.
+	 */
+	public boolean isVisited() {
+		return this.visited;
+	}
+
+	/**
 	 * Checks if the block is empty.
 	 *
 	 * @return <code>true</code> if empty (black color, <code>false</code> otherwise.
@@ -251,6 +276,13 @@ public class Block implements Comparable<Block> {
 		return out.toString();
 	}
 
+	/**
+	 * Compares if this block has the same color to other color.
+	 *
+	 * @param other Other block.
+	 *
+	 * @return Integer equal to 0 if this block is equal to other block, different to 0 otherwise.
+	 */
 	@Override
 	public int compareTo(Block other) {
 		return Character.compare(this.letter, other.letter);
