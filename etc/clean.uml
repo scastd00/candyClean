@@ -3,23 +3,23 @@
   <ID>JAVA</ID>
   <OriginalElement>candy.clean</OriginalElement>
   <nodes>
-    <node x="817.5" y="561.0">candy.clean.Score</node>
-    <node x="507.0" y="369.5">candy.clean.TextUI</node>
-    <node x="189.0" y="1013.0">candy.clean.Board</node>
-    <node x="1311.5" y="129.5">candy.clean.CandyCleanException</node>
-    <node x="-33.5" y="1329.5">candy.clean.Constants</node>
-    <node x="1813.5" y="1742.5">candy.clean.BackgroundColor</node>
-    <node x="1615.0" y="1257.0">candy.clean.Block</node>
-    <node x="1012.0" y="249.5">candy.clean.Keyboard</node>
-    <node x="1019.0" y="502.5">candy.clean.MainCandyClean</node>
-    <node x="1810.0" y="1533.0">candy.clean.Color</node>
-    <node x="493.5" y="785.0">candy.clean.CandyClean</node>
+    <node x="302.0" y="430.0">candy.clean.TextUI</node>
+    <node x="185.0" y="0.0">candy.clean.Score</node>
+    <node x="0.0" y="275.0">candy.clean.Board</node>
+    <node x="533.0" y="430.0">candy.clean.Constants</node>
+    <node x="0.0" y="430.0">candy.clean.CandyCleanException</node>
+    <node x="181.0" y="536.0">candy.clean.BackgroundColor</node>
+    <node x="0.0" y="0.0">candy.clean.Block</node>
+    <node x="0.0" y="536.0">candy.clean.Keyboard</node>
+    <node x="439.0" y="536.0">candy.clean.MainCandyClean</node>
+    <node x="370.0" y="0.0">candy.clean.Color</node>
+    <node x="272.0" y="275.0">candy.clean.CandyClean</node>
   </nodes>
   <notes />
   <edges />
-  <settings layout="Orthogonal" zoom="0.5200718993409227" x="998.0" y="953.5" />
+  <settings layout="Hierarchic Group" zoom="1.1379269023367287" x="399.6638088957814" y="369.81908171861835" />
   <SelectedNodes>
-    <node>candy.clean.TextUI</node>
+    <node>candy.clean.Score</node>
   </SelectedNodes>
   <Categories>
     <Category>Constructors</Category>

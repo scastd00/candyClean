@@ -527,34 +527,51 @@ public class Board {
 	 * @param column Column of the selected spot.
 	 */
 	private void deleteBlocks(int row, int column) {
-		try {
-			if (!this.table[row][column].isVisited()) {
-				this.table[row][column].setVisited(true);
 
+		if (!this.table[row][column].isVisited()) {
+			this.table[row][column].setVisited(true);
+			boolean var1 = false;
+
+			try {
 				// Right candy
 				if (this.table[row][column].compareTo(this.table[row][column + 1]) == 0) {
 					this.deleteBlocks(row, column + 1);
+					this.table[row][column + 1].setToBlank();
+					var1 = true;
 				}
+			} catch (ArrayIndexOutOfBoundsException ignored) {/**/}
 
+			try {
 				// Upper candy
 				if (this.table[row][column].compareTo(this.table[row - 1][column]) == 0) {
 					this.deleteBlocks(row - 1, column);
+					this.table[row - 1][column].setToBlank();
+					var1 = true;
 				}
+			} catch (ArrayIndexOutOfBoundsException ignored) {/**/}
 
+			try {
 				// Bottom candy
 				if (this.table[row][column].compareTo(this.table[row + 1][column]) == 0) {
 					this.deleteBlocks(row + 1, column);
+					this.table[row + 1][column].setToBlank();
+					var1 = true;
 				}
+			} catch (ArrayIndexOutOfBoundsException ignored) {/**/}
 
+			try {
 				// Left candy
 				if (this.table[row][column].compareTo(this.table[row][column - 1]) == 0) {
 					this.deleteBlocks(row, column - 1);
+					this.table[row][column - 1].setToBlank();
+					var1 = true;
 				}
-			} else {
-				return;
+			} catch (ArrayIndexOutOfBoundsException ignored) {/**/}
+
+			if (var1) {
+				this.table[row][column].setToBlank();
 			}
 
-			this.table[row][column].setToBlank();
-		} catch (ArrayIndexOutOfBoundsException ignored) {/**/}
+		}
 	}
 }
