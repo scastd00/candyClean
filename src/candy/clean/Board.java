@@ -567,6 +567,15 @@ public class Board {
 				}
 			} catch (ArrayIndexOutOfBoundsException ignored) {/**/}
 
+			try {
+				// Bottom candy
+				if (this.table[row][column].compareTo(this.table[row + 1][column]) == 0) {
+					this.deleteBlocks(row + 1, column);
+					this.table[row + 1][column].setToBlank();
+					var1 = true;
+				}
+			} catch (ArrayIndexOutOfBoundsException ignored) {/**/}
+
 			if (var1) {
 				this.table[row][column].setToBlank();
 			}

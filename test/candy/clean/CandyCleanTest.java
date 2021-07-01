@@ -1,9 +1,9 @@
 package candy.clean;
 
-import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class CandyCleanTest {
 
@@ -69,20 +69,20 @@ public class CandyCleanTest {
 	@Test
 	public void testDebugBoard() {
 		assertEquals("GBBBBBBBBBBBBBR " +
-			"GRRRRRRRRRRRRPR " +
-			"GRRRPPPPPPPRPRR " +
-			"GRRRPRRRRRRPRRR " +
-			"GRRRPRRRRRPRRRR " +
-			"GRRRPRRRRPRRRRR " +
-			"GRRRPRRRPRRRRRR " +
-			"GRRRPRRPRRRRRRR " +
-			"GRRRPRPRRRRRRRR " +
-			"GRRRRPRRRRRRRRR " +
-			"GRRRPRRRRRRRRRR " +
-			"GRRPRRRRRRRRRRR " +
-			"GRPRRRRRRRRRRRR " +
-			"GPRRRRRRRRRRRRR " +
-			"RRRRRRRRRRRRRRR ", predefinedBoard.debugBoard());
+				"GRRRRRRRRRRRRPR " +
+				"GRRRPPPPPPPRPRR " +
+				"GRRRPRRRRRRPRRR " +
+				"GRRRPRRRRRPRRRR " +
+				"GRRRPRRRRPRRRRR " +
+				"GRRRPRRRPRRRRRR " +
+				"GRRRPRRPRRRRRRR " +
+				"GRRRPRPRRRRRRRR " +
+				"GRRRRPRRRRRRRRR " +
+				"GRRRPRRRRRRRRRR " +
+				"GRRPRRRRRRRRRRR " +
+				"GRPRRRRRRRRRRRR " +
+				"GPRRRRRRRRRRRRR " +
+				"RRRRRRRRRRRRRRR ", predefinedBoard.debugBoard());
 	}
 
 	@Test(expected = CandyCleanException.class)

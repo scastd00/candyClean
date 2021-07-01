@@ -19,6 +19,7 @@ public class CandyClean {
 	 * @param dimensions Dimensions of the board introduced by the player.
 	 * @param numColors  Number of colors the game will have.
 	 * @param objective  The objective of the game depending on the selected difficulty level.
+	 *
 	 * @throws CandyCleanException If the size of the board or the number of colors aren't valid.
 	 */
 	public CandyClean(int dimensions, int numColors, int objective) throws CandyCleanException {
@@ -39,21 +40,21 @@ public class CandyClean {
 	 */
 	public CandyClean() {
 		String[] predefinedBoard = {
-			"GBBBBBBBBBBBBBR",
-			"GRRRRRRRRRRRRPR",
-			"GRRRPPPPPPPRPRR",
-			"GRRRPRRRRRRPRRR",
-			"GRRRPRRRRRPRRRR",
-			"GRRRPRRRRPRRRRR",
-			"GRRRPRRRPRRRRRR",
-			"GRRRPRRPRRRRRRR",
-			"GRRRPRPRRRRRRRR",
-			"GRRRRPRRRRRRRRR",
-			"GRRRPRRRRRRRRRR",
-			"GRRPRRRRRRRRRRR",
-			"GRPRRRRRRRRRRRR",
-			"GPRRRRRRRRRRRRR",
-			"RRRRRRRRRRRRRRR"
+				"GBBBBBBBBBBBBBR",
+				"GRRRRRRRRRRRRPR",
+				"GRRRPPPPPPPRPRR",
+				"GRRRPRRRRRRPRRR",
+				"GRRRPRRRRRPRRRR",
+				"GRRRPRRRRPRRRRR",
+				"GRRRPRRRPRRRRRR",
+				"GRRRPRRPRRRRRRR",
+				"GRRRPRPRRRRRRRR",
+				"GRRRRPRRRRRRRRR",
+				"GRRRPRRRRRRRRRR",
+				"GRRPRRRRRRRRRRR",
+				"GRPRRRRRRRRRRRR",
+				"GPRRRRRRRRRRRRR",
+				"RRRRRRRRRRRRRRR"
 		};
 		this.board = new Board(predefinedBoard, 4, new Score(80));
 	}
@@ -72,6 +73,7 @@ public class CandyClean {
 	 *
 	 * @param row    Row of the selected Block.
 	 * @param column Column of the selected Block.
+	 *
 	 * @throws CandyCleanException If the selected spot is not valid or if the selected block hasn't any equal color to its sides.
 	 */
 	public void shoot(int row, int column) throws CandyCleanException {

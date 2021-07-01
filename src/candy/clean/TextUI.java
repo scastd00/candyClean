@@ -1,7 +1,7 @@
 package candy.clean;
 
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Contract;
 
 /**
@@ -41,6 +41,7 @@ public class TextUI {
 	 * Game difficulty menu when the game starts or when a game is finished.
 	 *
 	 * @return The selected game mode.
+	 *
 	 * @throws CandyCleanException If the option is not an Integer.
 	 */
 	public static int selectGameMode() throws CandyCleanException {
@@ -86,6 +87,7 @@ public class TextUI {
 	 * Asks the number of the row of the board where the player wants to shoot.
 	 *
 	 * @return Number of the row introduced by the player.
+	 *
 	 * @throws CandyCleanException If the row introduced is not an integer value.
 	 */
 	private int inputRow() throws CandyCleanException {
@@ -104,6 +106,7 @@ public class TextUI {
 	 * Asks the number of the column of the board where the player wants to shoot.
 	 *
 	 * @return Number of the column introduced by the player.
+	 *
 	 * @throws CandyCleanException If the column introduced is not an integer value.
 	 */
 	private int inputColumn() throws CandyCleanException {

@@ -20,21 +20,21 @@ public class BoardTest {
 		String[] smallStringBoard = {"RGB", "RBY"};
 		smallBoard = new Board(smallStringBoard, 4, new Score(100));
 		String[] boardForSpecialBlocks = {
-			"GBBBBBBBBBBBBBR",
-			"GPRRRRRRRRRRRRR",
-			"GRRRPPPPPPPRRRR",
-			"GRRRPRRRRRRRRRR",
-			"GRRRPRRRRRRRRRR",
-			"GRRRPRRRRRRRRRR",
-			"GRRRPRRRRRRRRRR",
-			"GRRRPRRRRRRRRRR",
-			"GRRRPRRRRRRRRRR",
-			"GRRRRRRRRRRRRRR",
-			"GRRRRRRRRRRRRRR",
-			"GRRRRRRRRRRRRRR",
-			"GRRRRRRRRRRRRRR",
-			"GRRRRRRRRRRRRRR",
-			"RRRRRRRRRRRRRRR"};
+				"GBBBBBBBBBBBBBR",
+				"GPRRRRRRRRRRRRR",
+				"GRRRPPPPPPPRRRR",
+				"GRRRPRRRRRRRRRR",
+				"GRRRPRRRRRRRRRR",
+				"GRRRPRRRRRRRRRR",
+				"GRRRPRRRRRRRRRR",
+				"GRRRPRRRRRRRRRR",
+				"GRRRPRRRRRRRRRR",
+				"GRRRRRRRRRRRRRR",
+				"GRRRRRRRRRRRRRR",
+				"GRRRRRRRRRRRRRR",
+				"GRRRRRRRRRRRRRR",
+				"GRRRRRRRRRRRRRR",
+				"RRRRRRRRRRRRRRR"};
 		specialTable = new Board(boardForSpecialBlocks, 4, new Score(100));
 
 	}
@@ -48,8 +48,8 @@ public class BoardTest {
 	@Test
 	public void testGetBoard() {
 		Block[][] blocks = {
-			{new Block('R'), new Block('G'), new Block('B')},
-			{new Block('R'), new Block('B'), new Block('Y')}
+				{new Block('R'), new Block('G'), new Block('B')},
+				{new Block('R'), new Block('B'), new Block('Y')}
 		};
 
 		assertEquals(Arrays.deepToString(blocks), Arrays.deepToString(smallBoard.getTable()));
@@ -58,8 +58,8 @@ public class BoardTest {
 	@Test
 	public void testIsNotPossibleToPlay() {
 		String[] notPossiblePlay = {
-			"CGRB",
-			"PBGY"};
+				"CGRB",
+				"PBGY"};
 		Board isNotPossibleBoard = new Board(notPossiblePlay, 4, new Score(100));
 	}
 
@@ -151,11 +151,11 @@ public class BoardTest {
 	@Test
 	public void testToStringBoard15() {
 		String[] board15S = {"RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR",
-			"RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR",
-			"RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR"};
+				"RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR",
+				"RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR", "RRRRRRRRRRRRRRR"};
 		Board board15 = new Board(board15S, 4, new Score(100));
 		assertEquals("\nScore = 0  Objective = 100  Multiplier = x1  Current streak = 0\n\n                    " +
-				"  |1|1|1|1|1|\n  |0|1|2|3|4|5|6|7|8|9|0|1|2|3|4|",
-			board15.toString().substring(0, 133));
+						"  |1|1|1|1|1|\n  |0|1|2|3|4|5|6|7|8|9|0|1|2|3|4|",
+				board15.toString().substring(0, 133));
 	}
 }

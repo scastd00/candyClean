@@ -12,7 +12,7 @@ import org.jetbrains.annotations.Contract;
 public class Score {
 
 	/**
-	 * Quantity to add every time candies are broken.
+	 * Quantity to add every sinkTime candies are broken.
 	 */
 	private final int additionScore;
 
@@ -162,6 +162,6 @@ public class Score {
 	@Override
 	public String toString() {
 		return "\nScore = " + this.punctuation + "  Objective = " + this.objective + "  Multiplier = x" + this.multiplier +
-			"  Current streak = " + this.streak + '\n';
+				"  Current streak = " + this.streak + '\n';
 	}
 }

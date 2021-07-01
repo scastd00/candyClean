@@ -141,6 +141,7 @@ public class Color implements Comparable<Color> {
 	 * Compares two different colors.
 	 *
 	 * @param o Object that is compared with the instanced color.
+	 *
 	 * @return Boolean value depending on the condition.
 	 */
 	@Contract(value = "null -> false", pure = true)
@@ -170,6 +171,7 @@ public class Color implements Comparable<Color> {
 	 * Converts the value of the object to a String variable.
 	 *
 	 * @param content The content to represent the color.
+	 *
 	 * @return The content of the variable and its value in String.
 	 */
 	public String toString(String content) {

@@ -74,7 +74,7 @@ public class Block implements Comparable<Block> {
 		this.isSpecialBlock = false;
 		this.visited = false;
 
-		char[] blocks = new char[]{'E', 'R', 'G', 'Y', 'B', 'P', 'C', 'W'};
+		char[] blocks = new char[] {'E', 'R', 'G', 'Y', 'B', 'P', 'C', 'W'};
 		int randomNum = new Random().nextInt(num) + 1;
 
 		if (randomNum > Constants.MAX_COLORS) {
@@ -215,6 +215,7 @@ public class Block implements Comparable<Block> {
 	 * Checks if the block has the same color as another one.
 	 *
 	 * @param o Object to be compared with.
+	 *
 	 * @return <code>true</code> if it's a block with the same color or it's the same block, <code>false</code> otherwise.
 	 */
 	@Contract(value = "null -> false", pure = true)
